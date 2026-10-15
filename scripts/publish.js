@@ -133,8 +133,8 @@ if (changed.length === 0) {
   if (commit.status !== 0) {
     blank();
     info('提交没有成功（可能是没有实际改动，或者 git 报了错）。');
-    blank();
   }
+  blank();
 }
 
 /* ---------- 3/3 推送 ---------- */
