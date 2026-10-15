@@ -81,22 +81,22 @@ const pending = [
   { name: 'Iconfont 阿里矢量图标库', url: 'https://www.iconfont.cn/', category: '设计与创作', use: '矢量图标库', src: '第三方设计资源清单', reason: '页面抓取仅返回标题，未获得正文，功能与授权条款无法确认。', type: '技术性无法验证' },
   { name: 'Google Fonts', url: 'https://fonts.google.com/', category: '设计与创作', use: '开源字体库', src: '第三方设计资源清单', reason: '访问请求失败，未能确认页面可访问性与字体授权细节。', type: '技术性无法验证' },
   { name: '鸠摩搜书（Jiumo Search）', url: 'https://www.jiumodiary.com/', category: '小说与阅读', use: '电子书文档搜索', src: '第三方学习资源清单', reason: '页面显示「网站升级中，新版本即将上线」，服务暂不可用，无法核实。', type: '服务暂时不可用' },
-  { name: '凹凸凹（AllToAll）', url: 'https://www.alltoall.net/', category: '免费实用工具', use: '在线格式转换', src: '搜索引擎结果', reason: '搜索片段提到支持约 200 种格式、免费、单文件上限 10MB，但本次未直接访问官网核实。', type: '尚未访问' },
-  { name: 'Aconvert', url: 'https://www.aconvert.com/cn', category: '免费实用工具', use: '文档 / 图像 / 音视频转换', src: '第三方工具清单', reason: '第三方清单来源，未直接访问官网，免费额度与限制未核实。', type: '尚未访问' },
-  { name: 'Zamzar', url: 'https://www.zamzar.com/', category: '免费实用工具', use: '在线文件转换（1200+ 格式）', src: '第三方工具清单', reason: '第三方清单来源，免费用户每日转换次数与文件大小限制未核实。', type: '尚未访问' },
-  { name: 'Online-Convert', url: 'https://www.online-convert.com/', category: '免费实用工具', use: '在线多媒体格式转换', src: '搜索引擎结果', reason: '搜索仅返回首页片段，免费额度、排队机制与限制未核实。', type: '尚未访问' },
-  { name: '虫部落', url: 'https://www.chongbuluo.com/', category: '其他实用网站', use: '聚合多个搜索引擎', src: '第三方学习资源清单', reason: '第三方清单来源，未直接访问，站点当前可用性未核实。', type: '尚未访问' },
+  { name: '凹凸凹（AllToAll）', url: 'https://www.alltoall.net/', category: '文档与转换', use: '在线格式转换', src: '搜索引擎结果', reason: '搜索片段提到支持约 200 种格式、免费、单文件上限 10MB，但本次未直接访问官网核实。', type: '尚未访问' },
+  { name: 'Aconvert', url: 'https://www.aconvert.com/cn', category: '文档与转换', use: '文档 / 图像 / 音视频转换', src: '第三方工具清单', reason: '第三方清单来源，未直接访问官网，免费额度与限制未核实。', type: '尚未访问' },
+  { name: 'Zamzar', url: 'https://www.zamzar.com/', category: '文档与转换', use: '在线文件转换（1200+ 格式）', src: '第三方工具清单', reason: '第三方清单来源，免费用户每日转换次数与文件大小限制未核实。', type: '尚未访问' },
+  { name: 'Online-Convert', url: 'https://www.online-convert.com/', category: '文档与转换', use: '在线多媒体格式转换', src: '搜索引擎结果', reason: '搜索仅返回首页片段，免费额度、排队机制与限制未核实。', type: '尚未访问' },
+  { name: '虫部落', url: 'https://www.chongbuluo.com/', category: '其他工具', use: '聚合多个搜索引擎', src: '第三方学习资源清单', reason: '第三方清单来源，未直接访问，站点当前可用性未核实。', type: '尚未访问' },
   { name: '学堂在线', url: 'https://www.xuetangx.com/', category: '学习与知识', use: '在线课程平台', src: '搜索引擎结果', reason: '搜索结果来源，未直接访问官网；与国家平台收录的课程存在重叠，需去重后再定。', type: '尚未访问' },
   { name: '我要自学网', url: 'https://www.51zxw.net/', category: '学习与知识', use: '实用技能视频教程', src: '第三方学习资源清单', reason: '第三方清单来源，未直接访问；是否仍为免费模式需核实。', type: '尚未访问' },
   { name: '3DM', url: 'https://www.3dmgame.com/', category: '游戏相关', use: '单机游戏资讯与 Mod', src: '搜索引擎结果', reason: '未直接访问；站点含游戏下载板块，合规性需评估后再决定是否收录。', type: '合规性待评估' },
   { name: 'NGA 玩家社区', url: 'https://bbs.nga.cn/', category: '游戏相关', use: '游戏论坛与深度攻略', src: '搜索引擎结果', reason: '未直接访问；论坛类内容质量波动大，且部分版块需登录，需人工评估。', type: '尚未访问' },
   { name: '米游社', url: 'https://www.mihoyo.com/', category: '游戏相关', use: '米哈游旗下游戏官方社区', src: '搜索引擎结果', reason: '未直接访问；官方社区定位明确，建议下一批优先核实收录。', type: '尚未访问' },
   { name: 'GitHub', url: 'https://github.com/', category: '开发者与技术', use: '代码托管与开源社区', src: '第三方开发者清单', reason: '本次未直接访问核实；中国大陆访问稳定性与是否需要补充说明需评估。', type: '尚未访问' },
-  { name: 'ChatGPT', url: 'https://chatgpt.com/', category: 'AI 与效率工具', use: 'AI 对话助手', src: '第三方 AI 工具清单', reason: '中国大陆地区访问受限，面向大陆用户的导航站收录价值有限；若定位包含海外用户可另作考虑。', type: '地区访问受限' },
-  { name: 'Claude', url: 'https://claude.ai/', category: 'AI 与效率工具', use: 'AI 对话助手（长文写作）', src: '第三方 AI 工具清单', reason: '同上，中国大陆地区访问受限，未核实。', type: '地区访问受限' },
-  { name: 'Gemini', url: 'https://gemini.google.com/', category: 'AI 与效率工具', use: '多模态 AI 助手', src: '第三方 AI 工具清单', reason: '同上，中国大陆地区访问受限，未核实。', type: '地区访问受限' },
-  { name: 'Perplexity AI', url: 'https://perplexity.ai/', category: 'AI 与效率工具', use: '带来源的 AI 搜索', src: '第三方 AI 工具清单', reason: '同上，中国大陆地区访问受限；可考虑与已收录的秘塔 AI 搜索做替代关系说明。', type: '地区访问受限' },
-  { name: 'Hotpot / Poe 等多模型聚合平台', url: '（未核实）', category: 'AI 与效率工具', use: '聚合多家大模型', src: '第三方 AI 工具清单', reason: '聚合平台的服务条款与地区可用性复杂，未核实。', type: '尚未访问' }
+  { name: 'ChatGPT', url: 'https://chatgpt.com/', category: 'AI 工具', use: 'AI 对话助手', src: '第三方 AI 工具清单', reason: '中国大陆地区访问受限，面向大陆用户的导航站收录价值有限；若定位包含海外用户可另作考虑。', type: '地区访问受限' },
+  { name: 'Claude', url: 'https://claude.ai/', category: 'AI 工具', use: 'AI 对话助手（长文写作）', src: '第三方 AI 工具清单', reason: '同上，中国大陆地区访问受限，未核实。', type: '地区访问受限' },
+  { name: 'Gemini', url: 'https://gemini.google.com/', category: 'AI 工具', use: '多模态 AI 助手', src: '第三方 AI 工具清单', reason: '同上，中国大陆地区访问受限，未核实。', type: '地区访问受限' },
+  { name: 'Perplexity AI', url: 'https://perplexity.ai/', category: 'AI 工具', use: '带来源的 AI 搜索', src: '第三方 AI 工具清单', reason: '同上，中国大陆地区访问受限；可考虑与已收录的秘塔 AI 搜索做替代关系说明。', type: '地区访问受限' },
+  { name: 'Hotpot / Poe 等多模型聚合平台', url: '（未核实）', category: 'AI 工具', use: '聚合多家大模型', src: '第三方 AI 工具清单', reason: '聚合平台的服务条款与地区可用性复杂，未核实。', type: '尚未访问' }
 ];
 
 const rejected = [
@@ -371,8 +371,10 @@ function buildDocs(J) {
   dMd += '## 二、各分类合格网站数量\n\n';
   dMd += '| 分类 | 合格网站数 | 说明 |\n|---|---|---|\n';
   const catNote = {
-    '免费实用工具': '重点深耕类目，覆盖压缩、转换、PDF、抠图、二维码、在线 PS 等高频需求',
-    'AI 与效率工具': '只收录中国大陆可直接访问、来源明确的国内产品',
+    '图片工具': '原「免费实用工具」中最大的子类，覆盖压缩、抠图、在线编辑等图片处理需求',
+    '文档与转换': 'PDF 处理与文件格式转换，目前仅 2 个，数量偏少',
+    '其他工具': '只有翻译与二维码各一个，是拆分后最小的分类',
+    'AI 工具': '只收录中国大陆可直接访问、来源明确的国内产品',
     '学习与知识': '以国家级平台与开放获取资源为主，避免版权灰区',
     '小说与阅读': '重点深耕类目。原创平台与正版出版主体之外，本版按收录方决定纳入了 5 个日系轻小说阅读 / 分享站点，其作品授权来源未公开，已在各记录中明确标注',
     '游戏相关': '偏少，因单机门户普遍含下载板块、合规性需评估',
@@ -397,14 +399,15 @@ function buildDocs(J) {
   dMd += '## 五、哪些分类仍缺乏优质网站\n\n';
   dMd += '- **游戏相关（' + (catCount['游戏相关'] || 0) + ' 个）**：单机游戏门户普遍捆绑游戏下载板块，合规性需要单独评估；本次只收录了发现类、Wiki 类与资讯类各一个，覆盖明显不足。\n';
   dMd += '- **设计与创作（' + (catCount['设计与创作'] || 0) + ' 个）**：Unsplash、Pexels、Iconfont、Google Fonts 四个知名素材站因技术原因未能完成核实（反爬拦截、抓取失败），导致该类别实际可用素材站偏少。\n';
-  dMd += '- **其他实用网站（0 个）**：本次未找到足以达到收录标准的站点，为避免出现空分类，该分类暂未建立。这是刻意留白，不是遗漏。\n';
-  dMd += '- **AI 与效率工具（' + (catCount['AI 与效率工具'] || 0) + ' 个）**：数量尚可，但集中在对话助手与 AI 搜索，缺少语音、转录、翻译润色等细分工具。\n\n';
+  dMd += '- **其他工具（' + (catCount['其他工具'] || 0) + ' 个）**：只有翻译与二维码各一个。该分类由原「免费实用工具」拆分而来，拆分后剩余部分偏薄，后续可补充音视频、编码、时间换算等方向。\n';
+  dMd += '- **文档与转换（' + (catCount['文档与转换'] || 0) + ' 个）**：仅 PDF 处理与通用格式转换各一个，缺音频、文本、编码等方向。\n';
+  dMd += '- **AI 工具（' + (catCount['AI 工具'] || 0) + ' 个）**：数量尚可，但集中在对话助手与 AI 搜索，缺少语音、转录、翻译润色等细分工具。\n\n';
 
   dMd += '## 六、下一批最值得继续寻找的网站类型\n\n';
   dMd += '1. **可核实的正版电子书与有声书平台**（如已收录的微信读书之外的授权渠道），为正版阅读需求提供明确可追溯的选择，与本版纳入的轻小说分享站点形成互补。\n';
   dMd += '2. **游戏数据 / 攻略类工具站**（例如 Wiki 型、数据查询型站点），这类站点通常不含下载板块，合规性更清晰。\n';
   dMd += '3. **免费素材站的官方可核实来源**：优先重试 Unsplash、Pexels、Iconfont、Google Fonts，并补充 Tabler Icons、Color Hunt 等小型开源素材站，它们的授权条款通常更明确。\n';
-  dMd += '4. **非图片类的免费实用工具**：音频处理、文本处理、正则 / 编码、时间与单位换算、文件校验等方向，目前几乎空白。\n';
+  dMd += '4. **非图片类的实用工具**：音频处理、文本处理、正则 / 编码、时间与单位换算、文件校验等方向，目前几乎空白。\n';
   dMd += '5. **学生与办公场景的效率工具**：OCR、表格处理、演示文稿辅助、PDF 以外的文档工具。\n';
   dMd += '6. **可核实授权的学术资源**：在 arXiv、国家哲学社会科学文献中心之外，补充开放获取期刊目录类资源。\n\n';
 
@@ -412,7 +415,7 @@ function buildDocs(J) {
   dMd += '1. 核心功能**未逐一实测**，`verification_status` 只能表达到「首页可访问 + 官方自述」这一层。\n';
   dMd += '2. 网站的品牌、功能与免费政策随时可能变化，`verified_at` 为唯一时效依据，建议按季度复核。\n';
   dMd += '3. 「小说与阅读」收录了 5 个作品授权来源未公开的日系轻小说站点（哔哩轻小说、轻小说文库、ESJ Zone、真白萌、次元狗）。这是收录方的决定，不代表本站对其版权状态作出判断或背书；相关内容的法律责任由原站承担，用户在访问前应自行判断。其中轻小说文库、真白萌、次元狗三站的官方入口在核实时分别出现返回关闭公告、反爬拦截、连接失败的情况，上线前建议人工复核。\n';
-  dMd += '4. 收录数量为 ' + sites.length + ' 个。游戏、设计与「其他实用网站」三个方向在本次核实中确实没有找到足够多达到标准的站点，这部分缺口已在第五节与第六节如实说明。\n\n';
+  dMd += '4. 收录数量为 ' + sites.length + ' 个。游戏、设计与「其他工具 / 文档与转换」几个方向在本次核实中确实没有找到足够多达到标准的站点，这部分缺口已在第五节与第六节如实说明。\n\n';
 
   dMd += '## 八、关于授权来源与收录口径的说明\n\n';
   dMd += '本次调整前，5 个日系轻小说阅读 / 分享站点因「作品授权来源无法确认」被列入待复核。收录方决定将其纳入正式收录，理由是：**本站收录的是网站本身，站内内容的合法性与授权状态由原站负责**，导航站只负责准确描述站点提供什么、有哪些限制。\n\n';
