@@ -564,8 +564,8 @@ function main() {
   console.log('  data/sites.js   ← 网站运行时读取的就是它');
   r.written.forEach(f => console.log('  ' + f));
   console.log('──────────────────────────────────────────────');
-  console.log('接下来：把改动提交并推送，托管平台会自动重新发布。');
-  console.log('   git add -A && git commit -m "更新资源" && git push');
+  console.log('接下来：双击「发布.cmd」提交并推送，托管平台会自动重新发布。');
+  console.log('（手动方式：git add -A && git commit -m "更新资源" && git push）');
   console.log('');
 }
 
