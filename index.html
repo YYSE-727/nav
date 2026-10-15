@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark" data-page-node-id="aobUXFWHnep7oE2SyJl0Sy"><head data-page-node-id="U8LyBCwmB91EbEwORdDLVk">
+<meta charset="UTF-8" data-page-node-id="AYZFuihyuATIMehdbQ9X3I">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="LMEfOWbrpTlOIwWk99UhVT">
+<title data-page-node-id="cwW6TzYfxR6jldg1BjUiFt">实用导航 · 综合型资源导航站</title>
+<style data-page-node-id="aMF5pWDurWFWmEF6U7vAG8">
+:root{
+  --bg:#0e1116; --bg-soft:#151a21; --panel:#1a2028; --panel-2:#212933;
+  --border:#2a3340; --border-soft:#222a34;
+  --text:#e8edf4; --text-2:#a5b1c0; --text-3:#6f7d8e;
+  --accent:#4ea1ff; --accent-soft:rgba(78,161,255,.14);
+  --ok:#3fbf7f; --ok-soft:rgba(63,191,127,.14);
+  --warn:#e0a33a; --warn-soft:rgba(224,163,58,.15);
+  --bad:#e0645a; --bad-soft:rgba(224,100,90,.14);
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --radius:14px;
+}
+html[data-theme="light"]{
+  --bg:#f5f7fa; --bg-soft:#ffffff; --panel:#ffffff; --panel-2:#f0f3f8;
+  --border:#dfe5ee; --border-soft:#e8edf4;
+  --text:#182029; --text-2:#516070; --text-3:#8b98a8;
+  --accent:#1f6feb; --accent-soft:rgba(31,111,235,.10);
+  --ok:#128a52; --ok-soft:rgba(18,138,82,.10);
+  --warn:#9a6b12; --warn-soft:rgba(154,107,18,.12);
+  --bad:#b93b30; --bad-soft:rgba(185,59,48,.10);
+  --shadow:0 8px 24px rgba(24,32,41,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--border-soft)}
+.hrow{display:flex;align-items:center;gap:16px;height:66px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:.3px;white-space:nowrap}
+.logo .dot{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#7b5cff);display:grid;place-items:center;color:#fff;font-size:14px}
+.hspace{flex:1}
+.tbtn{background:var(--panel);border:1px solid var(--border);color:var(--text-2);border-radius:10px;padding:8px 12px;font-size:13px;cursor:pointer;transition:.18s}
+.tbtn:hover{color:var(--text);border-color:var(--accent)}
+
+/* ---------- hero ---------- */
+.hero{padding:38px 0 24px;text-align:center}
+.hero h1{margin:0 0 10px;font-size:30px;line-height:1.35;letter-spacing:.5px}
+.hero h1 span{background:linear-gradient(100deg,var(--accent),#7b5cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0 auto;color:var(--text-2);font-size:14.5px;max-width:720px}
+.stats{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.stat{text-align:center}
+.stat b{display:block;font-size:22px;color:var(--accent);font-weight:700}
+.stat span{font-size:12.5px;color:var(--text-3)}
+
+/* ---------- search ---------- */
+.searchbox{margin:24px auto 0;max-width:720px;display:flex;gap:10px}
+.searchbox input{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:13px 16px;color:var(--text);font-size:15px;outline:none;transition:.18s}
+.searchbox input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.searchbox input::placeholder{color:var(--text-3)}
+
+/* ---------- ask panel ---------- */
+.ask{margin:14px auto 0;max-width:720px;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+.ask .askh{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);margin-bottom:10px}
+.ask .badge-demo{background:var(--accent-soft);color:var(--accent);border-radius:6px;padding:1px 7px;font-size:11.5px}
+.askrow{display:flex;gap:10px}
+.askrow input{flex:1;background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--text);font-size:14.5px;outline:none}
+.askrow input:focus{border-color:var(--accent)}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:11px 18px;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:.18s}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:var(--panel-2);color:var(--text-2);border:1px solid var(--border);font-weight:500}
+.examples{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.ex{background:var(--panel-2);border:1px solid var(--border-soft);color:var(--text-2);border-radius:20px;padding:4px 11px;font-size:12.5px;cursor:pointer}
+.ex:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ---------- filters ---------- */
+.filters{margin:28px 0 8px}
+.fgroup{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:11px}
+.flabel{font-size:12.5px;color:var(--text-3);min-width:52px;flex-shrink:0}
+.chip{background:var(--panel);border:1px solid var(--border);color:var(--text-2);border-radius:20px;padding:6px 13px;font-size:13px;cursor:pointer;transition:.16s;white-space:nowrap}
+.chip:hover{border-color:var(--accent);color:var(--text)}
+.chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.chip .n{opacity:.65;font-size:11.5px;margin-left:4px}
+
+/* ---------- results ---------- */
+.resultbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0 14px;flex-wrap:wrap}
+.resultbar .cnt{font-size:13.5px;color:var(--text-2)}
+.resultbar .cnt b{color:var(--accent)}
+.hint{font-size:12.5px;color:var(--text-3)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;padding-bottom:40px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:17px 18px;cursor:pointer;transition:.18s;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow)}
+.card::after{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(180deg,var(--accent),#7b5cff);opacity:0;transition:.18s}
+.card:hover::after{opacity:1}
+.crow{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.cname{font-size:16px;font-weight:700;letter-spacing:.3px}
+.cfav{width:34px;height:34px;border-radius:9px;background:var(--panel-2);border:1px solid var(--border-soft);display:grid;place-items:center;font-size:15px;font-weight:700;color:var(--accent);flex-shrink:0}
+.cdesc{font-size:13.5px;color:var(--text-2);line-height:1.62}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{background:var(--panel-2);border:1px solid var(--border-soft);color:var(--text-3);border-radius:6px;padding:2px 8px;font-size:11.5px}
+.cfoot{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+.pill{border-radius:6px;padding:2.5px 9px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.p-free{background:var(--ok-soft);color:var(--ok)}
+.p-part{background:var(--warn-soft);color:var(--warn)}
+.p-paid{background:var(--bad-soft);color:var(--bad)}
+.p-unk{background:var(--panel-2);color:var(--text-3)}
+.p-cat{background:var(--accent-soft);color:var(--accent)}
+.p-v{background:var(--panel-2);color:var(--text-3);border:1px solid var(--border-soft)}
+.mreason{background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:7px 10px;font-size:12.5px;color:var(--text-2)}
+.mtype{font-weight:700;margin-right:5px}
+.mt-ok{color:var(--ok)} .mt-pre{color:var(--warn)} .mt-no{color:var(--bad)}
+
+.empty{text-align:center;padding:60px 20px;color:var(--text-3)}
+.empty b{display:block;font-size:16px;color:var(--text-2);margin-bottom:8px}
+
+/* ---------- modal ---------- */
+.mask{position:fixed;inset:0;background:rgba(4,7,11,.72);backdrop-filter:blur(4px);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:34px 16px;overflow-y:auto}
+.mask.on{display:flex}
+.modal{background:var(--bg-soft);border:1px solid var(--border);border-radius:18px;max-width:840px;width:100%;box-shadow:var(--shadow);overflow:hidden}
+.mhead{padding:22px 24px 18px;border-bottom:1px solid var(--border-soft);position:relative}
+.mhead h2{margin:0 0 6px;font-size:22px}
+.mhead .murl{font-size:12.5px;color:var(--accent);word-break:break-all}
+.mclose{position:absolute;top:16px;right:18px;background:var(--panel-2);border:1px solid var(--border);color:var(--text-2);width:32px;height:32px;border-radius:9px;cursor:pointer;font-size:16px;line-height:1}
+.mclose:hover{color:var(--text)}
+.mbody{padding:20px 24px 26px;max-height:70vh;overflow-y:auto}
+.mbadges{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 0}
+.sec{margin-top:22px}
+.sec h3{margin:0 0 9px;font-size:13.5px;color:var(--text-3);font-weight:600;letter-spacing:.6px;text-transform:uppercase}
+.sec p{margin:0;font-size:14px;color:var(--text-2);line-height:1.72}
+.sec ul{margin:0;padding-left:19px;font-size:14px;color:var(--text-2);line-height:1.75}
+.sec li{margin-bottom:5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.pl{background:var(--ok-soft);border:1px solid transparent;border-radius:11px;padding:13px 15px}
+.cl{background:var(--bad-soft);border-radius:11px;padding:13px 15px}
+.pl h4,.cl h4{margin:0 0 8px;font-size:13px;letter-spacing:.5px}
+.pl h4{color:var(--ok)} .cl h4{color:var(--bad)}
+.pl ul,.cl ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.7}
+.pl ul{color:var(--text-2)} .cl ul{color:var(--text-2)}
+.mtable{width:100%;border-collapse:collapse;font-size:13.5px}
+.mtable td{padding:8px 10px;border-bottom:1px solid var(--border-soft);color:var(--text-2);vertical-align:top}
+.mtable td:first-child{color:var(--text-3);width:96px;white-space:nowrap}
+.nm{width:100%;border-collapse:collapse;font-size:13.5px;border-radius:10px;overflow:hidden}
+.nm th{background:var(--panel-2);color:var(--text-3);font-size:12px;font-weight:600;text-align:left;padding:8px 10px}
+.nm td{padding:9px 10px;border-top:1px solid var(--border-soft);color:var(--text-2);vertical-align:top}
+.visit{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#fff;border-radius:10px;padding:10px 18px;font-size:14.5px;font-weight:600;margin-top:4px}
+.visit:hover{filter:brightness(1.08)}
+
+footer{border-top:1px solid var(--border-soft);padding:28px 0 40px;text-align:center;color:var(--text-3);font-size:12.5px;line-height:1.9}
+footer b{color:var(--text-2)}
+@media(max-width:720px){
+  .hero h1{font-size:23px}
+  .grid{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr}
+  .hrow{gap:10px}
+  .logo span.t{display:none}
+  .mbody{padding:16px}
+}
+</style>
+<style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
+<body data-page-node-id="wigtWKTjfmP8Up54F36WWA" style="">
+
+<header data-page-node-id="3UCQwwOpma8TMAun7Z3uDh">
+  <div class="wrap hrow" data-page-node-id="qe7hRnqWznJNJtIJpQhzKA">
+    <div class="logo" data-page-node-id="SgSDZWqXkAQV09LiMes33B"><div class="dot" data-page-node-id="Oqx1v2wA0O6CBBoBXj1cCz">导</div><span class="t" data-page-node-id="WB6exLoBEYCDM5VRuColBV">实用导航</span></div>
+    <div class="hspace" data-page-node-id="m6nkB1hNq4H46HP0pMiAXa"></div>
+    <button class="tbtn" id="themeBtn" data-page-node-id="3qcSaBbPVAvVUtizF2qwIR">🌙 深色</button>
+  </div>
+</header>
+
+<div class="wrap" data-page-node-id="pOaqrVQ1MSRGuamP19hsq9">
+  <section class="hero" data-page-node-id="m7YNHAZj1HNRvbdWhgcGu4">
+    <h1 data-page-node-id="lbBCenZGvLnIbpZ7cDkK7b" style="">YAO搜</h1>
+    <p data-page-node-id="0LcCnVsOXDYdACBBEfGXBF">已收录 <b id="heroCount" data-page-node-id="kO2eMtL8j6IE1uJa9uGoIH">47</b> 个经过实际访问核实的站点，覆盖 <b id="heroCats" data-page-node-id="4kPE1Z5iARRA5Qxz2qOTUb">7</b> 个分类：<span id="heroCatList" data-page-node-id="6JROFj5Lpp286wQbTzt5D4">免费实用工具、AI 与效率工具、学习与知识、小说与阅读、游戏相关、开发者与技术、设计与创作</span>。每条记录都标注了免费范围、使用限制与优缺点，帮你判断它到底适不适合你。</p>
+    <div class="stats" id="stats" data-page-node-id="T1kEjGmnKY2ES10NZWRCCM"><div class="stat" data-page-node-id="LLlVunOSggRSdpFLgZAnyT"><b data-page-node-id="o6C8S61X2MFH0vsorfMaqi">47</b><span data-page-node-id="cP7Alf81JSSUCk9Euj8EEE">收录网站</span></div><div class="stat" data-page-node-id="WGNKDKzP37Zqvch6x9D6Bx"><b data-page-node-id="qpyKx0WpdKsjiTqb8CYcoU">7</b><span data-page-node-id="B8MLY7Tn6AkHRgWPsnJ2hl">分类</span></div><div class="stat" data-page-node-id="HVqwLi1aACGXccZOVh38ai"><b data-page-node-id="cpDiZfASc8lOjp86QTjs2W">246</b><span data-page-node-id="Yo93DsWT9rKbr4C5iQMYjM">标签</span></div><div class="stat" data-page-node-id="xHvnXs7gI3QBtmDtcG9siS"><b data-page-node-id="0oH0tZ1TAcFfUgJzRbCKrL">144</b><span data-page-node-id="SssLGuwCNI65h3fbPQdChN">需求匹配记录</span></div></div>
+
+    <div class="searchbox" data-page-node-id="l4XoPur2ctBHoEBSbiiOQg">
+      <input id="q" type="search" placeholder="搜索网站名称、功能或标签，例如：图片压缩 / 轻小说 / 图标" data-page-node-id="S8YFq5P5fyxhluapCDATNK">
+    </div>
+
+    <div class="ask" data-page-node-id="NegDN1nYigXAhnGgvfACb0">
+      <div class="askh" data-page-node-id="7lDzZj4S8BksN3JWuZugsW"><span class="badge-demo" data-page-node-id="JaPEHqSb2jZOZmuqzLIPMB">需求匹配</span> 用一句自然语言描述你的需求，按条件筛选并显示匹配依据</div>
+      <div class="askrow" data-page-node-id="jE02656x6JPmWFZXHukAl2">
+        <input id="askq" type="text" placeholder="例如：我想找一个免费、无需安装、可以压缩图片的网站" data-page-node-id="RxCPeNd6IgDTyL56o3QZUt">
+        <button class="btn" id="askBtn" data-page-node-id="z2DKFEC8ewHtq3FceD3MIt">匹配</button>
+      </div>
+      <div class="examples" id="examples" data-page-node-id="XGI2mepG7eS5l6Ljk3pmqQ"><span class="ex" data-page-node-id="M3zI3cfDz8OBkhauGIVGkA">免费、无需安装、可以压缩图片的网站</span><span class="ex" data-page-node-id="C5oJ4j4wO0PAoRP84RV2Xs">想读正版轻小说，最好有免费额度</span><span class="ex" data-page-node-id="ximApDD5pBdLdOiQQwdIeC">找免费可商用的插画和图标</span><span class="ex" data-page-node-id="t4fgV83LSn2io2PMSAACkX">看长文档、能上传 PDF 提问的 AI</span><span class="ex" data-page-node-id="hkBKoSbk5PtgNbk4D8optx">查前端 API 的权威文档</span></div>
+    </div>
+  </section>
+
+  <section class="filters" data-page-node-id="LZrF4LiLUXdXaYFWGd4sD2">
+    <div class="fgroup" id="catRow" data-page-node-id="aqsL0MmuAtJyNz1E9UuTxE"><span class="flabel" data-page-node-id="KRwwpS4gTRFDN3vOVJwFtr">分类</span><button class="chip on" data-v="全部" data-page-node-id="hoEX2CC0MDl0gE0hl6T6wd">全部<span class="n" data-page-node-id="GZAAmFy8v6RYojyXYWZL0C">47</span></button><button class="chip" data-v="免费实用工具" data-page-node-id="tIVKYWZNRygIBx2EwVOUU5">免费实用工具<span class="n" data-page-node-id="Ir1BsGAq2xl5rYeMCF3rkh">10</span></button><button class="chip" data-v="AI 与效率工具" data-page-node-id="HrL4d2AFdjfFvHTv25xZJN">AI 与效率工具<span class="n" data-page-node-id="ibMpCbguvNzJH4CiWYDdf4">6</span></button><button class="chip" data-v="学习与知识" data-page-node-id="RwqCHybSlHbERTz6RIAx5w">学习与知识<span class="n" data-page-node-id="0Cnrq9AveL5gZL63C7bBsW">6</span></button><button class="chip" data-v="小说与阅读" data-page-node-id="kIcGumyoUViObJuTwBiABo">小说与阅读<span class="n" data-page-node-id="yhmFJmDEepomOPS9QylaUy">14</span></button><button class="chip" data-v="游戏相关" data-page-node-id="524GddHSmgtFuSXpgRtreq">游戏相关<span class="n" data-page-node-id="ncb8PHOXNGGRuvfI3V27KJ">3</span></button><button class="chip" data-v="开发者与技术" data-page-node-id="sGorp4utUn5EH1FFFsffgX">开发者与技术<span class="n" data-page-node-id="GI5zV4UId6VqfHXzwHVDss">4</span></button><button class="chip" data-v="设计与创作" data-page-node-id="H8g86qkivXVepgkH6YcP4s">设计与创作<span class="n" data-page-node-id="SofuBJbdiD5bGr97NSaEyS">4</span></button></div>
+    <div class="fgroup" id="priceRow" data-page-node-id="NrbSZju8wWRwzi3jSrO2Ct"><span class="flabel" data-page-node-id="GV5GXNxgZtaGBMqtaenF63">付费</span><button class="chip on" data-v="全部" data-page-node-id="AEMmSQQR0051eGB17zABOT">全部</button><button class="chip" data-v="免费" data-page-node-id="eyn72A9esWQjiX29GzFcLE">免费</button><button class="chip" data-v="部分免费" data-page-node-id="riiFh5F0fQBZe0vJHvH04R">部分免费</button><button class="chip" data-v="付费" data-page-node-id="vm2odVngwdyZEbsrqSiRrq">付费</button><button class="chip" data-v="未知" data-page-node-id="FxhAcyCa6qLlj79Ys74UF2">未知</button></div>
+    <div class="fgroup" id="tagRow" data-page-node-id="6Kc9yTXgTQnRNHhaF8RZdv"><span class="flabel" data-page-node-id="Y7YcH6owXnZKtCzH34KxtQ">标签</span><button class="chip" data-v="轻小说" data-page-node-id="RNjRjVjMMj95DXQWQnyC9Z">轻小说</button><button class="chip" data-v="免费" data-page-node-id="Or1a4KrqzwYMRGHnIINbOA">免费</button><button class="chip" data-v="正版" data-page-node-id="TH0dgoMruV8gFQTxl3ZICc">正版</button><button class="chip" data-v="图片压缩" data-page-node-id="dEMKTzObrp5wZbreyXjrcd">图片压缩</button><button class="chip" data-v="AI对话" data-page-node-id="BiJIHaA6drEtkPnsoagBHQ">AI对话</button><button class="chip" data-v="在线工具" data-page-node-id="c6TGET2rqijqcAh6VM48QH">在线工具</button><button class="chip" data-v="原创小说" data-page-node-id="CAe1OC6sRUm0GnrovqT40m">原创小说</button><button class="chip" data-v="原创" data-page-node-id="53Gk3BUJPKXSAXL8lx3aDs">原创</button><button class="chip" data-v="前端" data-page-node-id="WL2Kn82OiEUhtKKWe5aDc8">前端</button><button class="chip" data-v="JPG压缩" data-page-node-id="dacCjHLf51Gu0zSsDLuivf">JPG压缩</button><button class="chip" data-v="WebP" data-page-node-id="hrWfwH4fqNP5im9p3TuaAY">WebP</button><button class="chip" data-v="无需安装" data-page-node-id="tAAFtAO9HrubXHuPdfbdkj">无需安装</button><button class="chip" data-v="本地处理" data-page-node-id="fnDVRd1koHUpmHID92WM27">本地处理</button><button class="chip" data-v="不上传" data-page-node-id="1kOnx868Ddsvg3onTtcEft">不上传</button><button class="chip" data-v="格式转换" data-page-node-id="rumBNli3gK5EsketCNULgO">格式转换</button><button class="chip" data-v="加水印" data-page-node-id="1GzkG41KthJQG29kG5rad4">加水印</button><button class="chip" data-v="去背景" data-page-node-id="Bcqx10gtgCSiHnvVeZV7Sd">去背景</button><button class="chip" data-v="翻译" data-page-node-id="KAfrVp9RFfh3lRA0BzFrgc">翻译</button><button class="chip" data-v="长文本" data-page-node-id="BRG4IhNslwaYf3GytAo7GT">长文本</button><button class="chip" data-v="深度研究" data-page-node-id="zX4hC1jWyKHxFEwapZBfYw">深度研究</button><button class="chip" data-v="写作" data-page-node-id="2hYP74aBtZcGB9mnhEQmDP">写作</button><button class="chip" data-v="字节跳动" data-page-node-id="OdhVwxZgrcrdOfMA97nzaf">字节跳动</button></div>
+  </section>
+
+  <div class="resultbar" data-page-node-id="hqsND2QYnHg8gt0Nx2qF1g">
+    <div class="cnt" id="cnt" data-page-node-id="gcpQDDOBmB5RjIRUhX885N">当前显示 <b data-page-node-id="I8UxfMHAbHyIgVdJlbFFCP">47</b> 个站点</div>
+    <div class="hint" data-page-node-id="1ce3yNzLrHPkjMIAxTthDC">点击卡片查看完整收录信息 · 数据核实日期 <span id="dataDate" data-page-node-id="5Cy3f6wX4bFdAr5yQJjZZP">2026-10-14</span></div>
+  </div>
+
+  <div class="grid" id="grid" data-page-node-id="ubjFKBiG3upqW4LwZUGh5v"><article class="card" data-id="mdn" data-page-node-id="gIVZ8CoXZUHZy20ytrRza9"><div class="crow" data-page-node-id="LWm0BFQiGevUiP7YXCODKm"><div class="cname" data-page-node-id="haFbfkIPJ9ENQdFcixkAX2">MDN Web Docs</div><div class="cfav" data-page-node-id="I2boUkRuOR4siHvXk47ylA">M</div></div><div class="cdesc" data-page-node-id="R8Nzeg5AJzMdtqlRDkx08T">Web 开发最权威的官方文档库，HTML / CSS / JavaScript 与 Web API 资料齐全，有完整中文版。</div><div class="tags" data-page-node-id="wgLI7NpUEuy2nLsHvZcQpW"><span class="tag" data-page-node-id="EK0wXDvwf4mOoPVB1Mou9D">Web文档</span><span class="tag" data-page-node-id="CRRIv54yzpCplTrF9zSeZA">HTML</span><span class="tag" data-page-node-id="fewDhoo0Et52SYJABRsKVs">CSS</span><span class="tag" data-page-node-id="AiwHRC7OG3ovArMg0ZlH00">JavaScript</span><span class="tag" data-page-node-id="36y6bPBiHsA9QvQjZG9pA8">Web API</span><span class="tag" data-page-node-id="xii9ZCpI5HAVNXS2vaQ4b5">中文文档</span></div><div class="cfoot" data-page-node-id="XGzFNlMDtb2pgTXMJC0pb7"><span class="pill p-free" data-page-node-id="Rp8aGQ3umDFdtHNKADijcc">免费</span><span class="pill p-cat" data-page-node-id="iWBcE1nri0MvYfQ8dHzplu">开发者与技术</span><span class="pill p-v" data-page-node-id="TGaWtjGn4S7nEKdjCHgcEp">通过 · 2026-10-14</span></div></article><article class="card" data-id="runoob" data-page-node-id="whxxuq7nx1Ev6UkdagZki2"><div class="crow" data-page-node-id="r8Kbrq7tbdI0WvBEMCSEgQ"><div class="cname" data-page-node-id="Zncb61oEkB16jitqzxukfV">菜鸟教程</div><div class="cfav" data-page-node-id="RP0trNQu19kQNcIX5IXTnq">菜</div></div><div class="cdesc" data-page-node-id="MB6ziKWf6EfSOsl4LUqnPs">覆盖面极广的中文编程入门教程站，从语言语法到 AI、数据库、前端框架都有速查式教程。</div><div class="tags" data-page-node-id="OK8qGfdHSSghZuzxymM79I"><span class="tag" data-page-node-id="F86ncW47k3bsf2qDVWIpo2">编程入门</span><span class="tag" data-page-node-id="2ny3ft9uvhLlM2mPBrhKhj">中文教程</span><span class="tag" data-page-node-id="BEH6RocK10xyY03TmS3Ww8">Python</span><span class="tag" data-page-node-id="1Z6A8CIOTQ1E6FsMeaCAsk">前端</span><span class="tag" data-page-node-id="hnBh5bcgXy3SNkDLRv62fO">数据库</span><span class="tag" data-page-node-id="dwPGFuA7w9fB3tGkCn3rUn">AI教程</span></div><div class="cfoot" data-page-node-id="eoo16pJGDucvG3Iu8OxGyx"><span class="pill p-free" data-page-node-id="dbFGJ60zYcexJxNatsSqs6">免费</span><span class="pill p-cat" data-page-node-id="FqnH2RVKDTAlN7Q83VolMA">开发者与技术</span><span class="pill p-v" data-page-node-id="fvNEK8PwJinFk9YtIx7KSK">通过 · 2026-10-14</span></div></article><article class="card" data-id="juejin" data-page-node-id="baUn1UBdJ8CNS4jG0axIFv"><div class="crow" data-page-node-id="L4KswDzO0zBIS1vBzoB3jA"><div class="cname" data-page-node-id="GPDlmGq8XjJruDvRaD7GKp">稀土掘金</div><div class="cfav" data-page-node-id="OvCgCYirSKlzPobEooamf3">稀</div></div><div class="cdesc" data-page-node-id="cm6ooi3B7PWigbdEki1tH1">国内活跃的中文技术社区，前端、后端、移动端与 AI 方向的实践文章与踩坑记录丰富。</div><div class="tags" data-page-node-id="6FY0rKa2VZmH4tczjiAK2U"><span class="tag" data-page-node-id="lOyTCjvs6qkLRqI33tOuoq">技术社区</span><span class="tag" data-page-node-id="IYzwJfJVUAUFnKBNp6IBsE">中文博客</span><span class="tag" data-page-node-id="R06TxTDFIGUVJhTTS97Zy8">前端</span><span class="tag" data-page-node-id="5mom7bAJzOWQkamEku3wlT">后端</span><span class="tag" data-page-node-id="48lWNZM5NyRNdceywl0EXm">Android</span><span class="tag" data-page-node-id="DlpnIFnFClZCunQWaJbrVl">人工智能</span></div><div class="cfoot" data-page-node-id="SmwucGSk4wTCLLXB9wHstT"><span class="pill p-part" data-page-node-id="VtJ316PhJKJV3e0KHdYrRi">部分免费</span><span class="pill p-cat" data-page-node-id="RTc6WckUy2uFSEbnAM8vBW">开发者与技术</span><span class="pill p-v" data-page-node-id="Qw12AUYwgpElz9C3bQAPIn">通过 · 2026-10-14</span></div></article><article class="card" data-id="caniuse" data-page-node-id="yEWFslG4pbc8mHaqqUvKYQ"><div class="crow" data-page-node-id="SO1bjfRYZwsLCITjCVjl05"><div class="cname" data-page-node-id="KShNYNFoFc71kKBMzosjSM">Can I use</div><div class="cfav" data-page-node-id="3V6JfCpDRBGiUt4P01Ct2u">C</div></div><div class="cdesc" data-page-node-id="yvh1yovhIsE56dMxTxeiEz">查询 HTML5 / CSS3 / JS 特性在各浏览器版本支持情况的权威兼容性数据表。</div><div class="tags" data-page-node-id="O8ik6Tx9YHub8BqtpuRgWa"><span class="tag" data-page-node-id="jcu91Q7AoZws0ze06v4DBx">浏览器兼容性</span><span class="tag" data-page-node-id="PEMgTMvnAylnvBzcnWNy0C">CSS支持</span><span class="tag" data-page-node-id="EzuCkZbRrQdUptB29glYKJ">HTML5</span><span class="tag" data-page-node-id="pM4ohU09WpUvcvzEIcbAIi">前端</span><span class="tag" data-page-node-id="dMTB4XJ9eA5ierihSvDCoO">特性检测</span><span class="tag" data-page-node-id="zb0ARwDHDU0bO1IeUWl4cy">免费</span></div><div class="cfoot" data-page-node-id="Kz9PaNO55bwDsV8RVTEiCo"><span class="pill p-free" data-page-node-id="DkvpJVx2uxBhBTRw9XQPTS">免费</span><span class="pill p-cat" data-page-node-id="XGjyQE3u9C8tNSCTHwRYHy">开发者与技术</span><span class="pill p-v" data-page-node-id="nxe52YY3rqCTOE0C76GJdM">通过 · 2026-10-14</span></div></article><article class="card" data-id="tiny-png" data-page-node-id="2Wo6QQaBCOUFAbza9WW1y3"><div class="crow" data-page-node-id="eu97FjuI81gLuiiEUqwHqF"><div class="cname" data-page-node-id="5ZAE5P9eTmD3zRXVi8u2LF">TinyPNG</div><div class="cfav" data-page-node-id="lYtk86xWZquTsDZMsREJA7">T</div></div><div class="cdesc" data-page-node-id="zW33I7HFkdWAi0c12zqtGx">把图片拖进网页就自动智能压缩 PNG / JPG / WebP，体积可减少约八成而肉眼几乎看不出差别。</div><div class="tags" data-page-node-id="tpyCtr7pungPHKOYdONiZz"><span class="tag" data-page-node-id="aTk89HGRm0pWf3tfS799du">图片压缩</span><span class="tag" data-page-node-id="wuSohsBXTl9sMorcOE3rTx">PNG压缩</span><span class="tag" data-page-node-id="T7WrcIKzNVdQgEMmaGLc6E">JPG压缩</span><span class="tag" data-page-node-id="RmW2CkVZguWkpuw8p0Pto0">WebP</span><span class="tag" data-page-node-id="cQUJeuW7l9qNOQxCpLxXWf">无需安装</span><span class="tag" data-page-node-id="aTJNhmZEr8Dc2D6Oa6UKwQ">在线工具</span></div><div class="cfoot" data-page-node-id="nwYzKZD8meakdfffczJwjT"><span class="pill p-part" data-page-node-id="VT2NDHpVfFseGfiDBKa5AA">部分免费</span><span class="pill p-cat" data-page-node-id="ILOvM4kihLCXKo27OpVYCJ">免费实用工具</span><span class="pill p-v" data-page-node-id="jrUcal1nTl3Jzv8gi5Ci5L">通过 · 2026-10-14</span></div></article><article class="card" data-id="squoosh" data-page-node-id="n1RFXGbvjQ0kaD4SzKdoqb"><div class="crow" data-page-node-id="vtJLQJXiIxI4dwwtqtg9SC"><div class="cname" data-page-node-id="m9IZ0EmEyv3bf0TbaXIgpE">Squoosh</div><div class="cfav" data-page-node-id="9EtWwrlkefbi4nSNOGNLuw">S</div></div><div class="cdesc" data-page-node-id="qsrVFfNcOME19HPLcLe4Nr">Google 出品的在线图片压缩工具，全部在浏览器本地完成，图片不上传服务器。</div><div class="tags" data-page-node-id="HQ64ClT1MfL6nE3EStsc6H"><span class="tag" data-page-node-id="ybWHq4RVIBHyxYdLVxv3gZ">图片压缩</span><span class="tag" data-page-node-id="YEzAR5cwNB1wbPGgoO8Lc9">本地处理</span><span class="tag" data-page-node-id="GBiumem7NxRlKeGadTmH7W">不上传</span><span class="tag" data-page-node-id="4woHFeSu6MXvHMSJZBIcpB">隐私安全</span><span class="tag" data-page-node-id="G0jR7y28jsA5zbAv4waWLh">WebP</span><span class="tag" data-page-node-id="x6PxIdnEzXR8YThxXfRHGD">AVIF</span></div><div class="cfoot" data-page-node-id="6R9fhGcr9OTQTjgLtFkv82"><span class="pill p-free" data-page-node-id="J6RqUnYEu9JO23BONJcItl">免费</span><span class="pill p-cat" data-page-node-id="QpglZx2hHBNY8tIzCW8rTV">免费实用工具</span><span class="pill p-v" data-page-node-id="LoOjVkseoQZRIZd73wcXXu">通过 · 2026-10-14</span></div></article><article class="card" data-id="iloveimg" data-page-node-id="3CfLBqkBkYeJii5Y9A2m6m"><div class="crow" data-page-node-id="Co3sQFaWZ5yiIcjQRTg8rN"><div class="cname" data-page-node-id="FnUnqqc2qJ91BVj59CH4G3">iLoveIMG</div><div class="cfav" data-page-node-id="dhaHcTQ0EnAKbgm887SzLI">i</div></div><div class="cdesc" data-page-node-id="jJu10VYCGt6NmXyIOFRPo6">中文界面的在线图片工具箱，压缩之外还集成尺寸调整、裁剪、格式转换、去背景、加水印等一站式功能。</div><div class="tags" data-page-node-id="7b2m11VbjTEQNYtFWREy7R"><span class="tag" data-page-node-id="PoJk5s4iC5RLBqFI27bHp3">图片压缩</span><span class="tag" data-page-node-id="tUG0v7tsA4xzA9j1J0EzIi">批量处理</span><span class="tag" data-page-node-id="5vb8IFY1yDsGPHwNc32lj7">格式转换</span><span class="tag" data-page-node-id="Syb12jktFmAIfjHRDbFaZb">图片裁剪</span><span class="tag" data-page-node-id="NqWa6ZGmHhyf0IurQ0rDOV">加水印</span><span class="tag" data-page-node-id="rGS83bzrNgPKmbTSvQDLf7">去背景</span></div><div class="cfoot" data-page-node-id="GMGLda81yRuPDy4Yl4yENb"><span class="pill p-part" data-page-node-id="v2qyTMgUOi0BpFaH3Lmd3f">部分免费</span><span class="pill p-cat" data-page-node-id="5eWJRFFEzSHDvmkK3HoauA">免费实用工具</span><span class="pill p-v" data-page-node-id="LO9Bh9VKgQtjkCrTsgza9r">通过 · 2026-10-14</span></div></article><article class="card" data-id="picdiet" data-page-node-id="7CBz1A6uGOsMBDxwSPLbYL"><div class="crow" data-page-node-id="hwWrRqRCXQRpDpWLa1jmNk"><div class="cname" data-page-node-id="6dqsmBiM4GItlIAdgSEoKK">Picdiet</div><div class="cfav" data-page-node-id="Wstkyp5nqLvSEnSZpDvLQo">P</div></div><div class="cdesc" data-page-node-id="pGLRRj1GIKj8trhtdVzHgs">纯前端 JavaScript 实现的在线图压缩工具，不依赖服务器，号称无数量、无大小、无尺寸限制。</div><div class="tags" data-page-node-id="ONVH3R9fG1udN8MdB2Yysv"><span class="tag" data-page-node-id="AMHv6SI8u50BhFrn8Nxr4W">图片压缩</span><span class="tag" data-page-node-id="hka0yT9aEDzD70E9BbiCqG">JPG压缩</span><span class="tag" data-page-node-id="jLhXCqvhSrZpDTXUtgEoHl">本地压缩</span><span class="tag" data-page-node-id="z7S4cRt6M0GmcW1fpZW66H">不上传</span><span class="tag" data-page-node-id="udz2dsCkzNNQC3CD8gdPUL">无数量限制</span><span class="tag" data-page-node-id="3TDDTuNzvGfsQ4qzpLCQQZ">免费</span></div><div class="cfoot" data-page-node-id="owT1oIDdANo9D2KepKipFG"><span class="pill p-free" data-page-node-id="7DXwtOX1QgLH6DuJ8ReIGa">免费</span><span class="pill p-cat" data-page-node-id="HLEbfJ2LCAhoESUstSNXle">免费实用工具</span><span class="pill p-v" data-page-node-id="0e5KHbwDP05AjVRQCuV7PG">通过 · 2026-10-14</span></div></article><article class="card" data-id="pdf24-tools" data-page-node-id="U17pIyyRgL7IdMnuJvIRhA"><div class="crow" data-page-node-id="Vk7kVwLdcq8XxiFPyK0Gjq"><div class="cname" data-page-node-id="wTwZsmznlRbEwkVAkoH7mt">PDF24 Tools</div><div class="cfav" data-page-node-id="DRgtEvDysqnIHKFLLV6KVy">P</div></div><div class="cdesc" data-page-node-id="kGtCSvEZNIdBWY6Q8IfMoG">提供 30 多种 PDF 处理功能的免费在线工具集，官方声明 100% 免费、无使用限制、无需注册。</div><div class="tags" data-page-node-id="AekB5LWxnUo2D58Nyc8Tvp"><span class="tag" data-page-node-id="L4CkOOavonTWFXCAbBtLUL">PDF合并</span><span class="tag" data-page-node-id="YbIjvkjSLbRsZLwb3PPvJW">PDF压缩</span><span class="tag" data-page-node-id="PvgV4WFA45aUxqFGAyCEm9">PDF转换</span><span class="tag" data-page-node-id="BkqZwT9QQQTiBVca6abAGf">PDF拆分</span><span class="tag" data-page-node-id="FGsBgzUGRPyFXDgSZEonYT">OCR</span><span class="tag" data-page-node-id="xFjqe3ZkRUtsmbQ2TSLHDY">加水印</span></div><div class="cfoot" data-page-node-id="PCWFFMYTrveRAv9RFdxJk1"><span class="pill p-free" data-page-node-id="GCHFHVybjJmWon5qIsVCzL">免费</span><span class="pill p-cat" data-page-node-id="pC3EV18aYGTFgC2TWF0oQy">免费实用工具</span><span class="pill p-v" data-page-node-id="OgxHlB7DWCEEjGY3ngSzEp">通过 · 2026-10-14</span></div></article><article class="card" data-id="convertio" data-page-node-id="VU6v3IvkCPNNxQI58atg3q"><div class="crow" data-page-node-id="pU41mmS7EByLY3cUX7uOEw"><div class="cname" data-page-node-id="NjdCAAKAK7icWRq7HXeif2">Convertio</div><div class="cfav" data-page-node-id="RiClFYynL7ilcbVOX4uGWi">C</div></div><div class="cdesc" data-page-node-id="i3GHLjd8j4iTJpZCC8Evf4">支持 300 多种格式、两万余种转换组合的在线文件转换器，拖入文件选择目标格式即可。</div><div class="tags" data-page-node-id="fLGzsGfhQuyBFCS1VWKste"><span class="tag" data-page-node-id="csYYDnAkYL7YzEEtTvkv7U">格式转换</span><span class="tag" data-page-node-id="IpACIm0MmuiDvhMZM8LOig">在线转换</span><span class="tag" data-page-node-id="K03njM0qPPmcXxloB7ouWy">视频转换</span><span class="tag" data-page-node-id="6fdQCVotuRQgfPIR35zDyR">音频转换</span><span class="tag" data-page-node-id="RzYdbyohdP16hsoYiCZC9c">文档转换</span><span class="tag" data-page-node-id="FQA6cr2BpiC7HK0GQzW4sR">云端处理</span></div><div class="cfoot" data-page-node-id="F9kG9yHaMdHvuVeWANRU0Q"><span class="pill p-part" data-page-node-id="i746syzwZClda2eFBH0c3s">部分免费</span><span class="pill p-cat" data-page-node-id="MhaPCidPsSgUoAGhhHidms">免费实用工具</span><span class="pill p-v" data-page-node-id="K3BMPcUjjdXWiCdvVAFHdc">通过 · 2026-10-14</span></div></article><article class="card" data-id="remove-bg" data-page-node-id="NtlI28ZPu6ZXquWL1AWlEd"><div class="crow" data-page-node-id="tbiWn1FUCtxHXNI3RRJl5A"><div class="cname" data-page-node-id="d9wB4e1eDVg7fNaTyo4VYc">remove.bg</div><div class="cfav" data-page-node-id="Udd5VwXjUjUUl8FSlwHcGd">r</div></div><div class="cdesc" data-page-node-id="nTmY2tl9xVOGKIcb9FsW1x">上传图片即自动去除背景、几秒出透明 PNG 的 AI 抠图工具。</div><div class="tags" data-page-node-id="fYc7Q9uUfjU8hQR2tpjrtz"><span class="tag" data-page-node-id="xfFVp35McVyEjK9fAVjQMk">抠图</span><span class="tag" data-page-node-id="5ohCVprHkf13JTXBNC8YXc">去背景</span><span class="tag" data-page-node-id="IDgL223cGj7eMGyZU0urMD">透明PNG</span><span class="tag" data-page-node-id="DYk5UsGXojMJuhRGoPJ6kU">AI抠图</span><span class="tag" data-page-node-id="B7kCrSpARL9iF5vAKGSYVr">电商修图</span><span class="tag" data-page-node-id="JNL4cLhqQFXmiFABKce1T4">在线工具</span></div><div class="cfoot" data-page-node-id="R8I7MByfmW1E7Ayk59rz5R"><span class="pill p-part" data-page-node-id="hV0yptc2xBw5551odAtIa4">部分免费</span><span class="pill p-cat" data-page-node-id="FglAtZVfpE7W5Q8XDHDW9S">免费实用工具</span><span class="pill p-v" data-page-node-id="JXB6ywC34CBuUgIjcXZ6EU">通过 · 2026-10-14</span></div></article><article class="card" data-id="photopea" data-page-node-id="JjUxGZ6MMG6AtiwAFGOxfU"><div class="crow" data-page-node-id="FXuvG2oXfU58P5GtAkTqwy"><div class="cname" data-page-node-id="gWMpqG6XpeyVCGnR6BDnTt">Photopea</div><div class="cfav" data-page-node-id="zcslMcgAzSUaLvf1j1hBWs">P</div></div><div class="cdesc" data-page-node-id="2zlK2Oey58gb5FBiDYTBWS">浏览器里运行的『免费在线 Photoshop』，支持图层、蒙版、PSD 打开与保存，文件不出本机。</div><div class="tags" data-page-node-id="YqE2bQgBYshrNPVH4EMTCX"><span class="tag" data-page-node-id="L7Nbxn9cSHK5UGg2iG09Sx">在线PS</span><span class="tag" data-page-node-id="vT36OzF4GMBwbC1IRYzRkX">PSD编辑</span><span class="tag" data-page-node-id="40p9KbRGW04u0zvZrbrM9D">修图</span><span class="tag" data-page-node-id="85SFGXDlRHgX6eWNnKHYIv">图层</span><span class="tag" data-page-node-id="nm7dOrzLTLV9Dvwu1gv1rC">本地处理</span><span class="tag" data-page-node-id="KWWYZknKnb0n2ldDfrT03B">开源可替代</span></div><div class="cfoot" data-page-node-id="UYLyVUeIDUw0MCUdbkA3bb"><span class="pill p-free" data-page-node-id="RpB5LtSkui5WNAxcIHuFTN">免费</span><span class="pill p-cat" data-page-node-id="D025zgFp3yfxegdQTf0LKa">免费实用工具</span><span class="pill p-v" data-page-node-id="Qc2BIfdSQJYHuxCamDRF0B">通过 · 2026-10-14</span></div></article><article class="card" data-id="deepl" data-page-node-id="CzHi0Ft7Zo0UWJItSCp8On"><div class="crow" data-page-node-id="JFuqVoQ12IzGjIa6Iuv9Xg"><div class="cname" data-page-node-id="i1GSXDZl3yVd2LuD3bEJVD">DeepL 翻译</div><div class="cfav" data-page-node-id="jMhebv61HoqI3qhsONxNV7">D</div></div><div class="cdesc" data-page-node-id="CoZhrA1EGnwO6JdVl76M6i">以译文自然度著称的在线翻译服务，适合处理长句、专业文本与文档翻译。</div><div class="tags" data-page-node-id="x1oN8dpuOGcID8jUC87qiE"><span class="tag" data-page-node-id="Ba5FOBGSIGrIXSzi66pLSA">翻译</span><span class="tag" data-page-node-id="HitLIiCGkSyuQE8kQvzRrp">在线翻译</span><span class="tag" data-page-node-id="0t9JupET8EBclwzvCCSC9D">文档翻译</span><span class="tag" data-page-node-id="elulFQHjtrruUC72BGZARJ">写作润色</span><span class="tag" data-page-node-id="MG2PGfXlKQrvluhL6ECZtM">多语言</span></div><div class="cfoot" data-page-node-id="qadDtxEcUw0LBP6jzoYWZs"><span class="pill p-part" data-page-node-id="WkPjweipjshLieBHhByIOP">部分免费</span><span class="pill p-cat" data-page-node-id="QFAPiP4zFRL4wOMitNRfeE">免费实用工具</span><span class="pill p-v" data-page-node-id="19hk7xFwyvMg7Pdmawl5EK">通过 · 2026-10-14</span></div></article><article class="card" data-id="cli-im" data-page-node-id="01BnK1TvO47yRxaRrwEbeq"><div class="crow" data-page-node-id="G3JG92W0It11nIPFlVbQzs"><div class="cname" data-page-node-id="eTYdjN2x2Ci0uDjLppOpdt">草料二维码</div><div class="cfav" data-page-node-id="INrUo5AqdzReZE4KbEsKPw">草</div></div><div class="cdesc" data-page-node-id="aUuRFxHRzqI0Lyjv57AeOx">国内常用的二维码生成与管理系统，免费版即可长期使用，支持活码、表单、签到等场景化模板。</div><div class="tags" data-page-node-id="K38VgoN8owqbxt3TMOvzQF"><span class="tag" data-page-node-id="EnhHiqZ7toFd9WQTUf4yxU">二维码生成</span><span class="tag" data-page-node-id="e0I2tGBmZ7rsAT7lAOVnKI">活码</span><span class="tag" data-page-node-id="dkfkdVVbCTHq60whO0tYAj">表单收集</span><span class="tag" data-page-node-id="18yE9637lhtKkYeF9jzHvL">签到报名</span><span class="tag" data-page-node-id="kt1GvqECQ0nM8HfonShV8g">设备巡检</span><span class="tag" data-page-node-id="zyAHso89aEuc8AOc1UOFyh">无需开发</span></div><div class="cfoot" data-page-node-id="RJIJVwOVD32iHbTIP1YF9u"><span class="pill p-part" data-page-node-id="lrgDNknZsgjmHtUfQJrprQ">部分免费</span><span class="pill p-cat" data-page-node-id="87zkpAW8TuvuLLNoU2Ug9f">免费实用工具</span><span class="pill p-v" data-page-node-id="UeC41SDfG44N4AJKc6reY4">通过 · 2026-10-14</span></div></article><article class="card" data-id="undraw" data-page-node-id="ty8uibLcIp945h021FZSOM"><div class="crow" data-page-node-id="FBEPkH6Eht3K4aTsHqQhMo"><div class="cname" data-page-node-id="SBEEtKWNZVatKkwYq9z7Mw">unDraw</div><div class="cfav" data-page-node-id="8DO7N7ePQ5XJNDmKytAZUs">u</div></div><div class="cdesc" data-page-node-id="uskCz0oA943341cFRzAQPV">风格统一的可改色扁平插画库，直接下载 SVG / PNG，适合落地页与产品空状态配图。</div><div class="tags" data-page-node-id="ZxRzwxL2uaQjV3lp6T1rtn"><span class="tag" data-page-node-id="4kEDXct2IW6zPxNwvkcgeM">插画</span><span class="tag" data-page-node-id="VqC4YDEKlg7dGz6Kc8kYoN">SVG</span><span class="tag" data-page-node-id="uzisl8bbkJgLHJaRGr0J1d">开源可商用</span><span class="tag" data-page-node-id="IgVGrRn2v9jValRVO1sQuT">扁平风格</span><span class="tag" data-page-node-id="FrMDCD5xHGPZVQ5zXGyP0O">落地页配图</span><span class="tag" data-page-node-id="Xyw9xfJ0PEzSls9MkISl6S">可改色</span></div><div class="cfoot" data-page-node-id="v9rOBWD2A47NL8TGPVZjn4"><span class="pill p-free" data-page-node-id="pIe7dcTQ1Wy6JAu3FgCCPf">免费</span><span class="pill p-cat" data-page-node-id="rfaG0O7Fen4vE6PQbjzwCh">设计与创作</span><span class="pill p-v" data-page-node-id="FSRpH8CeUXC3XhtzZ2RVFr">通过 · 2026-10-14</span></div></article><article class="card" data-id="heroicons" data-page-node-id="uPGXEgUxEnhuJ0lYtsnBFX"><div class="crow" data-page-node-id="TjUrBU2zAjrhByfHU3S22q"><div class="cname" data-page-node-id="AqAbidOs1eQczUehWlwStJ">Heroicons</div><div class="cfav" data-page-node-id="I1qHwsDvvOSshihlq1DFZU">H</div></div><div class="cdesc" data-page-node-id="Ey2AbRR3NrWqrDZa9SsGZd">由 Tailwind CSS 团队手工设计的免费 SVG 图标集，含 Outline / Solid / Mini / Micro 四种规格。</div><div class="tags" data-page-node-id="f7n6iZxYeWzZ4K10n3sToB"><span class="tag" data-page-node-id="yMv3nEfJNoPmi61yhqPQr2">图标</span><span class="tag" data-page-node-id="wpogsq6FO02PdQ4kMEHcfh">SVG图标</span><span class="tag" data-page-node-id="NHG4UdaTC0s1ssKfCf60uL">Tailwind CSS</span><span class="tag" data-page-node-id="B7BnZGTYdjXWdcFfMKsWgd">免费可商用</span><span class="tag" data-page-node-id="6BCzv1kNsdadl8sNQZ2ZiW">Outline</span><span class="tag" data-page-node-id="VqnQcHSD6YREwajzaDdiq9">Solid</span></div><div class="cfoot" data-page-node-id="ECBq5olaa0GuMddyWDsy6n"><span class="pill p-free" data-page-node-id="QC6FqPkronTF1xy0Nl0fwP">免费</span><span class="pill p-cat" data-page-node-id="KmGFCDNHDwy3wJVdzjzHQz">设计与创作</span><span class="pill p-v" data-page-node-id="C1XEilJ88QaLYxeyjir45K">通过 · 2026-10-14</span></div></article><article class="card" data-id="coolors" data-page-node-id="BkDP9yBNpTebHpyFD2FqQU"><div class="crow" data-page-node-id="ocZoNNXci4x58uwFba56I9"><div class="cname" data-page-node-id="miiY1UCzlRErm2ssjFTcdJ">Coolors</div><div class="cfav" data-page-node-id="j7wl6UaVgSOHGrRiAEBBb2">C</div></div><div class="cdesc" data-page-node-id="WYVbcmubWXO1Pv4TFI7hIi">按空格键就能不断生成配色方案的超快色板工具，附带图片取色与对比度检测。</div><div class="tags" data-page-node-id="P6MYf1a1akdXLsUZ45EdIR"><span class="tag" data-page-node-id="B514s5czqDrsVUeKLPBZ5Q">配色</span><span class="tag" data-page-node-id="godsVbYKLrktCXRHVQjHAU">色板生成</span><span class="tag" data-page-node-id="LwzVvzokXxFBCsUAGOXbHE">图片取色</span><span class="tag" data-page-node-id="pZ6LBTJR3Pd3agWAC2WLVi">对比度检测</span><span class="tag" data-page-node-id="6yPieSquKBIhuNBTavAD2p">无障碍</span><span class="tag" data-page-node-id="jbCHng7IMKezM1oRvl4xri">Tailwind</span></div><div class="cfoot" data-page-node-id="TLDVOEajFivnfp7vlAviW0"><span class="pill p-part" data-page-node-id="qV1XisO9zgnnTWF7CLhoMk">部分免费</span><span class="pill p-cat" data-page-node-id="1VLO9NHa3GnAos2rtXXEwF">设计与创作</span><span class="pill p-v" data-page-node-id="KvdDkV7CJsIvPAJfnzuY69">通过 · 2026-10-14</span></div></article><article class="card" data-id="pixabay" data-page-node-id="PHVQklvb8F7Nwxwn7qQ6n3"><div class="crow" data-page-node-id="ifcMmK4opn4m0Rxsk6xmfx"><div class="cname" data-page-node-id="P6OmLmoyE4BD9zckF3rU83">Pixabay</div><div class="cfav" data-page-node-id="i8nUU8D75h5B2NHbhMcp8X">P</div></div><div class="cdesc" data-page-node-id="d0m3fBHC9x06xGTIduL22W">提供照片、插画、矢量、视频、音乐、音效与 3D 模型的大型免版税素材库。</div><div class="tags" data-page-node-id="NBjVd991YoyCFtLseODleG"><span class="tag" data-page-node-id="2iLHdCvempNrYr8ykHh4Lh">免费图片</span><span class="tag" data-page-node-id="fd7U3xHgzzO6Qe7X1kKY13">视频素材</span><span class="tag" data-page-node-id="UT48JYsr0PNtkQP81qtfwt">音乐素材</span><span class="tag" data-page-node-id="RMJBQJYiGF7Ffnys1JU3H7">矢量图</span><span class="tag" data-page-node-id="hnmtCSAAxgYQYOJQ51uW8J">3D模型</span><span class="tag" data-page-node-id="HZRPEBRsxIQNyYwbAeLKcM">可商用</span></div><div class="cfoot" data-page-node-id="UrunncOE09y4utDVD6WHSa"><span class="pill p-free" data-page-node-id="LvAEGrsxz9Zd9JeEMgHqGg">免费</span><span class="pill p-cat" data-page-node-id="djZ4H7qxGpm2ic8FQgFF15">设计与创作</span><span class="pill p-v" data-page-node-id="MB4kKitWwrLXmcoNGmdYqc">通过 · 2026-10-14</span></div></article><article class="card" data-id="qidian" data-page-node-id="GN4CphVGg3G1C9orrZmO9q"><div class="crow" data-page-node-id="QuRed9eXVE522CvCBpqJ5M"><div class="cname" data-page-node-id="Wwsp019iTWNAlV6Pu1d1GR">起点中文网</div><div class="cfav" data-page-node-id="x2o8hCFD3PoU2WrZFUSELq">起</div></div><div class="cdesc" data-page-node-id="B7CFxHEEUcLpVypCGKOigG">阅文集团旗下的正版网络文学平台，题材覆盖玄幻、都市、仙侠、科幻、轻小说等，含免费与付费章节。</div><div class="tags" data-page-node-id="ZO06lk7VCjmtuFq8MlRQ99"><span class="tag" data-page-node-id="5TAiu2hvdpezncsFZpdDW6">网络小说</span><span class="tag" data-page-node-id="xvVgWW7Ql77XKWjm9onhPG">玄幻</span><span class="tag" data-page-node-id="lT3zE8u9lBn3X0VY4VoyhY">都市</span><span class="tag" data-page-node-id="wjl3jtIRYDRZj7ah8ucifn">仙侠</span><span class="tag" data-page-node-id="JFozFweAKcaPSYTEtIpPc1">正版</span><span class="tag" data-page-node-id="JPa07TS4uwCn94uYbg5Xu8">限时免费</span></div><div class="cfoot" data-page-node-id="PvPdg2nds7KQq4FK4vPQXb"><span class="pill p-part" data-page-node-id="kmjQqi94okP4tSDO2qa05F">部分免费</span><span class="pill p-cat" data-page-node-id="26rF0kB3e1NopyXEN1vCeR">小说与阅读</span><span class="pill p-v" data-page-node-id="gXzoDtbKtDXOenwKAPLUhQ">通过 · 2026-10-14</span></div></article><article class="card" data-id="jjwxc" data-page-node-id="x4STjZjtF0kRZ4dBAh0yED"><div class="crow" data-page-node-id="2sNCNlGOAjGlD67dlYczek"><div class="cname" data-page-node-id="zPHaBNSv9diQmRpnQRueOo">晋江文学城</div><div class="cfav" data-page-node-id="M4a7sE66RDHeMcF1MyStuE">晋</div></div><div class="cdesc" data-page-node-id="sVuPLwYa2bB01H9wyeFHIa">以女性向原创网络文学见长的正版平台，言情、纯爱、同人、衍生类作品储备丰富。</div><div class="tags" data-page-node-id="Q7qC18FGuVvBf8GZ4WROlq"><span class="tag" data-page-node-id="ywMAbTo5SPg1rGtALXp3VQ">女性向</span><span class="tag" data-page-node-id="ZZIaywsNt1AWf9yjZx6vuL">言情</span><span class="tag" data-page-node-id="7nDE1upTZNECu5303V5Af1">纯爱</span><span class="tag" data-page-node-id="AwUXd3r3xi7lEXDmQlzC6q">同人</span><span class="tag" data-page-node-id="NOHKKYEwx5mnQij7PQVvs4">原创小说</span><span class="tag" data-page-node-id="CBejyqvIRd4xEJcVGbQkGV">正版</span></div><div class="cfoot" data-page-node-id="RjWXNl14PhrwLtgqg1X39A"><span class="pill p-part" data-page-node-id="wLGqKtkoFEJvGlT10FylIH">部分免费</span><span class="pill p-cat" data-page-node-id="IWSvGH0EzLvY3U5o8rjizW">小说与阅读</span><span class="pill p-v" data-page-node-id="U8TD7o0v6ph2YWdguObdj7">通过 · 2026-10-14</span></div></article><article class="card" data-id="fanqienovel" data-page-node-id="reaWktPGVZl7jzbBIHRsa2"><div class="crow" data-page-node-id="CI3LBC8aVjFz4Po6hAK9wj"><div class="cname" data-page-node-id="cBAGTnlnvqWiDmizKZz3ga">番茄小说</div><div class="cfav" data-page-node-id="WRIJUDTlRYxwlby099AA7C">番</div></div><div class="cdesc" data-page-node-id="FxsEwK2YiCBva30DCIUj9e">以广告模式支撑的免费正版小说平台，海量作品可免费阅读，并支持听书。</div><div class="tags" data-page-node-id="wG1gQ5Cy18R2GS5v8eKVgP"><span class="tag" data-page-node-id="O2PmbdFApKYoY5quywfrd5">免费小说</span><span class="tag" data-page-node-id="DjccTCY1RKMwFPkRye8hE2">正版</span><span class="tag" data-page-node-id="qsUiaz0yLjutwDJHsAg0Cu">听书</span><span class="tag" data-page-node-id="H8smhHdvEPTwUG0rMpLnoA">男频</span><span class="tag" data-page-node-id="VYMaH7Uw7GmVjDqvpZ0ayp">女频</span><span class="tag" data-page-node-id="kHwY1ni8R1DRvRz5z5ZU17">排行榜</span></div><div class="cfoot" data-page-node-id="k4bd4wlUDStBRjBWQRpLIB"><span class="pill p-free" data-page-node-id="PApTW4GFFycJ9i2lDwRLmJ">免费</span><span class="pill p-cat" data-page-node-id="hpR5XqbsAVlCCxZ39xTmE9">小说与阅读</span><span class="pill p-v" data-page-node-id="MUEegz2h3xOFJzmTD7H4yw">通过 · 2026-10-14</span></div></article><article class="card" data-id="ciweimao" data-page-node-id="dzvLWQVvKvDxm0tsphIwMu"><div class="crow" data-page-node-id="9yxRFLFbZqUnjkl2fHDJWV"><div class="cname" data-page-node-id="cNDdikMrdtWnvAPZEzxMgQ">刺猬猫阅读</div><div class="cfav" data-page-node-id="j7AVr3uUXyU9pYwr2vSUa8">刺</div></div><div class="cdesc" data-page-node-id="bXBiaG6QEtejsGdWAKNsvq">偏二次元风格的中文原创小说平台，穿越、综漫同人、都市青春等题材集中，社区互动较强。</div><div class="tags" data-page-node-id="oRdA2ifM865Sg2ZUrOL9iO"><span class="tag" data-page-node-id="LbWurcgYFuC29LZDfCDaO8">二次元</span><span class="tag" data-page-node-id="spW8Ahc8LTeXZSTYjaAntC">轻小说</span><span class="tag" data-page-node-id="Ss4r935ZtXEqvs0irKfAnC">原创</span><span class="tag" data-page-node-id="BWLVIa823A7PekioxkJv2s">同人</span><span class="tag" data-page-node-id="JHYjGDFGxPK7lI8MTj25jN">综漫</span><span class="tag" data-page-node-id="VnijtPJrsVbhz6CFPSABCj">都市青春</span></div><div class="cfoot" data-page-node-id="EG5mrtl91qiilUkOItgB6W"><span class="pill p-part" data-page-node-id="DWsjlvgxIZH3HPCweCoMqw">部分免费</span><span class="pill p-cat" data-page-node-id="gJJKDOmifWQb7MHV4fC6Pk">小说与阅读</span><span class="pill p-v" data-page-node-id="hZtH5qvdnrzZ4jec8cAU7S">通过 · 2026-10-14</span></div></article><article class="card" data-id="linovel" data-page-node-id="NnPLoqPe78IiKthzeeNyB9"><div class="crow" data-page-node-id="0G6NmvFOhr9AyLXUq2RK15"><div class="cname" data-page-node-id="NL1EtDLTIjuEDvcsmN9TeH">轻之文库</div><div class="cfav" data-page-node-id="VlDkVI0OCrtYl6TMhx5lGS">轻</div></div><div class="cdesc" data-page-node-id="cPdrU3ScX5RVQlCCkjV9gZ">国内较早的中文原创轻小说平台，集创作、阅读、打赏与签约于一体，阅读免费。</div><div class="tags" data-page-node-id="GnyE6AwfdLmstHotRDHxAk"><span class="tag" data-page-node-id="JqEzJ8AtnHbdEyn1wjGejB">轻小说</span><span class="tag" data-page-node-id="JClxCbEIqHdBKfQ343BkDc">原创</span><span class="tag" data-page-node-id="UgIakCX9oP5Q7V77P9y79y">国轻</span><span class="tag" data-page-node-id="ajn1FN5w6Ief798Ztipztp">新人赏</span><span class="tag" data-page-node-id="BTIbxhgEE6VLxGHbXGoDhj">书评</span><span class="tag" data-page-node-id="atO09EEFj7EIjzPeYZ4N5E">专栏</span></div><div class="cfoot" data-page-node-id="KOgucV95iijf8NoedVHeE0"><span class="pill p-part" data-page-node-id="emoTBALV9DEYLQGVXRs9sA">部分免费</span><span class="pill p-cat" data-page-node-id="aBlPHKywJ0kYxotADjNHCN">小说与阅读</span><span class="pill p-v" data-page-node-id="4bvZCYGF0whH17toG1tkb9">通过 · 2026-10-14</span></div></article><article class="card" data-id="sfacg" data-page-node-id="dcmLWaGwmnWxgfW68F0qNK"><div class="crow" data-page-node-id="JJzEoljj2WN5OcMeHYsrey"><div class="cname" data-page-node-id="NdwNBdt2hyDXMACu87CKk6">SF 轻小说（菠萝包轻小说）</div><div class="cfav" data-page-node-id="DeiuBorRLsxqDIbRzVziC3">S</div></div><div class="cdesc" data-page-node-id="L2s121nc2Cn1eKfbzpCWpU">国内老牌原创轻小说平台，现以『菠萝包轻小说』品牌运营，并与自家漫画业务联动。</div><div class="tags" data-page-node-id="3ThyIUmHonJdjxEHO5kL9M"><span class="tag" data-page-node-id="ZdnmiHC5TTPJgpW2YJwUaB">轻小说</span><span class="tag" data-page-node-id="JsfIgyTub9JT68MxAS2PZZ">原创</span><span class="tag" data-page-node-id="XXzE3o0XHH5GDYDKTkYOSi">国轻</span><span class="tag" data-page-node-id="k9feTA2ecV2cxptFAFYIIX">二次元</span><span class="tag" data-page-node-id="kbP7yj3DuNQtjYfQwIYTNo">小说漫画联动</span><span class="tag" data-page-node-id="yQELFxvzAYvdWGQidlCVz6">菠萝包</span></div><div class="cfoot" data-page-node-id="V1hqKwOD6Ftr70yU5YLmxX"><span class="pill p-part" data-page-node-id="tyOdEbDL3kGicpqyjr64A9">部分免费</span><span class="pill p-cat" data-page-node-id="wUChqFgO0kY1P2Oi56BoaD">小说与阅读</span><span class="pill p-v" data-page-node-id="PO6mWjPJX51sRI1zrMlqpz">通过 · 2026-10-14</span></div></article><article class="card" data-id="weread" data-page-node-id="ty1Qpc9Zta1YGLKBcWLWuO"><div class="crow" data-page-node-id="jiAFrq8dWs2ZuvJ3Z71lUf"><div class="cname" data-page-node-id="QAhunkD5DT17Xy9WWOIfd9">微信读书</div><div class="cfav" data-page-node-id="oa3w7mnZ98eSbUpTKMRWKX">微</div></div><div class="cdesc" data-page-node-id="PXtBrIVWLRPYmoFAezfpih">腾讯旗下的正版电子书平台，以出版书为主，提供榜单、推荐值与多端阅读。</div><div class="tags" data-page-node-id="lABUojCrWX7LjhijvDaY94"><span class="tag" data-page-node-id="xJf0uGaxdAp1qaesA9yAaU">电子书</span><span class="tag" data-page-node-id="GgwZuymgBaysoD6vp6pf15">出版书</span><span class="tag" data-page-node-id="bKRG6I5mesE3El7Ol2cG5u">正版</span><span class="tag" data-page-node-id="8US8Qwj8ioeUXttjMeVOi7">小说</span><span class="tag" data-page-node-id="xZXbJeHaAyaAMHxI07pAZU">排行榜</span><span class="tag" data-page-node-id="vQdbh2otsKupqtCmzqL90p">推荐值</span></div><div class="cfoot" data-page-node-id="GXDgVtrwsigr0f5okj1ZWs"><span class="pill p-part" data-page-node-id="l9liAehzKIjvHhuZH3ypuL">部分免费</span><span class="pill p-cat" data-page-node-id="IW2P344JIXxA9drx9hjmwK">小说与阅读</span><span class="pill p-v" data-page-node-id="POfb2KcO7TbPLRoktfQpm1">通过 · 2026-10-14</span></div></article><article class="card" data-id="gztwkadokawa" data-page-node-id="GDUFlABNbGxIMuOBi9dts8"><div class="crow" data-page-node-id="aCnKNSWIbYJ2YIMA5vwvxj"><div class="cname" data-page-node-id="R0qpeGHl4gHOvwZV70YNfo">天闻角川</div><div class="cfav" data-page-node-id="JDtjokB6oxTAGsufRY1e78">天</div></div><div class="cdesc" data-page-node-id="1FEf0FqOKGwTLAUbrLt1rJ">广州天闻角川动漫官方站点，是国内 ACGN 正版出版与 IP 运营方，可查询其出版物与官方平台。</div><div class="tags" data-page-node-id="eTIPYEV3ng7k5Mf3hrl8cN"><span class="tag" data-page-node-id="Z4U11zoiQqrTfCcNb7Ve1s">出版社</span><span class="tag" data-page-node-id="XMV5ky16Rd2zK0JsXPA1vM">正版授权</span><span class="tag" data-page-node-id="TELVUOO3Gwdr8AWkksk0Nf">纸质书</span><span class="tag" data-page-node-id="MuB7K8PeebxO5ChkekoBnR">数字阅读</span><span class="tag" data-page-node-id="y5d7VU6N1AvyxsMRVKeQHm">周边</span><span class="tag" data-page-node-id="hRPHBQuCUFir7NjDtq8cCs">动漫IP</span></div><div class="cfoot" data-page-node-id="hV8tdDjjI7ayFPOQjSvBqi"><span class="pill p-unk" data-page-node-id="gwyHMohtGAUD1jmTx7GTmh">未知</span><span class="pill p-cat" data-page-node-id="AFCMvh490ef8FzrWAFoR4L">小说与阅读</span><span class="pill p-v" data-page-node-id="QFk9eplDnB8I23gYQT1I2Y">通过 · 2026-10-14</span></div></article><article class="card" data-id="kadokado" data-page-node-id="PyEAiOb74saZyHiVIC8z3b"><div class="crow" data-page-node-id="FKQLr8Ypgoclx7G5ONffem"><div class="cname" data-page-node-id="gp9sGyAqNhYQoL32wyOqi3">KadoKado 角角者</div><div class="cfav" data-page-node-id="Hj1DUaOvsdbzJAHnLiP8O6">K</div></div><div class="cdesc" data-page-node-id="VD26YRfiClOD0IgjNQy4JC">中国台湾角川运营的正版小说平台，以华文原创轻小说为主，含付费章节与每日免费解锁机制。</div><div class="tags" data-page-node-id="GDpIUCXH2rTfvmiTgo2UJn"><span class="tag" data-page-node-id="z5COGJUhAQgJtABHBjXj4D">轻小说</span><span class="tag" data-page-node-id="KSDjASYhPifit5FkSVtHuC">正版</span><span class="tag" data-page-node-id="3rjE57pc55lnnNs1zTP9JR">中国台湾</span><span class="tag" data-page-node-id="YgAUuYGwFLheFnhC4tg757">角川</span><span class="tag" data-page-node-id="Lwlqi5wbQVMdRpyCaDlOon">原创小说</span><span class="tag" data-page-node-id="MjbscwwICD1DTITHEYmo0B">读角券</span></div><div class="cfoot" data-page-node-id="m3PxKZDu1sfvxWAqyibYIb"><span class="pill p-part" data-page-node-id="zxlt3s19cC8q2BNllWBzSi">部分免费</span><span class="pill p-cat" data-page-node-id="7dOI0JtWQQpoRTUU4nQ6Fv">小说与阅读</span><span class="pill p-v" data-page-node-id="7lLB2l9bIlDHWQP5giLewI">通过 · 2026-10-14</span></div></article><article class="card" data-id="bilinovel" data-page-node-id="dUQeWiSXZsGkwHBvgRzzaB"><div class="crow" data-page-node-id="8mPo7u2QXkPkNqXlWnCJJG"><div class="cname" data-page-node-id="P1HvQxkGow4kxx5lgJ3YCv">哔哩轻小说</div><div class="cfav" data-page-node-id="WFuHz8sDXtXvLVI0uBeYeB">哔</div></div><div class="cdesc" data-page-node-id="F5qEV4WjNAEDnrd8ZvqGKr">按出版社文库分栏的日系轻小说在线书库，免登录即可直接翻页阅读，另设轻改漫画与四类榜单。</div><div class="tags" data-page-node-id="9sAfAj4OLq0kXnqVH7Buq6"><span class="tag" data-page-node-id="Lfh2PbH3CjlGzwMJAHEc1r">轻小说</span><span class="tag" data-page-node-id="EQyi0C9DqjYlI9vT2zc2p0">日系轻小说</span><span class="tag" data-page-node-id="zvxH4PIBDlv9HY9kivI9B6">在线阅读</span><span class="tag" data-page-node-id="WUspapjkrHgtmkXAYhFaSA">免费阅读</span><span class="tag" data-page-node-id="LoOrNJfrlHs5qt0hLGGvNi">文库分类</span><span class="tag" data-page-node-id="Um57wGQ9OCNoIsPw1uMLCF">轻改漫画</span></div><div class="cfoot" data-page-node-id="itUCKmdXoJyYncPwqpjVUF"><span class="pill p-free" data-page-node-id="lsPUN0OF1b3KE8ZDzW8wwt">免费</span><span class="pill p-cat" data-page-node-id="W1DC8gsvxqn2M7Q8WdmhQN">小说与阅读</span><span class="pill p-v" data-page-node-id="6S9UDkqcEdSGn5YgyTgyU4">通过 · 2026-10-14</span></div></article><article class="card" data-id="wenku8" data-page-node-id="Ir1ca8o6nKCohSvwVsX33W"><div class="crow" data-page-node-id="MBZpAK7xK2ehdF9P9pE97D"><div class="cname" data-page-node-id="qw3STeREO47gfkWhOCvGFq">轻小说文库</div><div class="cfav" data-page-node-id="51fKRqKAAQSOQ3Z5QvFceP">轻</div></div><div class="cdesc" data-page-node-id="mPY2E6ANGf92oCYrEAOTYh">老牌日系轻小说书库，公开资料称免注册即可在线阅读并下载 TXT；但官网入口本次返回关闭公告，当前状态存疑。</div><div class="tags" data-page-node-id="iBncjCfxfm3B2UJncfhioL"><span class="tag" data-page-node-id="B85k9hTaqu6OYiAoVSqZag">轻小说</span><span class="tag" data-page-node-id="6D56iAsCAIua9dj8ateArX">日系轻小说</span><span class="tag" data-page-node-id="rIbA2tUFP7M9mJbfBB51qt">在线阅读</span><span class="tag" data-page-node-id="le6QuMKWw4N40H4ccQULYK">TXT下载</span><span class="tag" data-page-node-id="tjr78EUENYjU0oUnOVaig0">免登录阅读</span><span class="tag" data-page-node-id="78TOaDmtAVI628W8BHaqYd">老牌站点</span></div><div class="cfoot" data-page-node-id="c3HnBGHZVRSRSuKdE9UC4w"><span class="pill p-unk" data-page-node-id="ypokt531dGE3cin3MHhxIw">未知</span><span class="pill p-cat" data-page-node-id="eMowkDRXt0XvccbsLp3dlm">小说与阅读</span><span class="pill p-v" data-page-node-id="n7av4VC4bOIWDXK6G9b5nf">通过 · 2026-10-14</span></div></article><article class="card" data-id="esjzone" data-page-node-id="DeTYe911F7Vf2EOgD2KSlW"><div class="crow" data-page-node-id="pYYLCwQTNNzpqLgLlBSqD8"><div class="cname" data-page-node-id="XuDfjlhWP6fkl6nVVGrtkN">ESJ Zone</div><div class="cfav" data-page-node-id="osQO0gY74WwUvib5qqhlkD">E</div></div><div class="cdesc" data-page-node-id="Z5LGfhSFlwgrXyi3nbhaGx">以论坛分区形式运营的日系轻小说与 Web 小说中文分享社区，含原创小说板块与限制级分区。</div><div class="tags" data-page-node-id="GEUmFCJlyxu1tj7WSCoCBn"><span class="tag" data-page-node-id="ZYMZtJmTCvmZ5wt6RjOcYG">轻小说</span><span class="tag" data-page-node-id="psCshGWBOn2C4AvWH0gaqh">Web小说</span><span class="tag" data-page-node-id="Q26129AsdQsgDFRq4m8hga">汉化分享</span><span class="tag" data-page-node-id="OlMpUXNkCC1Zk6pN2TZ76u">社区论坛</span><span class="tag" data-page-node-id="63qMGxTDu4jvk1LxMwSuwo">原创小说</span><span class="tag" data-page-node-id="7ETx3v0BmwMDP8x9l9VPDI">繁体中文</span></div><div class="cfoot" data-page-node-id="Flzd9o0GlqlClxxl3f31za"><span class="pill p-free" data-page-node-id="TnS27IGvebbCqRCjYIZH0q">免费</span><span class="pill p-cat" data-page-node-id="NqyZUwVXWJFfuPfJbyfMhn">小说与阅读</span><span class="pill p-v" data-page-node-id="Z5rpLFuakUlQXxgfHdNtfa">通过 · 2026-10-14</span></div></article><article class="card" data-id="masiro" data-page-node-id="TkUI3IlyroPJSkWSMXnCVL"><div class="crow" data-page-node-id="BdIytBHGVRcnuclnJRh9tc"><div class="cname" data-page-node-id="LgYe2d4ZQv9T8fks0veVKe">真白萌</div><div class="cfav" data-page-node-id="bk33kBtGozGvewDJw1Ohck">真</div></div><div class="cdesc" data-page-node-id="UiGLxUyUYVc2cHokoEUsKV">面向中文读者的轻小说翻译与 Web 小说分享社区；本次访问被 Cloudflare 校验拦截，站点内容未能核实。</div><div class="tags" data-page-node-id="0AUuAY5Sf3UlL4p9HJlT19"><span class="tag" data-page-node-id="UZdNODt85LB2FK0zPgLB3L">轻小说</span><span class="tag" data-page-node-id="pBt7t8IFHHpxkdOpwqtYv5">Web小说</span><span class="tag" data-page-node-id="77PLpU7NGoklfvyeB320JJ">汉化分享</span><span class="tag" data-page-node-id="8GfJwQVAZlWi3wtE1dZ1BW">翻译社区</span><span class="tag" data-page-node-id="twVL7ByUFWjnRgHW6nsUHB">未完成核实</span></div><div class="cfoot" data-page-node-id="mQdFQ8AJrDzEVZA1Quypw3"><span class="pill p-unk" data-page-node-id="8c6EpkDmnKtInRl4vGGLGO">未知</span><span class="pill p-cat" data-page-node-id="uLp9LfHegUJzgtw0fQnEZn">小说与阅读</span><span class="pill p-v" data-page-node-id="1T2NwATbnEHpoX57QNIozL">通过 · 2026-10-14</span></div></article><article class="card" data-id="acgndog" data-page-node-id="Sbv305Mi7y2NpjZ4nSHYUM"><div class="crow" data-page-node-id="0IFRVGzUpa7FYAIlflBM44"><div class="cname" data-page-node-id="lUTf7Kg9eXen613xCsRqot">次元狗</div><div class="cfav" data-page-node-id="k9552ACV2k1AUuma5er008">次</div></div><div class="cdesc" data-page-node-id="IcCCULWo5GpX2h4D1tkAP7">ACGN 综合资源站，轻小说板块按题材整理并提供 EPUB 下载；本次访问失败，站点可用性未确认。</div><div class="tags" data-page-node-id="DjvrJE5Sc0hhbQYGWXacGL"><span class="tag" data-page-node-id="Am9kiEpGSWALjnVxHtktgi">轻小说</span><span class="tag" data-page-node-id="lEFWejkExhpfTuDgSQ8P00">EPUB下载</span><span class="tag" data-page-node-id="JUkARBct1IQnJFjWxnyUSW">ACGN资源</span><span class="tag" data-page-node-id="PIDn3F9qLMrJsfxsq7zf2G">网盘下载</span><span class="tag" data-page-node-id="EeAyrieQKwfv0vCtBjHwbq">免登录</span><span class="tag" data-page-node-id="pYZJDQ50PH8pw5qO3mZzVp">未完成核实</span></div><div class="cfoot" data-page-node-id="pi6K6qCAbMfusXRVQWK9p1"><span class="pill p-unk" data-page-node-id="aDs89QWyrKI0FjBdiPtXRj">未知</span><span class="pill p-cat" data-page-node-id="4QSPOZJEA1nOgkEkHtTDkc">小说与阅读</span><span class="pill p-v" data-page-node-id="iDwULJ9Hziwa7R3ar5RQCj">通过 · 2026-10-14</span></div></article><article class="card" data-id="icourse163" data-page-node-id="zVz9UMFNOsvXIVdZouoFCV"><div class="crow" data-page-node-id="JTjDhwmIEEvw7NIIRiyf9N"><div class="cname" data-page-node-id="koOETETFS63wWXOFhYPCl4">中国大学 MOOC</div><div class="cfav" data-page-node-id="zjyuMZcE34AyEajYE4dpqd">中</div></div><div class="cdesc" data-page-node-id="kquRVO8EnIAvXrOMzYcP0Q">国内规模较大的慕课平台，汇集数百所高校的通识课与专业课，多数课程可免费学习。</div><div class="tags" data-page-node-id="eSC6CzC3TW3b0jp9XNLmMq"><span class="tag" data-page-node-id="6J97BFw1soXLIGSoGBWVqF">慕课</span><span class="tag" data-page-node-id="hGbPjXa2Ht8NLzO6hAMoiW">大学课程</span><span class="tag" data-page-node-id="zzDwCXHOGqEMZT7FKhD3Y5">免费公开课</span><span class="tag" data-page-node-id="Fii9HYt8xW70Jn3n5X4ST8">考研</span><span class="tag" data-page-node-id="g7BFNKvUDZTxb0clSBqkL2">四六级</span><span class="tag" data-page-node-id="aIhWXcxP1YGfOH5kE4cNjE">证书</span></div><div class="cfoot" data-page-node-id="JwGXsdkl7SpdTJ5XS0VHuq"><span class="pill p-part" data-page-node-id="M4ZWBYQgL7K9TK2UE4JwYJ">部分免费</span><span class="pill p-cat" data-page-node-id="nRnTSHmtukEl1tMAbFkIhh">学习与知识</span><span class="pill p-v" data-page-node-id="e89aCyquwKYzSBrM3joZip">通过 · 2026-10-14</span></div></article><article class="card" data-id="smartedu-higher" data-page-node-id="F1z9pZbLR9C8cPJ11fLGe9"><div class="crow" data-page-node-id="CKiGgfsCVv1Gs4smOcjaCG"><div class="cname" data-page-node-id="kTZIiwe3AMLUQgAXAZWFhL">国家高等教育智慧教育平台</div><div class="cfav" data-page-node-id="G4mEew40zNg3wQD94p8jqM">国</div></div><div class="cdesc" data-page-node-id="IeLUVgvJYnkkcwyeKkvKDH">教育部主导的高校课程聚合平台，汇集多平台的一流课程、教材与专题资源，听课免费。</div><div class="tags" data-page-node-id="lrHBFLfdSlJRHNYfVhP7LV"><span class="tag" data-page-node-id="FcGK1SvgJlbNyr3ob97JFv">国家平台</span><span class="tag" data-page-node-id="RrtWgE9bj2xUuQqLyDl8Tr">一流课程</span><span class="tag" data-page-node-id="YhrQm5lgGRV9BQ2UA9cJ7y">免费公开课</span><span class="tag" data-page-node-id="HtcXvpStqK1osPEsEae8DQ">教材</span><span class="tag" data-page-node-id="NrPYuFRiYW3rVLUqcCHcb4">名师课程</span><span class="tag" data-page-node-id="5lqPWZcIGJDpKisbRsEdvD">考研</span></div><div class="cfoot" data-page-node-id="jah5np22yqkMYb96IERoUG"><span class="pill p-part" data-page-node-id="D9oUbPiPwBpWo2cyElsa8E">部分免费</span><span class="pill p-cat" data-page-node-id="o3vk34tIzVHhHvjbQBl4Hx">学习与知识</span><span class="pill p-v" data-page-node-id="UUOrR1dNaj2w8QJQ5W6aNa">通过 · 2026-10-14</span></div></article><article class="card" data-id="open163" data-page-node-id="m6IF54qgIoDuengXEMl34v"><div class="crow" data-page-node-id="xlbpWmx3YGANClF0MwRmAB"><div class="cname" data-page-node-id="EXdBvBxE1lqifxMY7XnApI">网易公开课</div><div class="cfav" data-page-node-id="iYel033Mzd9j1IQSrpAYo1">网</div></div><div class="cdesc" data-page-node-id="VmYD4yELpSYTygXeHAprFL">汇集国内外名校公开课与 TED 演讲的中文平台，涵盖文学、数学、哲学、语言、社会等领域。</div><div class="tags" data-page-node-id="LhBAsoWP4AFeZGDyVGkR6t"><span class="tag" data-page-node-id="fwLQNm1ClXIicXEZUX86p4">公开课</span><span class="tag" data-page-node-id="7KKEuznJvQRVSDQKgtNJiT">TED</span><span class="tag" data-page-node-id="26UHnrDKtzCuzLEBdArc2J">通识课</span><span class="tag" data-page-node-id="RSkZU6xrYAVwkIUIjWqs8Y">国外名校课程</span><span class="tag" data-page-node-id="LZsRKrIyA0ipRF7gGX54hO">免费课程</span><span class="tag" data-page-node-id="9PaFrfECaWC3GbP4yKRdXS">中文字幕</span></div><div class="cfoot" data-page-node-id="AFD3sWwTEOz4E9c3yD0fvL"><span class="pill p-part" data-page-node-id="RG2kaDgHo8t9gF6Q6bWT6D">部分免费</span><span class="pill p-cat" data-page-node-id="MzyBAjwXksPDptyuxgtXwF">学习与知识</span><span class="pill p-v" data-page-node-id="WMFt6z3uDGCYYsyHzh8Qt3">通过 · 2026-10-14</span></div></article><article class="card" data-id="ncpssd" data-page-node-id="vtQrthK7AcxK5Nj2mbvsrr"><div class="crow" data-page-node-id="HS8sWYC6uSc9Ee8QfoUqQU"><div class="cname" data-page-node-id="bG3Sma8Lto9UWl8GARFLC4">国家哲学社会科学文献中心</div><div class="cfav" data-page-node-id="JpzdbcpQFMK42nUjbBitCo">国</div></div><div class="cdesc" data-page-node-id="qV39Cd9fUcYlH2vty9Llrx">国家级公益文献平台，收录七千多种人文社科期刊，大部分文献可免费在线阅读与下载。</div><div class="tags" data-page-node-id="I9I0GwEp22bDgKfIutixUV"><span class="tag" data-page-node-id="hRvIW68UupLSqEadWHulLc">学术论文</span><span class="tag" data-page-node-id="jDiB9tFrsva5wrRnOQ8RDB">人文社科</span><span class="tag" data-page-node-id="baAsy5nK7EVuTmFogjy9Vt">免费期刊</span><span class="tag" data-page-node-id="uBMEqofuharVIG7CC56MDQ">文献检索</span><span class="tag" data-page-node-id="tcOztoB4xaVA0BBfTw6heI">论文下载</span><span class="tag" data-page-node-id="0xBBbff2Ob1BHNBPxYUxqk">国家级平台</span></div><div class="cfoot" data-page-node-id="tnVY9PWF6IZlJVa9qdfhy8"><span class="pill p-free" data-page-node-id="sXyndEGaQ2r0egRhGJ39Zn">免费</span><span class="pill p-cat" data-page-node-id="ZBijECdb35Bq1kErONdtuj">学习与知识</span><span class="pill p-v" data-page-node-id="YtxkfSmTADWnHhc4fDgVU8">通过 · 2026-10-14</span></div></article><article class="card" data-id="cdstm" data-page-node-id="3U7JSao4RebTGbmYyzHPG3"><div class="crow" data-page-node-id="LCrq2GpWUPP7BWtiw5iMqb"><div class="cname" data-page-node-id="6mYkITXfyOx4vkuFXCsYCs">中国数字科技馆</div><div class="cfav" data-page-node-id="FWH7JfWy3gavnK4i2U6Hs1">中</div></div><div class="cdesc" data-page-node-id="QoR6W5pz3iNvo795av1HHh">中国科协等共建的科普公益网站，提供科普视频、科学实验演示与科技馆线上漫游。</div><div class="tags" data-page-node-id="wDUrMli3QV1tZj7ovHLru2"><span class="tag" data-page-node-id="cieqirjJLVy8wG3WiawJVH">科普</span><span class="tag" data-page-node-id="aSRjWw1oQZyzf8VhNVKgVs">科学实验</span><span class="tag" data-page-node-id="VKU8ijRIaFsAD67XWH6tSK">科技馆</span><span class="tag" data-page-node-id="gjgncQ2AzicsMmxLpaI2Pv">VR漫游</span><span class="tag" data-page-node-id="AXw0CpUQGQzXSto5BBMexi">青少年科普</span><span class="tag" data-page-node-id="9Xwz9DV0jnpo8ALcvwmyNG">免费</span></div><div class="cfoot" data-page-node-id="hXa4SX9q9uEIn1JIy6bkHa"><span class="pill p-free" data-page-node-id="6hxhb3EQZTFdXn5KYZcPae">免费</span><span class="pill p-cat" data-page-node-id="0lzVwxy2UWmGRQqmskQMyk">学习与知识</span><span class="pill p-v" data-page-node-id="gks5ylZ6sE05xX1E6EhUK8">通过 · 2026-10-14</span></div></article><article class="card" data-id="arxiv" data-page-node-id="bOAR1gkoRkSUUD7KnFWZnO"><div class="crow" data-page-node-id="hqq3HFrUpsixgfNyK2Z8tS"><div class="cname" data-page-node-id="V5TMequBJY1ADUyI8BPnLP">arXiv</div><div class="cfav" data-page-node-id="BSGyHOrUoCebctCMHa5AGJ">a</div></div><div class="cdesc" data-page-node-id="FNtpABXjkGhNIXu2OHfdWC">康奈尔大学维护的免费预印本论文库，覆盖物理、数学、计算机、统计、经济等领域。</div><div class="tags" data-page-node-id="lpMJSjeuUcUPAYJKB7AW7z"><span class="tag" data-page-node-id="o081inTcGUDoafHgVimToA">预印本</span><span class="tag" data-page-node-id="97tnn57ZHhaaXcJkG8kCvK">学术论文</span><span class="tag" data-page-node-id="CpcMQK3A2PlhCflhpbBff0">免费下载</span><span class="tag" data-page-node-id="UK0roswwkKaQIdbZ4fWEKO">物理</span><span class="tag" data-page-node-id="dumN9WPypsbNXeCeGPC4nC">计算机</span><span class="tag" data-page-node-id="4gEVoPTfBIUQULNHjbBeEK">数学</span></div><div class="cfoot" data-page-node-id="sHAT7KPHGIBWZjIt6P0czn"><span class="pill p-free" data-page-node-id="RWQFkj2dVG7Xlp7jPB2sEK">免费</span><span class="pill p-cat" data-page-node-id="2RwCzUkqmhBE4fMxuoIodr">学习与知识</span><span class="pill p-v" data-page-node-id="ogf8hUP5UlTmHL0RiFFrfu">通过 · 2026-10-14</span></div></article><article class="card" data-id="taptap" data-page-node-id="DvG75W1IAxRCMr6MQxHy1c"><div class="crow" data-page-node-id="2XKzJRLrADTClqRyoCzUFm"><div class="cname" data-page-node-id="P9UpAfNXdOmK2WrgH6W1FP">TapTap</div><div class="cfav" data-page-node-id="TtRLD4Mbm27HlBQqdTMFpv">T</div></div><div class="cdesc" data-page-node-id="efaxcr8NEVgJGKXqCDkmlc">以玩家真实评分和编辑推荐为核心的手游发现与社区平台，按标签快速筛选想玩的游戏。</div><div class="tags" data-page-node-id="UwOW9UJSVxKUokrYSDtrl3"><span class="tag" data-page-node-id="I5lDp7SshfhjsiImcBHO9L">手游</span><span class="tag" data-page-node-id="JJoB3lhi9ewMNKIRylpbuh">游戏评测</span><span class="tag" data-page-node-id="lJprG7tBJT9aALmCd7SCFw">玩家评分</span><span class="tag" data-page-node-id="frSnkayiVmaUHdn1GUMfo5">社区</span><span class="tag" data-page-node-id="j8KODts2jtsQnz6SGeeN2S">独立游戏</span><span class="tag" data-page-node-id="iLRFtQfQy28VOvWCfIm49m">游戏推荐</span></div><div class="cfoot" data-page-node-id="PDwFFY2r5J4JKU6AKiSHVE"><span class="pill p-free" data-page-node-id="9PIdMfnp6irqLgQSM2VKOB">免费</span><span class="pill p-cat" data-page-node-id="RBRJe9ik7sYIOtNVDBqqn6">游戏相关</span><span class="pill p-v" data-page-node-id="F4aJOZmYoDw1MAFQ8FhPIh">通过 · 2026-10-14</span></div></article><article class="card" data-id="gamekee" data-page-node-id="lxFUUlIHTp0LxzbZ3KyNHs"><div class="crow" data-page-node-id="GSyHadoMrBJNE9VyKrHM4U"><div class="cname" data-page-node-id="HtCdLZL4ZN67BMdfbNUjog">GameKee</div><div class="cfav" data-page-node-id="EhxaFIRv4FSiEtB2j9ju4D">G</div></div><div class="cdesc" data-page-node-id="OsodDTzLRHL8qs6xtLPf6S">以'游戏百科 + 情报攻略'为定位的平台，玩家可自行创建 Wiki 专区，适合查长线运营游戏的详细资料。</div><div class="tags" data-page-node-id="G649G8mr3lH6DHXA6xsWmK"><span class="tag" data-page-node-id="dKiJP0HwLCTNOhoG5u5o5b">游戏攻略</span><span class="tag" data-page-node-id="GiklYg8YYHaporHuqNPX4T">Wiki</span><span class="tag" data-page-node-id="5hS7oFTHRJZPm4D3x7hSBn">角色数据</span><span class="tag" data-page-node-id="yC9EJ6xWOsBpt97EACxFRV">阵容搭配</span><span class="tag" data-page-node-id="oYdNjaR4c4Rj5X5cnwmwAI">活动攻略</span><span class="tag" data-page-node-id="Wu26d6IDajNAlZemj8NCSz">长期更新</span></div><div class="cfoot" data-page-node-id="VMw9uotpvaQG2mvCpki6vQ"><span class="pill p-free" data-page-node-id="NPSF43FGLUFYGIZcPW79hc">免费</span><span class="pill p-cat" data-page-node-id="tLcx9MU6tMsEav9xMHU5AX">游戏相关</span><span class="pill p-v" data-page-node-id="hrLR0I68A9CVuKkB7ZJCCi">通过 · 2026-10-14</span></div></article><article class="card" data-id="gamersky" data-page-node-id="Lcw094QFBfcu0SZM9ithij"><div class="crow" data-page-node-id="nrI8JbKqGdLQBMegqbeXEi"><div class="cname" data-page-node-id="wlJtpE6M7ykQaWOT0cvVc5">游民星空</div><div class="cfav" data-page-node-id="KF0l05EyNK6AFGYjm4503s">游</div></div><div class="cdesc" data-page-node-id="psd6nJ7jM5M9bFlffPtpYv">国内大型单机游戏门户，提供单机 / 主机游戏资讯、专区与游戏库，靠广告免费开放。</div><div class="tags" data-page-node-id="OvzqYKyCtvOneXDrHLlYco"><span class="tag" data-page-node-id="3AWolbWwzmLBCKFXHIa6rI">单机游戏</span><span class="tag" data-page-node-id="DGqxUVDrJuHEbKrTro1emt">游戏资讯</span><span class="tag" data-page-node-id="UAmcEeRNtj95l6UchZzkbr">游戏专区</span><span class="tag" data-page-node-id="6XBHmaaKkHPaReRxdY4a1h">攻略</span><span class="tag" data-page-node-id="4h8ESidkp5If9EpDiPBd4r">发售日历</span><span class="tag" data-page-node-id="pyBFihDBpQO7cRRO0awW7S">游戏库</span></div><div class="cfoot" data-page-node-id="27zs5KAh3b02VjTiQO5DQk"><span class="pill p-free" data-page-node-id="zbxdjucjMKwMnAQw10GD6A">免费</span><span class="pill p-cat" data-page-node-id="19rPrWnfNgCsNGpW3xAdwT">游戏相关</span><span class="pill p-v" data-page-node-id="1t5ZEfnMkd6FEk8H0ybMJX">通过 · 2026-10-14</span></div></article><article class="card" data-id="deepseek" data-page-node-id="iaTI3jjGjou7hdIqp7kpx7"><div class="crow" data-page-node-id="MaUl2m9BhecNRp8KWM4Qz6"><div class="cname" data-page-node-id="cLEnOZODwRhyuoV5qpSKYQ">DeepSeek</div><div class="cfav" data-page-node-id="xdoQNBXGAhgcrNSsg0xqkP">D</div></div><div class="cdesc" data-page-node-id="vqPtcrDTOPjrcug4ZgmoIW">国内可直接访问的通用大模型对话服务，主打深度推理、长文问答与代码辅助。</div><div class="tags" data-page-node-id="kW19jLF7plXBOmyabavXOm"><span class="tag" data-page-node-id="n8LyOUEkIOXNuJcbC8aeEc">AI对话</span><span class="tag" data-page-node-id="VEdJ7Eo6M2uhUx8NcmXZzu">大语言模型</span><span class="tag" data-page-node-id="pMGBJQ6Jf475wAGHoDidDU">代码</span><span class="tag" data-page-node-id="QCswGrz6SAwocARGhDT6gB">深度推理</span><span class="tag" data-page-node-id="4maTGULFc0WyMvPYrZzWqr">长文本</span><span class="tag" data-page-node-id="xkh0uh1i58o950H8niNsir">文件解析</span></div><div class="cfoot" data-page-node-id="SiuzZrzCiGsgmfGAF5ypgj"><span class="pill p-part" data-page-node-id="PDaBUtyXDqEDX5ETYyO9Aw">部分免费</span><span class="pill p-cat" data-page-node-id="1Z7io1xANen9pMUDkRlfAJ">AI 与效率工具</span><span class="pill p-v" data-page-node-id="LGAHlkeAoT1XoRSscKK1Jq">通过 · 2026-10-14</span></div></article><article class="card" data-id="kimi" data-page-node-id="nceOcWApwFC8882Okdx36c"><div class="crow" data-page-node-id="yCGkNI8KH889TBbh7FAApe"><div class="cname" data-page-node-id="Ptpk7OWk3yPS4HNOuzBwoD">Kimi</div><div class="cfav" data-page-node-id="g10oS7ABOLuPyzqmjIEVYS">K</div></div><div class="cdesc" data-page-node-id="hvPwgf8KqnECQ8xxevVZE1">以超长上下文和文档解析见长的 AI 助手，适合读长文档、做资料整理与办公产出。</div><div class="tags" data-page-node-id="zTBrKH9yr42xrSgwOIaNqL"><span class="tag" data-page-node-id="ltCNZbLBbVZ8wt1KGuFA5l">AI对话</span><span class="tag" data-page-node-id="FF9ZdXpXKrqgE2axvkQCQ4">长文本</span><span class="tag" data-page-node-id="Ksu81iTab8XoGuHsOsHidj">文档解析</span><span class="tag" data-page-node-id="jDmBSOXJr7Qn8Kn1ofgUzm">深度研究</span><span class="tag" data-page-node-id="pPuhKJQbSM9uTFMAmqDD8t">PPT生成</span><span class="tag" data-page-node-id="qM0yvcS0t7pcu4uwVtQRBv">建站</span></div><div class="cfoot" data-page-node-id="0ySePZkKANttXrodR3Buje"><span class="pill p-part" data-page-node-id="ZIrqrDC9ESbPEaJhfnMkLR">部分免费</span><span class="pill p-cat" data-page-node-id="cUBAeuLEi9pWX3PljKgwE7">AI 与效率工具</span><span class="pill p-v" data-page-node-id="BdFOfM2huGJ89KnKxBOIbs">通过 · 2026-10-14</span></div></article><article class="card" data-id="metaso" data-page-node-id="kDCHoM7HV2UHv8TjdcXxFh"><div class="crow" data-page-node-id="kEvAuQLAnE79qlBwFxgcXk"><div class="cname" data-page-node-id="BZdGPcfT0nHGkE6PclFZb1">秘塔 AI 搜索</div><div class="cfav" data-page-node-id="xscskpd8FDI6DOaoTopglp">秘</div></div><div class="cdesc" data-page-node-id="nc3lKMHNn33366LGv6YWXj">主打『没有广告，直达结果』的中文 AI 搜索，会把答案与来源一并整理给你。</div><div class="tags" data-page-node-id="cj1xugSol7x2rr47wD8Mg0"><span class="tag" data-page-node-id="Nn2HbNSNceBzJieg57vWVX">AI搜索</span><span class="tag" data-page-node-id="gFqwEiRkjycU7GpuGMPKaG">无广告</span><span class="tag" data-page-node-id="tT1WHn4b8r7FHnz0WmTSPK">深度研究</span><span class="tag" data-page-node-id="JrGJfs8aBSehLkpIDW663N">资料溯源</span><span class="tag" data-page-node-id="ErwLSuq0oGRHYNWgfu9I7E">中文搜索</span></div><div class="cfoot" data-page-node-id="QcOXeVBChDKqF93M7aexB0"><span class="pill p-part" data-page-node-id="cEDjeDKGA6snplHfjsNDVw">部分免费</span><span class="pill p-cat" data-page-node-id="vKvo5mvgtUmCMHUC4032hd">AI 与效率工具</span><span class="pill p-v" data-page-node-id="FBq8aRhV1ZxyGIZ8sqRfJp">通过 · 2026-10-14</span></div></article><article class="card" data-id="doubao" data-page-node-id="grIHxm172Wi0HO3Esmp7wP"><div class="crow" data-page-node-id="kdrnpLRhW27JQEB0VmSLOQ"><div class="cname" data-page-node-id="1ClxoubjXD1iKSusiW52gR">豆包</div><div class="cfav" data-page-node-id="Z3VU3MCDZQBGz3sp7SK1uM">豆</div></div><div class="cdesc" data-page-node-id="Bxt1sB271CQvnPTD4iolmv">字节跳动旗下的通用 AI 助手，覆盖对话问答、写作、翻译与学习辅导等日常场景。</div><div class="tags" data-page-node-id="WtokgF0vN9Lq7gpO46DqIh"><span class="tag" data-page-node-id="dmRNROEz7bEzfOzZ0z7FYJ">AI对话</span><span class="tag" data-page-node-id="1CnJa8rrxtKmIjmMksBMCZ">写作</span><span class="tag" data-page-node-id="o7UU2QHH4xxGkw26zeBTie">翻译</span><span class="tag" data-page-node-id="RafGxPcKb4urnfZmH0cIch">学习辅导</span><span class="tag" data-page-node-id="Yt2oxaYtXdsIuBr3oVPmCb">字节跳动</span><span class="tag" data-page-node-id="RDkV5lm08AwoqvyIo7RnVC">多端</span></div><div class="cfoot" data-page-node-id="3veEuhoQBeQFAI1nxPAh5x"><span class="pill p-part" data-page-node-id="CC54tneHWbU7as5a0NHexJ">部分免费</span><span class="pill p-cat" data-page-node-id="rYLujA4hcdd4GDdyAFxesi">AI 与效率工具</span><span class="pill p-v" data-page-node-id="bTfT33MRrBWLFRQRGrbEHZ">通过 · 2026-10-14</span></div></article><article class="card" data-id="qianwen" data-page-node-id="zfIsF5oJCD7U8I33qIfQPP"><div class="crow" data-page-node-id="9FsV4vuFBpIlx9y9F1u3tB"><div class="cname" data-page-node-id="BAAVzCVLAUuPovYQoCqAxH">千问（通义）</div><div class="cfav" data-page-node-id="O7lkQiYGAx7OhGYquGvFQh">千</div></div><div class="cdesc" data-page-node-id="iO9aeoXQE3RD8G8vVKQeJf">阿里旗下的全能 AI 助手，问答、写作、文档处理与多模态能力较为均衡。</div><div class="tags" data-page-node-id="UKXpFwLjWiYsWEtwE6YU8P"><span class="tag" data-page-node-id="gP3cLoL4GnFfIGZzexzWn6">AI对话</span><span class="tag" data-page-node-id="V3BcJeKFA5rC5fyuCo1SHI">阿里</span><span class="tag" data-page-node-id="cvAT94pGzPNF2q7sB13Q1s">文档处理</span><span class="tag" data-page-node-id="fBrGQYTd1mBvFozMCmMtxf">多模态</span><span class="tag" data-page-node-id="VI84UywVeyr4B7B6Kxpo8d">办公</span><span class="tag" data-page-node-id="4c6DIoEkTfot7q06nQGAqo">写作</span></div><div class="cfoot" data-page-node-id="4agLx6pbxHenqLCi9SAvaA"><span class="pill p-part" data-page-node-id="eURKEJ2ubFIDGfYLyGOT5V">部分免费</span><span class="pill p-cat" data-page-node-id="rUEB1BFo8985b2mR6fJqLN">AI 与效率工具</span><span class="pill p-v" data-page-node-id="PWoXhwOVj9r5bwFInmVuWC">通过 · 2026-10-14</span></div></article><article class="card" data-id="jimeng" data-page-node-id="Zc2Vn8xlEEgR95MMaAuntd"><div class="crow" data-page-node-id="XFRFtmy2fFPecyWCSOAZFi"><div class="cname" data-page-node-id="MBpWHNWvCgohNV5FfLcKdQ">即梦 AI</div><div class="cfav" data-page-node-id="WD2SkzEEtisj84SEUjLmAV">即</div></div><div class="cdesc" data-page-node-id="BNUyQdnH9bH4v3F3FH2CVp">字节跳动旗下 AI 创作工具，支持文/图生图与文/图生视频，中文提示词理解较好。</div><div class="tags" data-page-node-id="kQCBCBtvW1gOmEDaEIdx45"><span class="tag" data-page-node-id="1qoE76kN81DNzTHwkc0VIC">AI绘画</span><span class="tag" data-page-node-id="rbXvLrbjIY4Z52P304grjx">AI视频</span><span class="tag" data-page-node-id="i0qmtETlz2WuAZ1ESYhTT1">文生图</span><span class="tag" data-page-node-id="qRUJmHp7jY1fwn2j8QzcIp">图生视频</span><span class="tag" data-page-node-id="jmvG1JPJn7k9BD1l2dnIiR">中文提示词</span><span class="tag" data-page-node-id="EGbf1Mrid3iDWfAEkqeR2Q">智能画布</span></div><div class="cfoot" data-page-node-id="j3QNXA2KolveL4XUiFjLtf"><span class="pill p-part" data-page-node-id="byTuQbTYqMDgzHtPrdCnfr">部分免费</span><span class="pill p-cat" data-page-node-id="Aip8hKEfVMMeztqQsBGpc2">AI 与效率工具</span><span class="pill p-v" data-page-node-id="ztBO892jfiDM6OQ8JQF2LI">通过 · 2026-10-14</span></div></article></div>
+</div>
+
+<footer data-page-node-id="Dm8Bt5wizrWurhaimlEMRH">
+  <div class="wrap" data-page-node-id="wIQs9VweP6C6LINwmDroHQ">
+    <b data-page-node-id="hoW11QbbtzCZMF7e2qKmyZ">数据说明</b>：所有记录均通过实际访问官方网站首页 / 功能页核对，可确认「首页可访问 + 官方自述功能」；<br data-page-node-id="o3d0N3v1NuRXgHQO8VhMmo">
+    未逐项实测核心功能（下载、转换、生成等），凡涉及实测的内容均在记录中明确标注。<br data-page-node-id="IQXRkSFMGpX7buYWQtW09Q">
+    <b data-page-node-id="pZOmCugUIsAyvgOWSKMgFF">版权与授权</b>：「小说与阅读」类别中收录了若干日系轻小说阅读 / 分享站点，其作品授权来源未公开，各记录已逐条标注；本站仅描述站点提供什么，不对其版权状态作判断或背书，内容的合法性由原站负责。<br data-page-node-id="tjteAsmKGendg3eYZY5fTs">
+    站内政策：优先收录官方网站；明确以盗版聚合为主要业务的站点与影子图书馆不予收录。
+  </div>
+</footer>
+
+<div class="mask" id="mask" data-page-node-id="BV8LGavSeEECpq7q0FEXEL"><div class="modal" id="modal" data-page-node-id="GhOasIo9orrxnZ8NZm3AFN"></div></div>
+
+<script src="data/sites.js" data-page-node-id="XAfUrP88CuGNRXLENAX0fe"></script>
+<script data-page-node-id="XLeu6Mm3var9HvKgZFsdgm">
+(function(){
+  var D = window.NAV_DATA || {sites:[]};
+  var SITES = D.sites || [];
+
+  /* ---------- helpers ---------- */
+  var $ = function(s){return document.querySelector(s)};
+  var esc = function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+  var initial = function(n){return (n||'?').trim().charAt(0)};
+
+  var PRICE_CLASS = {'免费':'p-free','部分免费':'p-part','付费':'p-paid','未知':'p-unk'};
+  var MT_CLASS = {'已验证匹配':'mt-ok','初步匹配':'mt-pre','不匹配':'mt-no'};
+
+  var state = {cat:'全部', price:'全部', tag:null, q:'', ask:null};
+
+  /* ---------- stats ---------- */
+  var cats = {};
+  SITES.forEach(function(s){cats[s.category]=(cats[s.category]||0)+1});
+  var tagCount = {};
+  SITES.forEach(function(s){(s.tags||[]).forEach(function(t){tagCount[t]=(tagCount[t]||0)+1})});
+  var topTags = Object.keys(tagCount).sort(function(a,b){return tagCount[b]-tagCount[a]}).slice(0,22);
+
+  $('#stats').innerHTML = [
+    ['收录网站', SITES.length],
+    ['分类', Object.keys(cats).length],
+    ['标签', Object.keys(tagCount).length],
+    ['需求匹配记录', SITES.reduce(function(a,s){return a+(s.need_matches||[]).length},0)]
+  ].map(function(x){return '<div class="stat"><b>'+x[1]+'</b><span>'+x[0]+'</span></div>'}).join('');
+
+  /* ---------- 顶部文案与日期：全部跟随数据自动更新，不用手改 HTML ---------- */
+  $('#heroCount').textContent = SITES.length;
+  $('#heroCats').textContent = Object.keys(cats).length;
+  $('#heroCatList').textContent = Object.keys(cats).join('、');
+  var _vd = SITES.map(function(s){return s.verified_at}).filter(Boolean).sort();
+  $('#dataDate').textContent = _vd.length ? _vd[_vd.length-1] : '未标注';
+
+  /* ---------- filter rows ---------- */
+  function chip(label, n, on){
+    return '<button class="chip'+(on?' on':'')+'" data-v="'+esc(label)+'">'+esc(label)+(n!=null?'<span class="n">'+n+'</span>':'')+'</button>';
+  }
+  $('#catRow').innerHTML += chip('全部', SITES.length, true) +
+    Object.keys(cats).map(function(c){return chip(c, cats[c], false)}).join('');
+  $('#priceRow').innerHTML += ['全部','免费','部分免费','付费','未知'].map(function(p){
+    return chip(p, null, p==='全部');
+  }).join('');
+  $('#tagRow').innerHTML += topTags.map(function(t){return chip(t, null, false)}).join('');
+
+  /* ---------- examples ---------- */
+  var EXAMPLES = [
+    '免费、无需安装、可以压缩图片的网站',
+    '想读正版轻小说，最好有免费额度',
+    '找免费可商用的插画和图标',
+    '看长文档、能上传 PDF 提问的 AI',
+    '查前端 API 的权威文档'
+  ];
+  $('#examples').innerHTML = EXAMPLES.map(function(e){return '<span class="ex">'+esc(e)+'</span>'}).join('');
+
+  /* ---------- search index ---------- */
+  var SYN = {
+    '免费':'免费','免费版':'免费','白嫖':'免费','不要钱':'免费','不花钱':'免费',
+    '不安装':'无需安装','无需安装':'无需安装','免安装':'无需安装','网页版':'无需安装','在线':'在线',
+    '上传':'上传','浏览器':'在线',
+    '压缩':'压缩','瘦身':'压缩','图片':'图片','照片':'图片','jpg':'图片','png':'图片',
+    '转换':'转换','格式':'转换',
+    'pdf':'PDF','抠图':'抠图','去背景':'抠图','背景':'抠图',
+    '图标':'图标','插画':'插画','配色':'配色','字体':'字体','素材':'素材','图库':'图片',
+    '小说':'小说','轻小说':'轻小说','网文':'小说','阅读':'阅读','电子书':'电子书','书':'阅读',
+    '听书':'听书','正版':'正版',
+    '游戏':'游戏','攻略':'攻略','评分':'评分',
+    '文档':'文档','教程':'教程','课程':'课程','学习':'学习','论文':'论文','文献':'论文',
+    'ai':'AI','对话':'对话','大模型':'大模型','助手':'对话','绘画':'绘画','生图':'绘画','视频':'视频',
+    '代码':'代码','编程':'代码','开发者':'代码','技术':'代码',
+    '设计':'设计','ui':'设计','前端':'前端','浏览器兼容':'浏览器兼容性',
+    '隐私':'隐私','不上传':'本地处理','本地':'本地处理',
+    'ocr':'OCR','合并':'合并','批量':'批量',
+    '免费商用':'可商用','可商用':'可商用','商用':'可商用','版权':'可商用'
+  };
+
+  function keywords(text){
+    var t = ' ' + String(text||'').toLowerCase() + ' ';
+    var out = [];
+    Object.keys(SYN).forEach(function(k){
+      if (t.indexOf(k.toLowerCase()) !== -1) {
+        var v = SYN[k];
+        if (out.indexOf(v) === -1) out.push(v);
+      }
+    });
+    return out;
+  }
+
+  function haystack(s){
+    return [s.name, s.category, (s.subcategories||[]).join(' '), (s.tags||[]).join(' '),
+      s.short_description, s.full_description, (s.use_cases||[]).join(' '),
+      (s.target_users||[]).join(' '), (s.key_features||[]).join(' '),
+      (s.pros||[]).join(' '), (s.cons||[]).join(' '), (s.limitations||[]).join(' '),
+      (s.need_matches||[]).map(function(m){return m.need+' '+m.reason}).join(' '),
+      s.recommendation_reason].join(' ').toLowerCase();
+  }
+  SITES.forEach(function(s){ s._h = haystack(s); s._kw = keywords(s._h); });
+
+  /* ---------- ask / need matching ---------- */
+  function askMatch(query){
+    var kws = keywords(query);
+    var raw = query.toLowerCase();
+    if (!kws.length) kws = raw.split(/[\s,，、。；;：:]+/).filter(function(w){return w.length>1});
+    var freeIntent = /免费|白嫖|不要钱|不花钱/.test(raw);
+    var localIntent = /不上传|本地|隐私/.test(raw);
+    var noInstall = /无需安装|不安装|免安装|网页|在线/.test(raw);
+
+    var scored = [];
+    SITES.forEach(function(s){
+      var hitTags = [], hitNeed = [], conflicts = [], score = 0;
+      (s.tags||[]).forEach(function(t){
+        kws.forEach(function(k){ if (t.indexOf(k)!==-1 || k.indexOf(t)!==-1) { if(hitTags.indexOf(t)===-1) hitTags.push(t); } });
+      });
+      score += hitTags.length * 4;
+      kws.forEach(function(k){
+        if (s.name.toLowerCase().indexOf(k)!==-1) score += 6;
+        if ((s.category||'').indexOf(k)!==-1) score += 3;
+      });
+      (s.need_matches||[]).forEach(function(m){
+        var mn = m.need.toLowerCase();
+        var hits = kws.filter(function(k){return mn.indexOf(k)!==-1});
+        if (hits.length >= 2) {
+          score += 8;
+          hitNeed.push(m);
+          if (m.match_type === '不匹配') conflicts.push(m);
+        }
+      });
+      // constraint scoring
+      if (freeIntent) { if (s.pricing_model==='免费') score += 5; else if (s.pricing_model==='未知') score -= 4; }
+      if (localIntent && /本地处理|不上传/.test((s.tags||[]).join(' '))) score += 5;
+      if (noInstall && /无需安装/.test((s.tags||[]).join(' '))) score += 4;
+      if (score > 0) scored.push({s:s, score:score, tags:hitTags, need:hitNeed, conflict:conflicts});
+    });
+    scored.sort(function(a,b){return b.score-a.score});
+    return scored.slice(0,8);
+  }
+
+  /* ---------- render ---------- */
+  var grid = $('#grid'), cnt = $('#cnt');
+  var askResults = null;
+
+  function cardHTML(s, match){
+    var tags = (s.tags||[]).slice(0,6).map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join('');
+    var m = '';
+    if (match) {
+      var parts = [];
+      if (match.need.length) {
+        match.need.slice(0,2).forEach(function(x){
+          parts.push('<div class="mreason"><span class="mtype '+MT_CLASS[x.match_type]+'">'+esc(x.match_type)+'</span>'+esc(x.need)+' — '+esc(x.reason)+'</div>');
+        });
+      }
+      if (match.tags.length && !match.need.length) {
+        parts.push('<div class="mreason"><span class="mtype mt-pre">标签命中</span>'+esc(match.tags.join(' · '))+'</div>');
+      }
+      if (match.conflict.length) {
+        match.conflict.slice(0,1).forEach(function(x){
+          parts.push('<div class="mreason" style="border-left-color:var(--bad)"><span class="mtype mt-no">冲突</span>'+esc(x.reason)+'</div>');
+        });
+      }
+      m = parts.join('');
+    }
+    return '<article class="card" data-id="'+esc(s.id)+'">'+
+      '<div class="crow"><div class="cname">'+esc(s.name)+'</div><div class="cfav">'+esc(initial(s.name))+'</div></div>'+
+      '<div class="cdesc">'+esc(s.short_description)+'</div>'+
+      '<div class="tags">'+tags+'</div>'+ m +
+      '<div class="cfoot">'+
+        '<span class="pill '+(PRICE_CLASS[s.pricing_model]||'p-unk')+'">'+esc(s.pricing_model)+'</span>'+
+        '<span class="pill p-cat">'+esc(s.category)+'</span>'+
+        '<span class="pill p-v">'+esc(s.verification_status)+' · '+esc(s.verified_at)+'</span>'+
+      '</div></article>';
+  }
+
+  function render(){
+    var list;
+    if (askResults) {
+      list = askResults;
+    } else {
+      list = SITES.filter(function(s){
+        if (state.cat!=='全部' && s.category!==state.cat) return false;
+        if (state.price!=='全部' && s.pricing_model!==state.price) return false;
+        if (state.tag && (s.tags||[]).indexOf(state.tag)===-1) return false;
+        if (state.q) {
+          var q = state.q.toLowerCase();
+          if (s._h.indexOf(q)===-1) {
+            var kw = keywords(state.q);
+            if (!kw.length) return false;
+            if (!kw.some(function(k){return s._h.indexOf(k)!==-1})) return false;
+          }
+        }
+        return true;
+      }).map(function(s){return {s:s, match:null}});
+      list.sort(function(a,b){return a.s.category.localeCompare(b.s.category,'zh')});
+    }
+
+    if (!list.length) {
+      cnt.innerHTML = '';
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><b>没有符合条件的网站</b>本版收录范围有限，可尝试放宽条件，或切换到其它分类看看。</div>';
+      return;
+    }
+
+    if (askResults) {
+      cnt.innerHTML = '按需求匹配到 <b>'+list.length+'</b> 个站点，排序依据为标签、需求记录与条件约束的命中程度';
+    } else {
+      var tot = list.length;
+      cnt.innerHTML = '当前显示 <b>'+tot+'</b> 个站点' + (state.cat!=='全部' ? '（'+esc(state.cat)+'）' : '');
+    }
+    grid.innerHTML = list.map(function(x){return cardHTML(x.s, x.match)}).join('');
+  }
+
+  /* ---------- modal ---------- */
+  function openModal(id){
+    var s = SITES.filter(function(x){return x.id===id})[0];
+    if (!s) return;
+    var li = function(a){return (a||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')};
+    var nm = (s.need_matches||[]).map(function(m){
+      return '<tr><td>'+esc(m.need)+'</td><td class="'+MT_CLASS[m.match_type]+'" style="font-weight:600;white-space:nowrap">'+esc(m.match_type)+'</td><td>'+esc(m.reason)+'</td></tr>';
+    }).join('');
+
+    $('#modal').innerHTML =
+      '<div class="mhead">'+
+        '<button class="mclose" id="mclose">✕</button>'+
+        '<h2>'+esc(s.name)+'</h2>'+
+        '<div class="murl">'+esc(s.url)+'</div>'+
+        '<div class="mbadges">'+
+          '<span class="pill '+(PRICE_CLASS[s.pricing_model]||'p-unk')+'">'+esc(s.pricing_model)+'</span>'+
+          '<span class="pill p-cat">'+esc(s.category)+'</span>'+
+          (s.subcategories||[]).map(function(c){return '<span class="pill p-v">'+esc(c)+'</span>'}).join('')+
+          '<span class="pill p-v">审核状态：'+esc(s.verification_status)+'</span>'+
+          '<span class="pill p-v">核实日期：'+esc(s.verified_at)+'</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="mbody">'+
+        '<div class="tags">'+(s.tags||[]).map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join('')+'</div>'+
+        '<div class="sec"><h3>详细介绍</h3><p>'+esc(s.full_description)+'</p></div>'+
+        '<div class="sec"><h3>适用场景</h3><ul>'+li(s.use_cases)+'</ul></div>'+
+        '<div class="sec"><h3>适合的用户</h3><ul>'+li(s.target_users)+'</ul></div>'+
+        '<div class="sec"><h3>核心功能</h3><ul>'+li(s.key_features)+'</ul></div>'+
+        '<div class="sec"><div class="two">'+
+          '<div class="pl"><h4>✓ 有依据的优点</h4><ul>'+li(s.pros)+'</ul></div>'+
+          '<div class="cl"><h4>✕ 有依据的缺点</h4><ul>'+li(s.cons)+'</ul></div>'+
+        '</div></div>'+
+        '<div class="sec"><h3>使用限制</h3><ul>'+li(s.limitations)+'</ul></div>'+
+        '<div class="sec"><h3>推荐理由</h3><p>'+esc(s.recommendation_reason)+'</p></div>'+
+        (nm ? '<div class="sec"><h3>需求 — 匹配关系</h3><table class="nm"><tr><th>用户需求</th><th>匹配类型</th><th>依据</th></tr>'+nm+'</table></div>' : '')+
+        '<div class="sec"><h3>可追溯来源</h3><ul>'+li(s.evidence_urls)+'</ul></div>'+
+        '<div class="sec"><h3>审核备注</h3><p>'+esc(s.notes)+'</p></div>'+
+        '<div class="sec"><a class="visit" href="'+esc(s.url)+'" target="_blank" rel="noopener">访问 '+esc(s.name)+' ↗</a></div>'+
+      '</div>';
+
+    $('#mask').classList.add('on');
+    $('#mclose').onclick = closeModal;
+    $('#modal').scrollTop = 0;
+  }
+  function closeModal(){ $('#mask').classList.remove('on') }
+
+  /* ---------- events ---------- */
+  document.addEventListener('click', function(e){
+    var card = e.target.closest('.card');
+    if (card) { openModal(card.dataset.id); return; }
+    var chipEl = e.target.closest('.chip');
+    if (chipEl) {
+      var row = chipEl.parentNode.id, v = chipEl.dataset.v;
+      askResults = null;
+      if (row === 'tagRow') {
+        var wasOn = chipEl.classList.contains('on');
+        [].forEach.call(chipEl.parentNode.children, function(c){ c.classList.remove('on') });
+        if (wasOn) { state.tag = null; }
+        else { chipEl.classList.add('on'); state.tag = v; }
+      } else {
+        [].forEach.call(chipEl.parentNode.children, function(c){ c.classList.remove('on') });
+        chipEl.classList.add('on');
+        if (row === 'catRow') state.cat = v;
+        if (row === 'priceRow') state.price = v;
+      }
+      render(); window.scrollTo({top: $('.filters').offsetTop-80, behavior:'smooth'});
+      return;
+    }
+    var ex = e.target.closest('.ex');
+    if (ex) { $('#askq').value = ex.textContent; doAsk(); return; }
+    if (e.target.id === 'mask') closeModal();
+  });
+
+  function doAsk(){
+    var v = $('#askq').value.trim();
+    if (!v) { askResults = null; render(); return; }
+    askResults = askMatch(v);
+    render();
+    window.scrollTo({top: $('.resultbar').offsetTop-90, behavior:'smooth'});
+  }
+  $('#askBtn').onclick = doAsk;
+  $('#askq').addEventListener('keydown', function(e){ if(e.key==='Enter') doAsk() });
+  $('#askq').addEventListener('input', function(){ if(!$('#askq').value.trim()){ askResults=null; render(); } });
+
+  var timer;
+  $('#q').addEventListener('input', function(){
+    clearTimeout(timer);
+    var v = this.value;
+    timer = setTimeout(function(){ state.q = v; askResults = null; render(); }, 160);
+  });
+
+  $('#themeBtn').onclick = function(){
+    var cur = document.documentElement.getAttribute('data-theme');
+    var next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    this.textContent = next === 'dark' ? '🌙 深色' : '☀️ 浅色';
+  };
+
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal() });
+
+  render();
+})();
+</script>
+
+
+
+</body></html>
