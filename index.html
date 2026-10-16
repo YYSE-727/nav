@@ -28,12 +28,15 @@ body{
   font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
 }
+/* 始终预留滚动条位置：弹窗打开锁滚动时页面不会左右抖一下 */
+html{scrollbar-gutter:stable}
+body.noscroll{overflow:hidden}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit}
 .wrap{max-width:1240px;margin:0 auto;padding:0 22px}
 
 /* ---------- header ---------- */
-header{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-soft)}
+header{position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--border-soft)}
 .hrow{display:flex;align-items:center;gap:14px;height:62px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;letter-spacing:.4px;white-space:nowrap}
 .logo .dot{width:26px;height:26px;border-radius:8px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:13px;font-weight:800}
@@ -66,7 +69,7 @@ html[data-theme="light"] .carousel::before{background:radial-gradient(680px 220p
 .sinner h3{margin:0 0 10px;font-size:29px;font-weight:800;letter-spacing:-.4px;line-height:1.2}
 .sinner p{margin:0 0 16px;color:var(--text-2);font-size:14.5px;line-height:1.65}
 .sgo{font-size:13.5px;font-weight:600;color:var(--text)}
-.cbtn{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:color-mix(in srgb,var(--bg) 72%,transparent);color:var(--text-2);font-size:20px;line-height:1;cursor:pointer;backdrop-filter:blur(8px);transition:.18s}
+.cbtn{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:color-mix(in srgb,var(--bg) 90%,transparent);color:var(--text-2);font-size:20px;line-height:1;cursor:pointer;transition:.18s}
 .cbtn:hover{color:var(--text);border-color:var(--text-3)}
 .cbtn.prev{left:16px} .cbtn.next{right:16px}
 .dots{position:absolute;left:46px;bottom:20px;z-index:4;display:flex;gap:7px}
@@ -154,15 +157,18 @@ html[data-theme="light"] .carousel::before{background:radial-gradient(680px 220p
 .empty b{display:block;font-size:16px;color:var(--text-2);margin-bottom:8px}
 
 /* ---------- modal ---------- */
-.mask{position:fixed;inset:0;background:rgba(6,6,8,.76);backdrop-filter:blur(5px);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:36px 16px;overflow-y:auto}
+/* 性能要点：遮罩不用 backdrop-filter。全屏模糊 + 内部滚动的内容 = 每滚一帧都要
+   重新计算整屏模糊，是弹窗滚动掉帧的主因；改成纯色遮罩后滚动跟不打开弹窗一样顺。
+   .modal 用纵向 flex，只有 .mbody 一个滚动容器 —— 消除嵌套滚动与滚动穿透。 */
+.mask{position:fixed;inset:0;background:rgba(6,6,8,.88);z-index:100;display:none;align-items:center;justify-content:center;padding:36px 16px;overflow:hidden;overscroll-behavior:contain}
 .mask.on{display:flex}
-.modal{background:var(--bg-soft);border:1px solid var(--border);border-radius:20px;max-width:860px;width:100%;box-shadow:var(--shadow);overflow:hidden}
-.mhead{padding:24px 26px 18px;border-bottom:1px solid var(--border-soft);position:relative}
+.modal{background:var(--bg-soft);border:1px solid var(--border);border-radius:20px;max-width:860px;width:100%;max-height:100%;display:flex;flex-direction:column;box-shadow:var(--shadow);overflow:hidden;contain:content}
+.mhead{flex:0 0 auto;padding:24px 26px 18px;border-bottom:1px solid var(--border-soft);position:relative}
 .mhead h2{margin:0 0 6px;font-size:22px;letter-spacing:-.3px}
 .mhead .murl{font-size:12.5px;color:var(--text-2);word-break:break-all}
 .mclose{position:absolute;top:18px;right:20px;background:transparent;border:1px solid var(--border);color:var(--text-2);width:32px;height:32px;border-radius:9px;cursor:pointer;font-size:15px;line-height:1}
 .mclose:hover{color:var(--text);border-color:var(--text-3)}
-.mbody{padding:20px 26px 28px;max-height:72vh;overflow-y:auto}
+.mbody{padding:20px 26px 28px;flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain}
 .mbadges{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0 0}
 .sec{margin-top:24px}
 .sec h3{margin:0 0 9px;font-size:12px;color:var(--text-3);font-weight:700;letter-spacing:1.2px}
@@ -196,6 +202,10 @@ footer b{color:var(--text-2)}
   .grid{grid-template-columns:1fr}
   .two{grid-template-columns:1fr}
   .stats{gap:20px}
+  .mask{padding:18px 12px}
+}
+@media(max-height:620px){
+  .mask{padding:14px 12px}
 }
 </style>
 </head>
@@ -363,14 +373,18 @@ footer b{color:var(--text-2)}
   function cGo(i){ ci = (i + feat.length) % feat.length; paintCarousel(); }
   function cNext(){ cGo(ci+1) }
   function cPrev(){ cGo(ci-1) }
-  function cStart(){ cStop(); ctimer = setInterval(cNext, 5000); }
+  var modalOpen = false;
+  /* 弹窗打开时、标签页切到后台时都停掉轮播：
+     轮播每 5 秒改一次整屏的 opacity，在弹窗底下空跑会一直触发重绘。 */
+  function cStart(){ cStop(); if (modalOpen || document.hidden || feat.length < 2) return; ctimer = setInterval(cNext, 5000); }
   function cStop(){ if (ctimer) { clearInterval(ctimer); ctimer = null; } }
 
   if (feat.length > 1) cStart();
   $('#cNext').onclick = function(){ cNext(); cStart(); };
   $('#cPrev').onclick = function(){ cPrev(); cStart(); };
   $('#carousel').addEventListener('mouseenter', cStop);
-  $('#carousel').addEventListener('mouseleave', function(){ if (feat.length>1) cStart(); });
+  $('#carousel').addEventListener('mouseleave', cStart);
+  document.addEventListener('visibilitychange', function(){ if (document.hidden) cStop(); else cStart(); });
 
   var tsx = 0;
   $('#slides').addEventListener('touchstart', function(e){ tsx = e.touches[0].clientX; }, {passive:true});
@@ -667,9 +681,24 @@ footer b{color:var(--text-2)}
 
     $('#mask').classList.add('on');
     $('#mclose').onclick = closeModal;
-    $('#modal').scrollTop = 0;
+    var mb = $('#modal').querySelector('.mbody');
+    if (mb) mb.scrollTop = 0;
+    modalOpen = true;
+    cStop();
+    lockScroll();
   }
-  function closeModal(){ $('#mask').classList.remove('on') }
+  function closeModal(){
+    if (!modalOpen) return;
+    modalOpen = false;
+    $('#mask').classList.remove('on');
+    unlockScroll();
+    cStart();
+  }
+
+  /* 弹窗打开时锁住页面滚动：既避免背景跟着滚，也避免遮罩上多叠一层滚动条。
+     html 上是 scrollbar-gutter:stable，所以锁滚动不会引起横向位移。 */
+  function lockScroll(){ document.body.classList.add('noscroll'); }
+  function unlockScroll(){ document.body.classList.remove('noscroll'); }
 
   /* ---------- 事件 ---------- */
   document.addEventListener('click', function(e){
@@ -750,7 +779,8 @@ footer b{color:var(--text-2)}
   };
 
   document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape') { closeModal(); return; }
+    if (modalOpen) return;   /* 弹窗打开时方向键不再切轮播 */
     if (e.key === 'ArrowRight' && document.activeElement === document.body) cNext();
     if (e.key === 'ArrowLeft' && document.activeElement === document.body) cPrev();
   });
