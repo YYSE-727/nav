@@ -8,7 +8,9 @@
     "verification_status_values": ["通过", "待复核", "不予收录"],
     "pricing_model_values": ["免费", "部分免费", "付费", "未知"],
     "carousel": ["mdn", "deepseek", "qidian", "tiny-png", "icourse163", "taptap", "coolors", "pdf24-tools"],
-    "carousel_note": "首页轮播展示的站点 id，按顺序轮播。若某条记录带 image 字段（例：assets/xxx.jpg），轮播就用那张图；没有 image 则自动生成设计卡片。改这一行即可调整轮播内容。"
+    "carousel_note": "首页轮播展示的站点 id，按顺序轮播。若某条记录带 image 字段（例：assets/xxx.jpg），轮播就用那张图；没有 image 则自动生成设计卡片。改这一行即可调整轮播内容。",
+    "category_order": ["图片工具", "AI 工具", "学习与知识", "小说与阅读", "设计与创作", "游戏相关", "开发者与技术", "文档与转换", "其他工具"],
+    "category_order_note": "功能分类横栏的显示顺序。新增分类时不用在这里注册——只要某条记录的 category 用了新名字，横栏就会自动多出一格，并默认排在最后。想让它在横栏里排到指定位置，把分类名加进这个数组即可。执行 node build.js --cats 可以查看分类现状。"
   },
   "sites": [
     {

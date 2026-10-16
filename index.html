@@ -131,6 +131,10 @@ html[data-theme="light"] .carousel::before{background:radial-gradient(680px 220p
 .crow{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
 .cname{font-size:16px;font-weight:700;letter-spacing:.2px}
 .cfav{width:34px;height:34px;border-radius:9px;background:var(--panel-3);display:grid;place-items:center;font-size:14px;font-weight:800;color:var(--text-2);flex-shrink:0}
+/* 记录里配了图片（image 字段）时，卡片右上角显示缩略图；加载失败自动回退到首字母 */
+.cfav{position:relative;overflow:hidden}
+.cfavtxt{position:relative;z-index:0}
+.cfavimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;background:var(--panel-3)}
 .cdesc{font-size:13.5px;color:var(--text-2);line-height:1.62}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 .tag{background:transparent;border:1px solid var(--border-soft);color:var(--text-3);border-radius:6px;padding:2px 8px;font-size:11.5px}
@@ -290,7 +294,11 @@ footer b{color:var(--text-2)}
   var cats = {};
   SITES.forEach(function(s){cats[s.category]=(cats[s.category]||0)+1});
 
-  var PREFERRED = ['图片工具','AI 工具','学习与知识','小说与阅读','设计与创作','游戏相关','开发者与技术','文档与转换','其他工具'];
+  /* 分类横栏的显示顺序：优先读 data/sites.json 的 meta.category_order；
+     没写进去的分类会自动追加到最后，所以新增分类不需要改这里。 */
+  var PREFERRED = (D.meta && D.meta.category_order && D.meta.category_order.length)
+    ? D.meta.category_order
+    : ['图片工具','AI 工具','学习与知识','小说与阅读','设计与创作','游戏相关','开发者与技术','文档与转换','其他工具'];
   var catOrder = PREFERRED.filter(function(c){return cats[c]});
   Object.keys(cats).forEach(function(c){ if (catOrder.indexOf(c) === -1) catOrder.push(c) });
 
@@ -319,7 +327,7 @@ footer b{color:var(--text-2)}
 
   $('#slides').innerHTML = feat.map(function(s,i){
     var hasImg = !!s.image;
-    var bg = hasImg ? '<div class="simg" style="background-image:url('+esc(s.image)+')"></div>' : '';
+    var bg = hasImg ? '<div class="simg" data-src="'+esc(s.image)+'"></div>' : '';
     return '<div class="slide'+(i===0?' on':'')+(hasImg?' hasimg':'')+'" data-id="'+esc(s.id)+'">'+ bg +
       '<div class="bigmark">'+esc(initial(s.name))+'</div>'+
       '<div class="sinner">'+
@@ -330,6 +338,21 @@ footer b{color:var(--text-2)}
       '</div></div>';
   }).join('');
   $('#dots').innerHTML = feat.map(function(s,i){return '<button class="dot'+(i===0?' on':'')+'" data-i="'+i+'" aria-label="第 '+(i+1)+' 个"></button>'}).join('');
+
+  /* 图片确认能加载出来了才铺上去。这样「记录里写了 image、但图片还没放进 assets」
+     的情况会自动退回「首字母大字」样式，不会出现一片空白或半张图。 */
+  [].forEach.call(document.querySelectorAll('.simg'), function(el){
+    var src = el.getAttribute('data-src');
+    if (!src) return;
+    var probe = new Image();
+    probe.onload = function(){ el.style.backgroundImage = 'url("' + src.replace(/"/g,'%22') + '")'; };
+    probe.onerror = function(){
+      var host = el.parentNode;
+      if (host) host.classList.remove('hasimg');
+      if (el.parentNode) el.parentNode.removeChild(el);
+    };
+    probe.src = src;
+  });
 
   function paintCarousel(){
     var sl = document.querySelectorAll('.slide');
@@ -548,8 +571,11 @@ footer b{color:var(--text-2)}
       }
       m = parts.join('');
     }
+    var fav = s.image
+      ? '<div class="cfav"><img class="cfavimg" src="'+esc(s.image)+'" alt="" loading="lazy" onerror="this.remove()"><span class="cfavtxt">'+esc(initial(s.name))+'</span></div>'
+      : '<div class="cfav"><span class="cfavtxt">'+esc(initial(s.name))+'</span></div>';
     return '<article class="card" data-id="'+esc(s.id)+'">'+
-      '<div class="crow"><div class="cname">'+esc(s.name)+'</div><div class="cfav">'+esc(initial(s.name))+'</div></div>'+
+      '<div class="crow"><div class="cname">'+esc(s.name)+'</div>'+fav+'</div>'+
       '<div class="cdesc">'+esc(s.short_description)+'</div>'+
       '<div class="tags">'+tags+'</div>'+ m +
       '<div class="cfoot">'+

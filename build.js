@@ -220,6 +220,13 @@ function validate(sites) {
       const days = Math.floor((NOW - new Date(s.verified_at + 'T00:00:00')) / 86400000);
       if (days > 180) warnings.push(tag + '：`verified_at` 距今已 ' + days + ' 天，建议重新核实');
     }
+    // 图片文件是否真的存在（不存在只是软提醒：前端会自动退回字母样式）
+    if (s.image && typeof s.image === 'string' && !/^https?:\/\//i.test(s.image)) {
+      const imgPath = path.join(ROOT, s.image.replace(/^[/\\]+/, ''));
+      if (!fs.existsSync(imgPath)) {
+        warnings.push(tag + '：`image` 指向的文件不存在（' + s.image + '），轮播与卡片会退回字母占位样式。把图片放进 assets 文件夹后重新构建即可');
+      }
+    }
   });
 
   return { errors, warnings };
@@ -240,6 +247,22 @@ function buildSiteData(J) {
  * 三、生成四份成果文档
  * ===================================================================== */
 function csvCell(v) { v = String(v == null ? '' : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+
+/* 分类说明的自动兜底：新分类没在下面的 catNote / weakNote 里写人工说明时，
+   用这个函数按该分类实际收录站点的 `subcategories` 生成一句话。
+   （所以以后新增分类，不改本文件也能得到一份通顺的审核报告。） */
+function catNoteOf(cat, sites) {
+  const sub = {};
+  sites.filter(s => s.category === cat).forEach(s => {
+    (s.subcategories || []).forEach(x => {
+      if (!x || x === '（待补充）') return;
+      sub[x] = (sub[x] || 0) + 1;
+    });
+  });
+  const top = Object.keys(sub).sort((a, b) => sub[b] - sub[a]).slice(0, 3);
+  if (top.length) return '后续新增的分类，目前主要覆盖：' + top.join('、') + '。';
+  return '后续新增的分类，站点说明待补充。';
+}
 
 function buildDocs(J) {
   const sites = J.sites;
@@ -381,6 +404,18 @@ function buildDocs(J) {
     '开发者与技术': '仅收录权威文档与高质量社区，未收录内容质量不稳定的站点',
     '设计与创作': '素材类站点本次有 4 个因技术原因未能核实，实际收录偏少'
   };
+  // 人工维护的「薄弱分类」名单；凡是站点数少于 THIN_LINE 的分类会被自动补进本节，
+  // 因此以后新增分类（哪怕只收录了 1 个）也会自动出现在第五节，不需要改代码。
+  const weakNote = {
+    '游戏相关': '单机游戏门户普遍捆绑游戏下载板块，合规性需要单独评估；本次只收录了发现类、Wiki 类与资讯类各一个，覆盖明显不足。',
+    '设计与创作': 'Unsplash、Pexels、Iconfont、Google Fonts 四个知名素材站因技术原因未能完成核实（反爬拦截、抓取失败），导致该类别实际可用素材站偏少。',
+    '其他工具': '只有翻译与二维码各一个。该分类由原「免费实用工具」拆分而来，拆分后剩余部分偏薄，后续可补充音视频、编码、时间换算等方向。',
+    '文档与转换': '仅 PDF 处理与通用格式转换各一个，缺音频、文本、编码等方向。',
+    'AI 工具': '数量尚可，但集中在对话助手与 AI 搜索，缺少语音、转录、翻译润色等细分工具。'
+  };
+  const THIN_LINE = 3;
+  catList.forEach(c => { if (catNote[c]) return; catNote[c] = catNoteOf(c, sites); });
+  catList.forEach(c => { if (catCount[c] < THIN_LINE && !weakNote[c]) weakNote[c] = catNoteOf(c, sites) + '该分类目前站点偏少（少于 ' + THIN_LINE + ' 个），后续应优先补充。'; });
   catList.forEach(c => { dMd += '| ' + c + ' | ' + catCount[c] + ' | ' + (catNote[c] || '') + ' |\n'; });
   dMd += '| **合计** | **' + sites.length + '** | |\n\n';
 
@@ -397,11 +432,13 @@ function buildDocs(J) {
   dMd += '5. **站点存续与活跃度**。例如轻之文库页面显示的更新时间较早，实际运营活跃度需要持续跟踪；SF 轻小说的主域名已跳转至漫画频道，品牌与入口发生过变更。\n\n';
 
   dMd += '## 五、哪些分类仍缺乏优质网站\n\n';
-  dMd += '- **游戏相关（' + (catCount['游戏相关'] || 0) + ' 个）**：单机游戏门户普遍捆绑游戏下载板块，合规性需要单独评估；本次只收录了发现类、Wiki 类与资讯类各一个，覆盖明显不足。\n';
-  dMd += '- **设计与创作（' + (catCount['设计与创作'] || 0) + ' 个）**：Unsplash、Pexels、Iconfont、Google Fonts 四个知名素材站因技术原因未能完成核实（反爬拦截、抓取失败），导致该类别实际可用素材站偏少。\n';
-  dMd += '- **其他工具（' + (catCount['其他工具'] || 0) + ' 个）**：只有翻译与二维码各一个。该分类由原「免费实用工具」拆分而来，拆分后剩余部分偏薄，后续可补充音视频、编码、时间换算等方向。\n';
-  dMd += '- **文档与转换（' + (catCount['文档与转换'] || 0) + ' 个）**：仅 PDF 处理与通用格式转换各一个，缺音频、文本、编码等方向。\n';
-  dMd += '- **AI 工具（' + (catCount['AI 工具'] || 0) + ' 个）**：数量尚可，但集中在对话助手与 AI 搜索，缺少语音、转录、翻译润色等细分工具。\n\n';
+  const weakList = catList.filter(c => weakNote[c]).sort((a, b) => catCount[a] - catCount[b]);
+  if (!weakList.length) {
+    dMd += '- 本次统计中，各分类收录站点均不少于 ' + THIN_LINE + ' 个，暂无特别薄弱的分类。\n\n';
+  } else {
+    weakList.forEach(c => { dMd += '- **' + c + '（' + catCount[c] + ' 个）**：' + weakNote[c] + '\n'; });
+    dMd += '\n';
+  }
 
   dMd += '## 六、下一批最值得继续寻找的网站类型\n\n';
   dMd += '1. **可核实的正版电子书与有声书平台**（如已收录的微信读书之外的授权渠道），为正版阅读需求提供明确可追溯的选择，与本版纳入的轻小说分享站点形成互补。\n';
@@ -439,12 +476,69 @@ const HELP = [
   '',
   '  node build.js              校验 → 生成 data/sites.js → 生成四份成果文档',
   '  node build.js --check      只校验，不写任何文件',
+  '  node build.js --cats       列出当前所有功能分类与数量，并说明如何新增分类',
   '  node build.js --template   打印一条空白记录模板',
   '  node build.js --help       显示本帮助',
   '',
   '数据源：data/sites.json 的 "sites" 数组',
+  '加新网站：双击「加网站.cmd」（交互式向导），或手动执行 node scripts/add.js',
   ''
 ].join('\n');
+
+/* ---------- --cats：分类现状与新增分类的说明 ---------- */
+function printCats(J) {
+  const sites = Array.isArray(J.sites) ? J.sites : [];
+  const cnt = {};
+  const sub = {};
+  sites.forEach(s => {
+    cnt[s.category] = (cnt[s.category] || 0) + 1;
+    (sub[s.category] = sub[s.category] || []).push(s);
+  });
+
+  const order = (J.meta && Array.isArray(J.meta.category_order) && J.meta.category_order.length)
+    ? J.meta.category_order.slice()
+    : [];
+  const actual = Object.keys(cnt);
+  // 实际出现但没写进 category_order 的，会排在最后
+  const rest = actual.filter(c => order.indexOf(c) === -1);
+  const finalOrder = order.filter(c => actual.indexOf(c) !== -1).concat(rest);
+  const missing = order.filter(c => actual.indexOf(c) === -1);
+
+  console.log('');
+  console.log('──────────────────────────────────────────────');
+  console.log('  功能分类现状');
+  console.log('──────────────────────────────────────────────');
+  finalOrder.forEach((c, i) => {
+    const note = (J.meta && J.meta.category_order && J.meta.category_order.indexOf(c) !== -1)
+      ? '' : '   ← 未写进 category_order，自动排在最后';
+    console.log('  ' + (i + 1) + '. ' + c + '（' + cnt[c] + ' 个）' + note);
+    const subs = {};
+    sub[c].forEach(s => (s.subcategories || []).forEach(x => { if (x && x !== '（待补充）') subs[x] = (subs[x] || 0) + 1; }));
+    const top = Object.keys(subs).sort((a, b) => subs[b] - subs[a]).slice(0, 4);
+    if (top.length) console.log('       子分类：' + top.join('、'));
+  });
+  if (missing.length) {
+    console.log('');
+    console.log('  category_order 里写了、但没有任何站点使用的分类（会暂时从横栏消失）：');
+    missing.forEach(c => console.log('    · ' + c));
+  }
+
+  console.log('');
+  console.log('──────────────────────────────────────────────');
+  console.log('  以后要新增分类，怎么做？');
+  console.log('──────────────────────────────────────────────');
+  console.log('  1) 分类本身不用注册。只要某条记录的 "category" 用了新名字，');
+  console.log('     网站的「功能分类」横栏就会自动多出一格 —— 页面里的分类栏、');
+  console.log('     统计数字、成果文档里的分类表都是从数据现算的。');
+  console.log('  2) 想让它在横栏里排到指定位置：把分类名按顺序加进');
+  console.log('     data/sites.json 的 meta.category_order 数组。没写进去的排在最后。');
+  console.log('  3) 想让它有更准确的一句话说明（成果D 的分类表）：可选，改本文件顶部的');
+  console.log('     catNote（分类说明）与 weakNote（薄弱分类说明）。不写也会自动生成一句。');
+  console.log('  4) 不管哪种情况都不用动 index.html。');
+  console.log('');
+  console.log('  最省事的做法：双击「加网站.cmd」，第 3 步直接输入一个新分类名即可。');
+  console.log('');
+}
 
 const TEMPLATE = [
   '',
@@ -454,7 +548,8 @@ const TEMPLATE = [
   '      "id": "用英文小写写一个唯一标识，例：my-tool",',
   '      "name": "网站名称",',
   '      "url": "https://example.com/",',
-  '      "category": "必须用已有的分类名，随便新造会导致分类变乱",',
+  '      "category": "已有分类名，或新造一个（新分类会自动出现在横栏里）",',
+  '      "image": "assets/xxx.jpg  ← 可选，图片放 assets 文件夹；不写也能用",',
   '      "subcategories": ["子分类1", "子分类2"],',
   '      "tags": ["用户会搜的词", "例：图片压缩", "在线工具"],',
   '      "short_description": "一句话说清它能干什么（60 字以内，这行会显示在卡片上）",',
@@ -479,6 +574,10 @@ const TEMPLATE = [
   '',
   '填完执行：  node build.js --check   （先看有没有填错）',
   '            node build.js           （没问题就正式生成）',
+  '',
+  '更省事的做法：双击项目根目录的「加网站.cmd」，向导会问你要这几项，',
+  '自动写好逗号、自动补占位符，并顺手帮你校验 + 构建。',
+  '想看看现在有哪些分类：node build.js --cats',
   ''
 ].join('\n');
 
@@ -489,7 +588,8 @@ function main() {
   if (arg === '--template' || arg === '-t') { console.log(TEMPLATE); return; }
 
   const onlyCheck = arg === '--check' || arg === '-c';
-  if (arg && !onlyCheck) {
+  const onlyCats = arg === '--cats';
+  if (arg && !onlyCheck && !onlyCats) {
     console.log('未知参数：' + arg);
     console.log(HELP);
     process.exitCode = 1;
@@ -505,7 +605,8 @@ function main() {
 
   let J;
   try {
-    J = JSON.parse(fs.readFileSync(FILE_SITES_JSON, 'utf8'));
+    // 去掉可能的 BOM（某些编辑器另存为 UTF-8 with BOM 时会出现）
+    J = JSON.parse(fs.readFileSync(FILE_SITES_JSON, 'utf8').replace(/^\uFEFF/, ''));
   } catch (e) {
     console.error('');
     console.error('✗ data/sites.json 不是合法的 JSON，无法解析：');
@@ -518,6 +619,16 @@ function main() {
   }
 
   const { errors, warnings } = validate(J.sites);
+
+  if (onlyCats) {
+    if (errors.length) {
+      console.log('');
+      console.warn('提醒：当前数据有 ' + errors.length + ' 个校验问题，分类统计可能不完整。');
+      errors.forEach(e => console.warn('  · ' + e));
+    }
+    printCats(J);
+    return;
+  }
 
   if (warnings.length) {
     console.log('');
