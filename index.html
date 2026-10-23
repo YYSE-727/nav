@@ -96,8 +96,8 @@ html[data-theme="light"] .carousel::before{background:radial-gradient(680px 220p
 .ex{background:var(--panel-2);border:1px solid var(--border-soft);color:var(--text-2);border-radius:20px;padding:4px 11px;font-size:12.5px;cursor:pointer}
 .ex:hover{color:var(--text);border-color:var(--text-3)}
 
-/* ---------- category bar ---------- */
-.barwrap{margin-top:26px}
+/* ---------- category bar（sticky：往下滚动时分类切换仍可用） ---------- */
+.barwrap{margin-top:26px;position:sticky;top:62px;z-index:50;background:var(--bg);padding:2px 0 12px}
 .barlabel{font-size:12px;letter-spacing:1.2px;color:var(--text-3);margin-bottom:9px}
 .bar{display:flex;gap:7px;overflow-x:auto;padding:9px;background:var(--panel);border:1px solid var(--border-soft);border-radius:15px;scrollbar-width:none}
 .bar::-webkit-scrollbar{display:none}
@@ -155,6 +155,15 @@ html[data-theme="light"] .carousel::before{background:radial-gradient(680px 220p
 
 .empty{text-align:center;padding:64px 20px;color:var(--text-3)}
 .empty b{display:block;font-size:16px;color:var(--text-2);margin-bottom:8px}
+
+/* ---------- 分组浏览（全部状态） ---------- */
+.sech{grid-column:1/-1;display:flex;align-items:baseline;gap:10px;margin:26px 0 2px}
+.sech:first-child{margin-top:2px}
+.sech h2{margin:0;font-size:17px;font-weight:800;letter-spacing:-.2px}
+.sech .sn{font-size:12.5px;color:var(--text-3);white-space:nowrap}
+.sech .sp{flex:1;border-bottom:1px solid var(--border-soft);transform:translateY(-4px)}
+.secall{background:transparent;border:none;color:var(--text-2);font-size:12.5px;cursor:pointer;padding:2px 4px;white-space:nowrap}
+.secall:hover{color:var(--text)}
 
 /* ---------- modal ---------- */
 /* 性能要点：遮罩不用 backdrop-filter。全屏模糊 + 内部滚动的内容 = 每滚一帧都要
@@ -269,7 +278,7 @@ footer b{color:var(--text-2)}
   <div class="wrap">
     <b>数据说明</b>：所有记录均通过实际访问官方网站首页 / 功能页核对，可确认「首页可访问 + 官方自述功能」；<br>
     未逐项实测核心功能（下载、转换、生成等），凡涉及实测的内容均在记录中明确标注。<br>
-    <b>版权与授权</b>：「小说与阅读」与「二次元」类别中收录了若干轻小说阅读站与 Galgame 资源站，其作品授权来源未公开，各记录已逐条标注；其中部分站内含成人向内容并标注了年龄限制。本站仅描述站点提供什么，不对其版权状态作判断或背书，内容的合法性由原站负责。<br>
+    <b>版权与授权</b>：「小说与阅读」与「游戏相关」类别中收录了若干轻小说阅读站与 Galgame 资源站，其作品授权来源未公开，各记录已逐条标注；其中部分站内含成人向内容并标注了年龄限制。本站仅描述站点提供什么，不对其版权状态作判断或背书，内容的合法性由原站负责。<br>
     <b>付费口径</b>：筛选里的「付费」包含「部分免费」（指基础功能免费、完整使用需付费）的站点。<br>
     站内政策：优先收录官方网站；影子图书馆（Sci-Hub、Library Genesis 等）不予收录；本站不托管任何内容，所有资源均由原站提供。
   </div>
@@ -308,7 +317,7 @@ footer b{color:var(--text-2)}
      没写进去的分类会自动追加到最后，所以新增分类不需要改这里。 */
   var PREFERRED = (D.meta && D.meta.category_order && D.meta.category_order.length)
     ? D.meta.category_order
-    : ['图片工具','AI 工具','学习与知识','小说与阅读','设计与创作','游戏相关','开发者与技术','文档与转换','其他工具'];
+    : ['实用工具','AI 工具','学习与知识','小说与阅读','设计与创作','游戏相关','开发者与技术'];
   var catOrder = PREFERRED.filter(function(c){return cats[c]});
   Object.keys(cats).forEach(function(c){ if (catOrder.indexOf(c) === -1) catOrder.push(c) });
 
@@ -538,22 +547,21 @@ footer b{color:var(--text-2)}
     return '<button class="tagchip'+(state.tag===t?' on':'')+'" data-v="'+esc(t)+'">'+esc(t)+'</button>';
   }
   function renderTags(){
-    var groups = tagGroups();
-    var order = catOrder.filter(function(c){return groups[c]});
-    Object.keys(groups).forEach(function(c){ if (order.indexOf(c) === -1) order.push(c); });
+    /* 标签区默认完全收起：只有选中某个分类后才展示该分类的标签行，
+       避免「全部」状态下分类栏 + 付费行 + 成片标签堆满首屏。 */
+    if (state.cat === '全部') { $('#tagRow').innerHTML = ''; return; }
 
-    var selected = state.cat !== '全部' ? [state.cat] : order;
-    var cap = state.cat === '全部' ? 6 : 16;
+    var groups = tagGroups();
+    var c = state.cat;
+    var arr = groups[c] || [];
     var html = '', truncated = false;
 
-    selected.forEach(function(c){
-      var arr = groups[c] || [];
-      if (!arr.length) return;
-      var show = tagExpanded ? arr : arr.slice(0, cap);
+    if (arr.length) {
+      var show = tagExpanded ? arr : arr.slice(0, 16);
       if (arr.length > show.length) truncated = true;
-      html += '<div class="tgline"><span class="tglabel">'+(state.cat !== '全部' ? '相关标签' : esc(c))+'</span>' +
+      html += '<div class="tgline"><span class="tglabel">相关标签</span>' +
         show.map(tagChip).join('') + '</div>';
-    });
+    }
 
     if (tagExpanded) html += '<div class="tgline"><span class="tglabel"></span><button class="tmore" id="tmore">收起标签</button></div>';
     else if (truncated) html += '<div class="tgline"><span class="tglabel"></span><button class="tmore" id="tmore">展开更多标签</button></div>';
@@ -599,7 +607,31 @@ footer b{color:var(--text-2)}
       '</div></article>';
   }
 
+  /* ---------- 分组浏览：无任何筛选条件时按分类分区展示 ---------- */
+  var GROUP_SHOW = 6;
+  function groupedHTML(){
+    var html = '';
+    catOrder.forEach(function(c){
+      var arr = SITES.filter(function(s){return s.category===c});
+      if (!arr.length) return;
+      var show = arr.slice(0, GROUP_SHOW);
+      html += '<div class="sech"><h2>'+esc(c)+'</h2><span class="sn">'+arr.length+' 个站点</span><span class="sp"></span>'+
+        (arr.length > GROUP_SHOW ? '<button class="secall" data-v="'+esc(c)+'">查看全部 '+arr.length+' 个 →</button>' : '')+
+        '</div>';
+      html += show.map(function(s){return cardHTML(s, null)}).join('');
+    });
+    return html;
+  }
+
   function render(){
+    var noFilter = !askResults && state.cat==='全部' && state.price==='全部' && !state.tag && !state.q;
+
+    if (noFilter) {
+      cnt.innerHTML = '共收录 <b>'+SITES.length+'</b> 个站点，按分类分组展示 · 用上方搜索或筛选可精确查找';
+      grid.innerHTML = groupedHTML();
+      return;
+    }
+
     var list;
     if (askResults) {
       list = askResults;
@@ -700,6 +732,15 @@ footer b{color:var(--text-2)}
   function lockScroll(){ document.body.classList.add('noscroll'); }
   function unlockScroll(){ document.body.classList.remove('noscroll'); }
 
+  function selectCat(v){
+    state.cat = v;
+    state.tag = null; tagExpanded = false;
+    askResults = null;
+    [].forEach.call($('#catRow').children, function(c){ c.classList.toggle('on', c.dataset.v === v) });
+    renderTags(); render();
+    window.scrollTo({top: $('.barwrap').offsetTop - 80, behavior:'smooth'});
+  }
+
   /* ---------- 事件 ---------- */
   document.addEventListener('click', function(e){
     var card = e.target.closest('.card');
@@ -711,17 +752,11 @@ footer b{color:var(--text-2)}
     var slide = e.target.closest('.slide');
     if (slide) { openModal(slide.dataset.id); return; }
 
+    var sa = e.target.closest('.secall');
+    if (sa) { selectCat(sa.dataset.v); return; }
+
     var cat = e.target.closest('.cat');
-    if (cat) {
-      [].forEach.call($('#catRow').children, function(c){ c.classList.remove('on') });
-      cat.classList.add('on');
-      state.cat = cat.dataset.v;
-      state.tag = null; tagExpanded = false;
-      askResults = null;
-      renderTags(); render();
-      window.scrollTo({top: $('.barwrap').offsetTop - 80, behavior:'smooth'});
-      return;
-    }
+    if (cat) { selectCat(cat.dataset.v); return; }
 
     var pc = e.target.closest('.pchip');
     if (pc) {
@@ -784,6 +819,13 @@ footer b{color:var(--text-2)}
     if (e.key === 'ArrowRight' && document.activeElement === document.body) cNext();
     if (e.key === 'ArrowLeft' && document.activeElement === document.body) cPrev();
   });
+
+  /* 支持 #cat=分类名 深链：带锚点打开时直接进入该分类 */
+  var _hm = (location.hash||'').match(/^#cat=(.+)$/);
+  if (_hm) {
+    var _cv = decodeURIComponent(_hm[1]);
+    if (_cv === '全部' || catOrder.indexOf(_cv) !== -1) selectCat(_cv);
+  }
 
   renderTags();
   render();
