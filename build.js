@@ -464,13 +464,218 @@ function buildDocs(J) {
 }
 
 /* =====================================================================
+ * 三·五、生成 SEO 静态页（站点详情页 + 分类页 + sitemap.xml）
+ * ---------------------------------------------------------------------
+ * 目的：让每个站点、每个分类都拥有一个能被搜索引擎收录、URL 独立的静态页。
+ * 首页 index.html 是 SPA（数据在 JS 里），爬虫抓不到内容，这些静态页是 SEO 的落点。
+ * ===================================================================== */
+
+function escHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+/* 站点名首字（用于字母占位头像） */
+function initialOf(name) {
+  return (String(name || '?').trim().charAt(0)) || '?';
+}
+
+/* 每个站点独立的静态详情页 */
+function buildSitePage(s, ctx) {
+  const { sites, catOrder, SITE_ROOT, name: siteName } = ctx;
+  const tags = (s.tags || []).map(t => '<span class="tag">' + escHtml(t) + '</span>').join('');
+  const li = a => (a || []).map(x => '<li>' + escHtml(x) + '</li>').join('');
+  const nm = (s.need_matches || []).map(m =>
+    '<tr><td>' + escHtml(m.need) + '</td><td class="' + escHtml(m.match_type) + '">' + escHtml(m.match_type) + '</td><td>' + escHtml(m.reason) + '</td></tr>'
+  ).join('');
+
+  const pricePill = { '免费': 'p-free', '部分免费': 'p-part', '付费': 'p-paid', '未知': 'p-unk' }[s.pricing_model] || 'p-unk';
+
+  const sameCat = sites.filter(x => x.category === s.category && x.id !== s.id).slice(0, 4);
+  const related = sameCat.map(x =>
+    '<a class="rcard" href="' + escHtml(SITE_ROOT + '/site/' + x.id + '.html') + '"><span class="rfav">' + escHtml(initialOf(x.name)) + '</span><span class="rname">' + escHtml(x.name) + '</span><span class="rdesc">' + escHtml(x.short_description) + '</span></a>'
+  ).join('');
+
+  const title = s.name + ' 怎么样？免费范围、优缺点与使用限制 - ' + siteName;
+  const desc = (s.short_description || '') + ' 免费范围：' + (s.pricing_model || '未知') + '。' + (s.recommendation_reason || '');
+
+  return '<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n' +
+    '<meta charset="UTF-8">\n' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+    '<title>' + escHtml(title) + '</title>\n' +
+    '<meta name="description" content="' + escHtml(desc) + '">\n' +
+    '<link rel="canonical" href="' + escHtml(SITE_ROOT + '/site/' + s.id + '.html') + '">\n' +
+    '<meta property="og:title" content="' + escHtml(s.name) + ' - ' + escHtml(siteName) + '">\n' +
+    '<meta property="og:description" content="' + escHtml(s.short_description) + '">\n' +
+    '<meta property="og:type" content="article">\n' +
+    '<style>\n' +
+    ':root{--bg:#0a0a0b;--panel:#141416;--panel2:#1a1a1d;--border:#2a2a30;--border-soft:#1e1e22;--text:#f2f2f4;--text2:#a2a2aa;--text3:#6b6b73;--accent:#fff;--accent-ink:#0a0a0b}\n' +
+    '*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}\n' +
+    'a{color:inherit;text-decoration:none}.wrap{max-width:860px;margin:0 auto;padding:0 20px}\n' +
+    'header{border-bottom:1px solid var(--border-soft);padding:16px 0}.hrow{display:flex;align-items:center;gap:12px;justify-content:space-between}\n' +
+    '.logo{font-weight:700;font-size:16px}.logo .dot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font-weight:800;margin-right:8px}\n' +
+    '.crumb{font-size:13px;color:var(--text3)}.crumb a{color:var(--text2)}.crumb a:hover{color:var(--text)}\n' +
+    'main{padding:28px 0 60px}\n' +
+    '.head{display:flex;gap:18px;align-items:flex-start}\n' +
+    '.fav{flex-shrink:0;width:64px;height:64px;border-radius:16px;background:var(--panel2);display:grid;place-items:center;font-size:28px;font-weight:800;color:var(--text2)}\n' +
+    'h1{margin:0 0 8px;font-size:28px;letter-spacing:-.4px;line-height:1.25}\n' +
+    '.url{font-size:13px;color:var(--text3);word-break:break-all}\n' +
+    '.badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}\n' +
+    '.pill{border-radius:7px;padding:3px 10px;font-size:12px;font-weight:600;white-space:nowrap}\n' +
+    '.p-free{background:var(--accent);color:var(--accent-ink)}.p-part{border:1px solid var(--border);color:var(--text2)}.p-paid{background:var(--panel2);border:1px solid var(--text3);color:var(--text)}.p-unk{border:1px dashed var(--border);color:var(--text3)}\n' +
+    '.p-cat{background:var(--panel2);color:var(--text2)}.p-v{color:var(--text3);font-weight:500}\n' +
+    '.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}\n' +
+    '.tag{border:1px solid var(--border-soft);color:var(--text3);border-radius:6px;padding:2px 8px;font-size:12px}\n' +
+    '.sec{margin-top:30px}.sec h2{margin:0 0 10px;font-size:15px;letter-spacing:.5px}.sec p{margin:0;color:var(--text2)}\n' +
+    '.sec ul{margin:0;padding-left:19px;color:var(--text2)}.sec li{margin-bottom:5px}\n' +
+    '.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}\n' +
+    '.pl,.cl{border:1px solid var(--border-soft);border-radius:12px;padding:16px}.pl h3,.cl h3{margin:0 0 8px;font-size:13px}\n' +
+    '.pl ul,.cl ul{margin:0;padding-left:18px;font-size:14px;color:var(--text2)}.pl{background:rgba(255,255,255,.015)}\n' +
+    '.table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}\n' +
+    '.table th{background:var(--panel2);color:var(--text3);font-size:12px;text-align:left;padding:8px 10px}.table td{padding:9px 10px;border-top:1px solid var(--border-soft);color:var(--text2);vertical-align:top}\n' +
+    '.verified{color:var(--text3);font-size:13px;margin-top:6px}\n' +
+    '.visit{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:12px 22px;font-size:15px;font-weight:700;margin-top:30px}\n' +
+    '.visit:hover{opacity:.88}\n' +
+    '.note{background:var(--panel);border-left:2px solid var(--text3);border-radius:0 8px 8px 0;padding:12px 14px;color:var(--text2);font-size:14px}\n' +
+    '.related{margin-top:36px;border-top:1px solid var(--border-soft);padding-top:22px}\n' +
+    '.related h2{margin:0 0 14px;font-size:15px}\n' +
+    '.rcards{display:grid;grid-template-columns:1fr 1fr;gap:10px}\n' +
+    '.rcard{display:flex;gap:10px;align-items:center;border:1px solid var(--border-soft);border-radius:12px;padding:12px;background:var(--panel)}\n' +
+    '.rcard:hover{border-color:var(--border)}\n' +
+    '.rfav{flex-shrink:0;width:34px;height:34px;border-radius:9px;background:var(--panel2);display:grid;place-items:center;font-weight:800;color:var(--text2)}\n' +
+    '.rname{font-weight:600;font-size:14px}.rdesc{font-size:12px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}\n' +
+    '.rbody{min-width:0;display:flex;flex-direction:column;gap:2px}\n' +
+    'footer{border-top:1px solid var(--border-soft);padding:26px 0 40px;color:var(--text3);font-size:12.5px}\n' +
+    'footer a{color:var(--text2)}footer a:hover{color:var(--text)}\n' +
+    '@media(max-width:640px){.two{grid-template-columns:1fr}.rcards{grid-template-columns:1fr}h1{font-size:24px}.head{flex-direction:column}}\n' +
+    '</style>\n</head>\n<body>\n' +
+    '<header><div class="wrap hrow"><a class="logo" href="' + escHtml(SITE_ROOT + '/') + '"><span class="dot">Y</span>YOsearch</a>' +
+    '<nav class="crumb"><a href="' + escHtml(SITE_ROOT + '/') + '">首页</a> › <a href="' + escHtml(SITE_ROOT + '/cat/' + encodeURIComponent(s.category) + '.html') + '">' + escHtml(s.category) + '</a></nav></div></header>\n' +
+    '<main><div class="wrap">\n' +
+    '<div class="head"><div class="fav">' + escHtml(initialOf(s.name)) + '</div><div>' +
+    '<h1>' + escHtml(s.name) + '</h1>' +
+    '<div class="url">' + escHtml(s.url) + '</div>' +
+    '<div class="badges"><span class="pill ' + pricePill + '">' + escHtml(s.pricing_model) + '</span><span class="pill p-cat">' + escHtml(s.category) + '</span>' +
+    (s.subcategories || []).map(c => '<span class="pill p-v">' + escHtml(c) + '</span>').join('') +
+    '<span class="pill p-v">' + escHtml(s.verification_status) + ' · ' + escHtml(s.verified_at) + '</span></div>' +
+    '</div></div>\n' +
+    '<div class="tags">' + tags + '</div>\n' +
+    '<section class="sec"><h2>一句话简介</h2><p>' + escHtml(s.short_description) + '</p></section>\n' +
+    '<section class="sec"><h2>详细介绍</h2><p>' + escHtml(s.full_description) + '</p></section>\n' +
+    '<section class="sec"><h2>适用场景</h2><ul>' + li(s.use_cases) + '</ul></section>\n' +
+    '<section class="sec"><h2>核心功能</h2><ul>' + li(s.key_features) + '</ul></section>\n' +
+    '<div class="two"><div class="pl"><h3>✓ 有依据的优点</h3><ul>' + li(s.pros) + '</ul></div>' +
+    '<div class="cl"><h3>✕ 有依据的缺点</h3><ul>' + li(s.cons) + '</ul></div></div>\n' +
+    '<section class="sec"><h2>使用限制</h2><ul>' + li(s.limitations) + '</ul></section>\n' +
+    '<section class="sec"><h2>推荐理由</h2><p>' + escHtml(s.recommendation_reason) + '</p></section>\n' +
+    (nm ? '<section class="sec"><h2>需求 — 匹配关系</h2><table class="table"><tr><th>用户需求</th><th>匹配类型</th><th>依据</th></tr>' + nm + '</table></section>\n' : '') +
+    '<section class="sec"><h2>审核备注</h2><div class="note">' + escHtml(s.notes) + '</div></section>\n' +
+    '<a class="visit" href="' + escHtml(s.url) + '" target="_blank" rel="noopener">访问 ' + escHtml(s.name) + ' ↗</a>\n' +
+    (related ? '<div class="related"><h2>同分类的其他站点</h2><div class="rcards">' + related + '</div></div>\n' : '') +
+    '</div></main>\n' +
+    '<footer><div class="wrap"><a href="' + escHtml(SITE_ROOT + '/') + '">YOsearch</a> · 人工核实的精选资源导航。本页描述该站点提供什么，不对其版权状态作判断或背书，内容的合法性由原站负责。<br>数据核实日期：' + escHtml(s.verified_at) + '</div></footer>\n' +
+    '</body>\n</html>\n';
+}
+
+/* 每个分类独立的静态页（列出该分类所有站点） */
+function buildCatPage(cat, sitesInCat, ctx) {
+  const { SITE_ROOT, name: siteName } = ctx;
+  const cards = sitesInCat.map(s =>
+    '<a class="card" href="' + escHtml(SITE_ROOT + '/site/' + s.id + '.html') + '">' +
+    '<span class="cfav">' + escHtml(initialOf(s.name)) + '</span>' +
+    '<div class="cbody"><span class="cname">' + escHtml(s.name) + '</span>' +
+    '<span class="cdesc">' + escHtml(s.short_description) + '</span></div></a>'
+  ).join('');
+
+  const title = cat + ' 网站推荐 · 免费与付费收录清单 - ' + siteName;
+
+  return '<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n' +
+    '<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+    '<title>' + escHtml(title) + '</title>\n' +
+    '<meta name="description" content="' + escHtml(siteName + ' 收录的 ' + cat + ' 网站清单，共 ' + sitesInCat.length + ' 个，均经人工访问核实，标注免费范围与使用限制。') + '">\n' +
+    '<link rel="canonical" href="' + escHtml(SITE_ROOT + '/cat/' + encodeURIComponent(cat) + '.html') + '">\n' +
+    '<style>\n' +
+    ':root{--bg:#0a0a0b;--panel:#141416;--panel2:#1a1a1d;--border:#2a2a30;--border-soft:#1e1e22;--text:#f2f2f4;--text2:#a2a2aa;--text3:#6b6b73;--accent:#fff;--accent-ink:#0a0a0b}\n' +
+    '*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}\n' +
+    'a{color:inherit;text-decoration:none}.wrap{max-width:860px;margin:0 auto;padding:0 20px}\n' +
+    'header{border-bottom:1px solid var(--border-soft);padding:16px 0}.hrow{display:flex;align-items:center;gap:12px;justify-content:space-between}\n' +
+    '.logo{font-weight:700;font-size:16px}.logo .dot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font-weight:800;margin-right:8px}\n' +
+    '.crumb{font-size:13px;color:var(--text3)}.crumb a{color:var(--text2)}.crumb a:hover{color:var(--text)}\n' +
+    'main{padding:28px 0 60px}h1{margin:0 0 6px;font-size:28px;letter-spacing:-.4px}.sub{color:var(--text3);font-size:14px}\n' +
+    '.cards{display:flex;flex-direction:column;gap:10px;margin-top:24px}\n' +
+    '.card{display:flex;gap:14px;align-items:center;border:1px solid var(--border-soft);border-radius:12px;padding:16px;background:var(--panel)}\n' +
+    '.card:hover{border-color:var(--border)}\n' +
+    '.cfav{flex-shrink:0;width:44px;height:44px;border-radius:12px;background:var(--panel2);display:grid;place-items:center;font-size:20px;font-weight:800;color:var(--text2)}\n' +
+    '.cbody{min-width:0;display:flex;flex-direction:column;gap:3px}.cname{font-weight:700;font-size:16px}.cdesc{font-size:13px;color:var(--text3)}\n' +
+    'footer{border-top:1px solid var(--border-soft);padding:26px 0 40px;color:var(--text3);font-size:12.5px}footer a{color:var(--text2)}\n' +
+    '</style>\n</head>\n<body>\n' +
+    '<header><div class="wrap hrow"><a class="logo" href="' + escHtml(SITE_ROOT + '/') + '"><span class="dot">Y</span>YOsearch</a>' +
+    '<nav class="crumb"><a href="' + escHtml(SITE_ROOT + '/') + '">首页</a></nav></div></header>\n' +
+    '<main><div class="wrap"><h1>' + escHtml(cat) + '</h1>' +
+    '<div class="sub">共收录 ' + sitesInCat.length + ' 个站点，均经人工访问核实。</div>' +
+    '<div class="cards">' + cards + '</div></div></main>\n' +
+    '<footer><div class="wrap"><a href="' + escHtml(SITE_ROOT + '/') + '">YOsearch</a> · 人工核实的精选资源导航</div></footer>\n' +
+    '</body>\n</html>\n';
+}
+
+function buildSEO(J) {
+  const sites = J.sites;
+  const SITE_ROOT = (J.meta && J.meta.site_root) || 'https://nav-dir.pages.dev';
+  const catOrder = (J.meta && Array.isArray(J.meta.category_order)) ? J.meta.category_order.slice() : [];
+  const actualCats = [];
+  sites.forEach(s => { if (actualCats.indexOf(s.category) === -1) actualCats.push(s.category); });
+  actualCats.forEach(c => { if (catOrder.indexOf(c) === -1) catOrder.push(c); });
+
+  const ctx = { sites, catOrder, SITE_ROOT, name: 'YOsearch' };
+
+  const siteDir = path.join(ROOT, 'site');
+  const catDir = path.join(ROOT, 'cat');
+  if (!fs.existsSync(siteDir)) fs.mkdirSync(siteDir, { recursive: true });
+  if (!fs.existsSync(catDir)) fs.mkdirSync(catDir, { recursive: true });
+
+  const written = [];
+
+  // 站点详情页
+  sites.forEach(s => {
+    const f = path.join(siteDir, s.id + '.html');
+    fs.writeFileSync(f, buildSitePage(s, ctx), 'utf8');
+    written.push('site/' + s.id + '.html');
+  });
+
+  // 分类页
+  actualCats.forEach(c => {
+    const list = sites.filter(s => s.category === c);
+    const f = path.join(catDir, encodeURIComponent(c) + '.html');
+    fs.writeFileSync(f, buildCatPage(c, list, ctx), 'utf8');
+    written.push('cat/' + encodeURIComponent(c) + '.html');
+  });
+
+  // sitemap.xml
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+  xml += '  <url><loc>' + escHtml(SITE_ROOT + '/') + '</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>\n';
+  actualCats.forEach(c => {
+    xml += '  <url><loc>' + escHtml(SITE_ROOT + '/cat/' + encodeURIComponent(c) + '.html') + '</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>\n';
+  });
+  sites.forEach(s => {
+    xml += '  <url><loc>' + escHtml(SITE_ROOT + '/site/' + s.id + '.html') + '</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n';
+  });
+  xml += '</urlset>\n';
+  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml, 'utf8');
+  written.push('sitemap.xml');
+
+  return { written, siteCount: sites.length, catCount: actualCats.length };
+}
+
+/* =====================================================================
  * 四、命令行入口
  * ===================================================================== */
 const HELP = [
   '',
   '综合型资源导航网站 · 构建脚本',
   '',
-  '  node build.js              校验 → 生成 data/sites.js → 生成四份成果文档',
+  '  node build.js              校验 → 生成 data/sites.js → 生成四份成果文档 → 生成 SEO 静态页 + sitemap.xml',
   '  node build.js --check      只校验，不写任何文件',
   '  node build.js --cats       列出当前所有功能分类与数量，并说明如何新增分类',
   '  node build.js --template   打印一条空白记录模板',
@@ -651,6 +856,7 @@ function main() {
 
   buildSiteData(J);
   const r = buildDocs(J);
+  const seo = buildSEO(J);
 
   const catLine = Object.keys(r.catCount)
     .map(c => c + ' ' + r.catCount[c])
@@ -673,6 +879,7 @@ function main() {
   console.log('已更新的文件：');
   console.log('  data/sites.js   ← 网站运行时读取的就是它');
   r.written.forEach(f => console.log('  ' + f));
+  console.log('  （SEO 静态页 ' + seo.siteCount + ' 个站点详情页 + ' + seo.catCount + ' 个分类页 + sitemap.xml）');
   console.log('──────────────────────────────────────────────');
   console.log('接下来：双击「发布.cmd」提交并推送，托管平台会自动重新发布。');
   console.log('（手动方式：git add -A && git commit -m "更新资源" && git push）');

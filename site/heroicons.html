@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heroicons 怎么样？免费范围、优缺点与使用限制 - YOsearch</title>
+<meta name="description" content="由 Tailwind CSS 团队手工设计的免费 SVG 图标集，含 Outline / Solid / Mini / Micro 四种规格。 免费范围：免费。当你在做一个界面产品、需要一套风格统一且接入方便的 SVG 图标时，Heroicons 的规格设计与复制即用体验很省事。">
+<link rel="canonical" href="https://nav-dir.pages.dev/site/heroicons.html">
+<meta property="og:title" content="Heroicons - YOsearch">
+<meta property="og:description" content="由 Tailwind CSS 团队手工设计的免费 SVG 图标集，含 Outline / Solid / Mini / Micro 四种规格。">
+<meta property="og:type" content="article">
+<style>
+:root{--bg:#0a0a0b;--panel:#141416;--panel2:#1a1a1d;--border:#2a2a30;--border-soft:#1e1e22;--text:#f2f2f4;--text2:#a2a2aa;--text3:#6b6b73;--accent:#fff;--accent-ink:#0a0a0b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--border-soft);padding:16px 0}.hrow{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.logo{font-weight:700;font-size:16px}.logo .dot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font-weight:800;margin-right:8px}
+.crumb{font-size:13px;color:var(--text3)}.crumb a{color:var(--text2)}.crumb a:hover{color:var(--text)}
+main{padding:28px 0 60px}
+.head{display:flex;gap:18px;align-items:flex-start}
+.fav{flex-shrink:0;width:64px;height:64px;border-radius:16px;background:var(--panel2);display:grid;place-items:center;font-size:28px;font-weight:800;color:var(--text2)}
+h1{margin:0 0 8px;font-size:28px;letter-spacing:-.4px;line-height:1.25}
+.url{font-size:13px;color:var(--text3);word-break:break-all}
+.badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.pill{border-radius:7px;padding:3px 10px;font-size:12px;font-weight:600;white-space:nowrap}
+.p-free{background:var(--accent);color:var(--accent-ink)}.p-part{border:1px solid var(--border);color:var(--text2)}.p-paid{background:var(--panel2);border:1px solid var(--text3);color:var(--text)}.p-unk{border:1px dashed var(--border);color:var(--text3)}
+.p-cat{background:var(--panel2);color:var(--text2)}.p-v{color:var(--text3);font-weight:500}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{border:1px solid var(--border-soft);color:var(--text3);border-radius:6px;padding:2px 8px;font-size:12px}
+.sec{margin-top:30px}.sec h2{margin:0 0 10px;font-size:15px;letter-spacing:.5px}.sec p{margin:0;color:var(--text2)}
+.sec ul{margin:0;padding-left:19px;color:var(--text2)}.sec li{margin-bottom:5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
+.pl,.cl{border:1px solid var(--border-soft);border-radius:12px;padding:16px}.pl h3,.cl h3{margin:0 0 8px;font-size:13px}
+.pl ul,.cl ul{margin:0;padding-left:18px;font-size:14px;color:var(--text2)}.pl{background:rgba(255,255,255,.015)}
+.table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+.table th{background:var(--panel2);color:var(--text3);font-size:12px;text-align:left;padding:8px 10px}.table td{padding:9px 10px;border-top:1px solid var(--border-soft);color:var(--text2);vertical-align:top}
+.verified{color:var(--text3);font-size:13px;margin-top:6px}
+.visit{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:12px 22px;font-size:15px;font-weight:700;margin-top:30px}
+.visit:hover{opacity:.88}
+.note{background:var(--panel);border-left:2px solid var(--text3);border-radius:0 8px 8px 0;padding:12px 14px;color:var(--text2);font-size:14px}
+.related{margin-top:36px;border-top:1px solid var(--border-soft);padding-top:22px}
+.related h2{margin:0 0 14px;font-size:15px}
+.rcards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rcard{display:flex;gap:10px;align-items:center;border:1px solid var(--border-soft);border-radius:12px;padding:12px;background:var(--panel)}
+.rcard:hover{border-color:var(--border)}
+.rfav{flex-shrink:0;width:34px;height:34px;border-radius:9px;background:var(--panel2);display:grid;place-items:center;font-weight:800;color:var(--text2)}
+.rname{font-weight:600;font-size:14px}.rdesc{font-size:12px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}
+.rbody{min-width:0;display:flex;flex-direction:column;gap:2px}
+footer{border-top:1px solid var(--border-soft);padding:26px 0 40px;color:var(--text3);font-size:12.5px}
+footer a{color:var(--text2)}footer a:hover{color:var(--text)}
+@media(max-width:640px){.two{grid-template-columns:1fr}.rcards{grid-template-columns:1fr}h1{font-size:24px}.head{flex-direction:column}}
+</style>
+</head>
+<body>
+<header><div class="wrap hrow"><a class="logo" href="https://nav-dir.pages.dev/"><span class="dot">Y</span>YOsearch</a><nav class="crumb"><a href="https://nav-dir.pages.dev/">首页</a> › <a href="https://nav-dir.pages.dev/cat/%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%9B%E4%BD%9C.html">设计与创作</a></nav></div></header>
+<main><div class="wrap">
+<div class="head"><div class="fav">H</div><div><h1>Heroicons</h1><div class="url">https://heroicons.com/</div><div class="badges"><span class="pill p-free">免费</span><span class="pill p-cat">设计与创作</span><span class="pill p-v">图标资源</span><span class="pill p-v">UI 组件</span><span class="pill p-v">通过 · 2026-10-14</span></div></div></div>
+<div class="tags"><span class="tag">图标</span><span class="tag">SVG图标</span><span class="tag">Tailwind CSS</span><span class="tag">免费可商用</span><span class="tag">Outline</span><span class="tag">Solid</span><span class="tag">UI设计</span></div>
+<section class="sec"><h2>一句话简介</h2><p>由 Tailwind CSS 团队手工设计的免费 SVG 图标集，含 Outline / Solid / Mini / Micro 四种规格。</p></section>
+<section class="sec"><h2>详细介绍</h2><p>Heroicons 是由 Tailwind CSS 作者团队制作的手工 SVG 图标库，提供 Outline、Solid、Mini、Micro 四种规格，覆盖箭头、文档、用户、图表、设备等大量常见 UI 语义。图标可直接复制 SVG 使用，适合搭配 Tailwind 项目或任意前端框架，也适合设计师在 Figma 等工具中使用。</p></section>
+<section class="sec"><h2>适用场景</h2><ul><li>给后台系统 / 工具型产品快速配一套 UI 图标</li><li>在 Tailwind 项目中使用官方推荐图标集</li><li>做界面原型时补齐常用语义图标</li></ul></section>
+<section class="sec"><h2>核心功能</h2><ul><li>四种规格（Outline / Solid / Mini / Micro）</li><li>图标数量多、命名规范统一</li><li>可直接复制 SVG 代码</li><li>与 Tailwind CSS 生态深度契合</li><li>免费使用</li></ul></section>
+<div class="two"><div class="pl"><h3>✓ 有依据的优点</h3><ul><li>命名与尺寸规格统一，接入成本低</li><li>由 Tailwind 团队维护，质量稳定</li><li>免费、无使用门槛</li></ul></div><div class="cl"><h3>✕ 有依据的缺点</h3><ul><li>风格相对朴素，不适合做视觉亮点</li><li>图标数量不及超大型图标库</li><li>不支持在线改色导出（需自行处理 SVG）</li></ul></div></div>
+<section class="sec"><h2>使用限制</h2><ul><li>只提供线性 / 实心基础图标，缺少插画与复杂品牌图标</li><li>风格偏功能型，装饰性弱</li><li>品牌 Logo 类图标需另找来源（如 Simple Icons）</li></ul></section>
+<section class="sec"><h2>推荐理由</h2><p>当你在做一个界面产品、需要一套风格统一且接入方便的 SVG 图标时，Heroicons 的规格设计与复制即用体验很省事。</p></section>
+<section class="sec"><h2>需求 — 匹配关系</h2><table class="table"><tr><th>用户需求</th><th>匹配类型</th><th>依据</th></tr><tr><td>免费的 UI 图标集</td><td class="已验证匹配">已验证匹配</td><td>官方页面完整列出 Outline、Solid、Mini、Micro 四套可复制使用的 SVG 图标</td></tr><tr><td>能直接复制到代码里使用的图标</td><td class="已验证匹配">已验证匹配</td><td>图标以 SVG 形式呈现，按语义命名，便于复制引入</td></tr><tr><td>彩色插画风格图标</td><td class="不匹配">不匹配</td><td>Heroicons 为线性 / 实心单色功能型图标</td></tr></table></section>
+<section class="sec"><h2>审核备注</h2><div class="note">已访问首页并核对四种规格与完整图标命名列表；许可证细节未逐条核实，建议以官方仓库为准。</div></section>
+<a class="visit" href="https://heroicons.com/" target="_blank" rel="noopener">访问 Heroicons ↗</a>
+<div class="related"><h2>同分类的其他站点</h2><div class="rcards"><a class="rcard" href="https://nav-dir.pages.dev/site/undraw.html"><span class="rfav">u</span><span class="rname">unDraw</span><span class="rdesc">风格统一的可改色扁平插画库，直接下载 SVG / PNG，适合落地页与产品空状态配图。</span></a><a class="rcard" href="https://nav-dir.pages.dev/site/coolors.html"><span class="rfav">C</span><span class="rname">Coolors</span><span class="rdesc">按空格键就能不断生成配色方案的超快色板工具，附带图片取色与对比度检测。</span></a><a class="rcard" href="https://nav-dir.pages.dev/site/pixabay.html"><span class="rfav">P</span><span class="rname">Pixabay</span><span class="rdesc">提供照片、插画、矢量、视频、音乐、音效与 3D 模型的大型免版税素材库。</span></a><a class="rcard" href="https://nav-dir.pages.dev/site/konachan.html"><span class="rfav">K</span><span class="rname">Konachan</span><span class="rdesc">老牌动漫壁纸图站，按标签检索，原图常在 4K 以上；.net 为全年龄 SAFE 版，.com 才是成人版。</span></a></div></div>
+</div></main>
+<footer><div class="wrap"><a href="https://nav-dir.pages.dev/">YOsearch</a> · 人工核实的精选资源导航。本页描述该站点提供什么，不对其版权状态作判断或背书，内容的合法性由原站负责。<br>数据核实日期：2026-10-14</div></footer>
+</body>
+</html>

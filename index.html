@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>实用导航 · 综合型资源导航站</title>
+<title>YOsearch · 精选资源导航站</title>
+<meta name="description" content="YOsearch 是一个人工核实的精选资源导航站，收录图片压缩、AI 工具、小说阅读、学习课程、开发者工具等实用网站，每条都标注免费范围、使用限制与优缺点。">
+<meta name="keywords" content="资源导航,网站导航,实用工具,图片压缩,PDF转换,AI工具,轻小说,学习资源,开发者工具">
+<link rel="canonical" href="https://nav-dir.pages.dev/">
 <style>
 :root{
   --bg:#0a0a0b; --bg-soft:#0f0f11; --panel:#141416; --panel-2:#1a1a1d; --panel-3:#232327;
@@ -222,7 +225,7 @@ footer b{color:var(--text-2)}
 
 <header>
   <div class="wrap hrow">
-    <div class="logo"><div class="dot">导</div><span>实用导航</span></div>
+    <div class="logo"><div class="dot">Y</div><span>YOsearch</span></div>
     <div class="hspace"></div>
     <button class="tbtn" id="themeBtn">☀️ 浅色</button>
   </div>
@@ -231,7 +234,7 @@ footer b{color:var(--text-2)}
 <div class="wrap">
 
   <section class="intro">
-    <h1>YAO搜</h1>
+    <h1>YOsearch</h1>
     <p>已收录 <b id="heroCount">0</b> 个经过实际访问核实的站点，覆盖 <b id="heroCats">0</b> 个功能分类：<span id="heroCatList"></span>。每条记录都标注了免费范围、使用限制与优缺点，帮你判断它到底适不适合你。</p>
     <div class="stats" id="stats"></div>
   </section>
@@ -709,6 +712,7 @@ footer b{color:var(--text-2)}
         '<div class="sec"><h3>可追溯来源</h3><ul>'+li(s.evidence_urls)+'</ul></div>'+
         '<div class="sec"><h3>审核备注</h3><p>'+esc(s.notes)+'</p></div>'+
         '<div class="sec"><a class="visit" href="'+esc(s.url)+'" target="_blank" rel="noopener">访问 '+esc(s.name)+' ↗</a></div>'+
+        '<div class="sec" style="margin-top:14px"><a style="color:var(--text-2);font-size:13px" href="site/'+esc(s.id)+'.html">查看本站在 YOsearch 的完整详情页 →</a></div>'+
       '</div>';
 
     $('#mask').classList.add('on');

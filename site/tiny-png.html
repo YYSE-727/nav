@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TinyPNG 怎么样？免费范围、优缺点与使用限制 - YOsearch</title>
+<meta name="description" content="把图片拖进网页就自动智能压缩 PNG / JPG / WebP，体积可减少约八成而肉眼几乎看不出差别。 免费范围：部分免费。当你需要省心地批量压小非私密图片、又不想装软件或调参数时，TinyPNG 最合适；若图片涉及隐私，请改用本地处理的 Squoosh 或 Picdiet。">
+<link rel="canonical" href="https://nav-dir.pages.dev/site/tiny-png.html">
+<meta property="og:title" content="TinyPNG - YOsearch">
+<meta property="og:description" content="把图片拖进网页就自动智能压缩 PNG / JPG / WebP，体积可减少约八成而肉眼几乎看不出差别。">
+<meta property="og:type" content="article">
+<style>
+:root{--bg:#0a0a0b;--panel:#141416;--panel2:#1a1a1d;--border:#2a2a30;--border-soft:#1e1e22;--text:#f2f2f4;--text2:#a2a2aa;--text3:#6b6b73;--accent:#fff;--accent-ink:#0a0a0b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--border-soft);padding:16px 0}.hrow{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.logo{font-weight:700;font-size:16px}.logo .dot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font-weight:800;margin-right:8px}
+.crumb{font-size:13px;color:var(--text3)}.crumb a{color:var(--text2)}.crumb a:hover{color:var(--text)}
+main{padding:28px 0 60px}
+.head{display:flex;gap:18px;align-items:flex-start}
+.fav{flex-shrink:0;width:64px;height:64px;border-radius:16px;background:var(--panel2);display:grid;place-items:center;font-size:28px;font-weight:800;color:var(--text2)}
+h1{margin:0 0 8px;font-size:28px;letter-spacing:-.4px;line-height:1.25}
+.url{font-size:13px;color:var(--text3);word-break:break-all}
+.badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.pill{border-radius:7px;padding:3px 10px;font-size:12px;font-weight:600;white-space:nowrap}
+.p-free{background:var(--accent);color:var(--accent-ink)}.p-part{border:1px solid var(--border);color:var(--text2)}.p-paid{background:var(--panel2);border:1px solid var(--text3);color:var(--text)}.p-unk{border:1px dashed var(--border);color:var(--text3)}
+.p-cat{background:var(--panel2);color:var(--text2)}.p-v{color:var(--text3);font-weight:500}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{border:1px solid var(--border-soft);color:var(--text3);border-radius:6px;padding:2px 8px;font-size:12px}
+.sec{margin-top:30px}.sec h2{margin:0 0 10px;font-size:15px;letter-spacing:.5px}.sec p{margin:0;color:var(--text2)}
+.sec ul{margin:0;padding-left:19px;color:var(--text2)}.sec li{margin-bottom:5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
+.pl,.cl{border:1px solid var(--border-soft);border-radius:12px;padding:16px}.pl h3,.cl h3{margin:0 0 8px;font-size:13px}
+.pl ul,.cl ul{margin:0;padding-left:18px;font-size:14px;color:var(--text2)}.pl{background:rgba(255,255,255,.015)}
+.table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+.table th{background:var(--panel2);color:var(--text3);font-size:12px;text-align:left;padding:8px 10px}.table td{padding:9px 10px;border-top:1px solid var(--border-soft);color:var(--text2);vertical-align:top}
+.verified{color:var(--text3);font-size:13px;margin-top:6px}
+.visit{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:12px 22px;font-size:15px;font-weight:700;margin-top:30px}
+.visit:hover{opacity:.88}
+.note{background:var(--panel);border-left:2px solid var(--text3);border-radius:0 8px 8px 0;padding:12px 14px;color:var(--text2);font-size:14px}
+.related{margin-top:36px;border-top:1px solid var(--border-soft);padding-top:22px}
+.related h2{margin:0 0 14px;font-size:15px}
+.rcards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rcard{display:flex;gap:10px;align-items:center;border:1px solid var(--border-soft);border-radius:12px;padding:12px;background:var(--panel)}
+.rcard:hover{border-color:var(--border)}
+.rfav{flex-shrink:0;width:34px;height:34px;border-radius:9px;background:var(--panel2);display:grid;place-items:center;font-weight:800;color:var(--text2)}
+.rname{font-weight:600;font-size:14px}.rdesc{font-size:12px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}
+.rbody{min-width:0;display:flex;flex-direction:column;gap:2px}
+footer{border-top:1px solid var(--border-soft);padding:26px 0 40px;color:var(--text3);font-size:12.5px}
+footer a{color:var(--text2)}footer a:hover{color:var(--text)}
+@media(max-width:640px){.two{grid-template-columns:1fr}.rcards{grid-template-columns:1fr}h1{font-size:24px}.head{flex-direction:column}}
+</style>
+</head>
+<body>
+<header><div class="wrap hrow"><a class="logo" href="https://nav-dir.pages.dev/"><span class="dot">Y</span>YOsearch</a><nav class="crumb"><a href="https://nav-dir.pages.dev/">首页</a> › <a href="https://nav-dir.pages.dev/cat/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7.html">实用工具</a></nav></div></header>
+<main><div class="wrap">
+<div class="head"><div class="fav">T</div><div><h1>TinyPNG</h1><div class="url">https://tinypng.com/</div><div class="badges"><span class="pill p-part">部分免费</span><span class="pill p-cat">实用工具</span><span class="pill p-v">图片处理</span><span class="pill p-v">在线压缩</span><span class="pill p-v">通过 · 2026-10-14</span></div></div></div>
+<div class="tags"><span class="tag">图片压缩</span><span class="tag">PNG压缩</span><span class="tag">JPG压缩</span><span class="tag">WebP</span><span class="tag">无需安装</span><span class="tag">在线工具</span><span class="tag">批量压缩</span></div>
+<section class="sec"><h2>一句话简介</h2><p>把图片拖进网页就自动智能压缩 PNG / JPG / WebP，体积可减少约八成而肉眼几乎看不出差别。</p></section>
+<section class="sec"><h2>详细介绍</h2><p>TinyPNG（现由 Tinify 运营）是一款在线图片压缩服务，支持 PNG、JPG/JPEG 与 WebP。打开网页把图片拖入，服务端会自动压缩并显示压缩前后体积与节省比例，支持批量上传和打包下载。其压缩为有损算法，官方宣称可在不明显损失画质的前提下大幅减小体积。除免费网页版外，还提供 API、WordPress 插件、图片 CDN 等面向站长与开发者的商业化能力。</p></section>
+<section class="sec"><h2>适用场景</h2><ul><li>把手机照片压到社交平台可上传的大小</li><li>给博客 / 网页配图瘦身以提升加载速度</li><li>压缩 PNG 图标、截图后再用于 PPT 或网页</li></ul></section>
+<section class="sec"><h2>核心功能</h2><ul><li>拖拽上传即压缩，无需注册即可使用</li><li>支持 PNG / JPEG / WebP</li><li>批量上传与一键打包下载</li><li>显示压缩前后体积与节省百分比</li><li>提供 API、WordPress 插件、CDN（付费 / 配额制）</li></ul></section>
+<div class="two"><div class="pl"><h3>✓ 有依据的优点</h3><ul><li>压缩率高，公开资料普遍反映 PNG 常能压掉 60%–70%</li><li>操作极简，基本没有学习成本</li><li>支持批量并打包下载，适合处理成批配图</li></ul></div><div class="cl"><h3>✕ 有依据的缺点</h3><ul><li>免费额度有限，大批量需付费</li><li>图片需上传服务器，存在隐私顾虑</li><li>官网现以 Tinify 商业服务为主，免费网页入口的宣传被弱化</li></ul></div></div>
+<section class="sec"><h2>使用限制</h2><ul><li>免费版对单次批量张数与单张文件大小有限制，额度按次计算</li><li>图片需要上传到官方服务器处理，私密图片不建议使用</li><li>API 与大批量处理属于付费能力</li></ul></section>
+<section class="sec"><h2>推荐理由</h2><p>当你需要省心地批量压小非私密图片、又不想装软件或调参数时，TinyPNG 最合适；若图片涉及隐私，请改用本地处理的 Squoosh 或 Picdiet。</p></section>
+<section class="sec"><h2>需求 — 匹配关系</h2><table class="table"><tr><th>用户需求</th><th>匹配类型</th><th>依据</th></tr><tr><td>免费、无需安装、可以压缩图片的网站</td><td class="已验证匹配">已验证匹配</td><td>官方页面明确为浏览器直接上传压缩、无需安装软件，并提供免费使用入口</td></tr><tr><td>不想把图片上传到服务器的压缩工具</td><td class="不匹配">不匹配</td><td>TinyPNG 采用服务端压缩，图片需上传才能处理</td></tr><tr><td>一次性压缩几十张图片</td><td class="初步匹配">初步匹配</td><td>支持批量上传，但免费额度有限，大批量可能需要付费</td></tr></table></section>
+<section class="sec"><h2>审核备注</h2><div class="note">已访问官网首页并确认功能与商业模式；未登录实测压缩流程，免费版具体额度以官网为准。</div></section>
+<a class="visit" href="https://tinypng.com/" target="_blank" rel="noopener">访问 TinyPNG ↗</a>
+<div class="related"><h2>同分类的其他站点</h2><div class="rcards"><a class="rcard" href="https://nav-dir.pages.dev/site/squoosh.html"><span class="rfav">S</span><span class="rname">Squoosh</span><span class="rdesc">Google 出品的在线图片压缩工具，全部在浏览器本地完成，图片不上传服务器。</span></a><a class="rcard" href="https://nav-dir.pages.dev/site/iloveimg.html"><span class="rfav">i</span><span class="rname">iLoveIMG</span><span class="rdesc">中文界面的在线图片工具箱，压缩之外还集成尺寸调整、裁剪、格式转换、去背景、加水印等一站式功能。</span></a><a class="rcard" href="https://nav-dir.pages.dev/site/picdiet.html"><span class="rfav">P</span><span class="rname">Picdiet</span><span class="rdesc">纯前端 JavaScript 实现的在线图压缩工具，不依赖服务器，号称无数量、无大小、无尺寸限制。</span></a><a class="rcard" href="https://nav-dir.pages.dev/site/pdf24-tools.html"><span class="rfav">P</span><span class="rname">PDF24 Tools</span><span class="rdesc">提供 30 多种 PDF 处理功能的免费在线工具集，官方声明 100% 免费、无使用限制、无需注册。</span></a></div></div>
+</div></main>
+<footer><div class="wrap"><a href="https://nav-dir.pages.dev/">YOsearch</a> · 人工核实的精选资源导航。本页描述该站点提供什么，不对其版权状态作判断或背书，内容的合法性由原站负责。<br>数据核实日期：2026-10-14</div></footer>
+</body>
+</html>

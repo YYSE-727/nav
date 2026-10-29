@@ -1,6 +1,7 @@
 {
   "meta": {
-    "collection": "综合型资源导航网站 · 第一版收录数据",
+    "collection": "YOsearch · 资源导航收录数据",
+    "site_root": "https://nav-dir.pages.dev",
     "version": "1.1",
     "generated_at": "2026-10-14",
     "verification_policy": "所有记录均通过实际访问官方网站首页/功能页核对。仅访问首页时可确认『首页可访问 + 官方自述功能』，未逐一实测核心功能（下载、转换、生成等），凡涉及实测的部分均在 notes 中标注。",

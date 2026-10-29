@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MDN Web Docs 怎么样？免费范围、优缺点与使用限制 - YOsearch</title>
+<meta name="description" content="Web 开发最权威的官方文档库，HTML / CSS / JavaScript 与 Web API 资料齐全，有完整中文版。 免费范围：免费。当你不确定某个前端 API 的准确行为或兼容性时，直接查 MDN 最可靠；入门阶段可配合教程类站点一起使用。">
+<link rel="canonical" href="https://nav-dir.pages.dev/site/mdn.html">
+<meta property="og:title" content="MDN Web Docs - YOsearch">
+<meta property="og:description" content="Web 开发最权威的官方文档库，HTML / CSS / JavaScript 与 Web API 资料齐全，有完整中文版。">
+<meta property="og:type" content="article">
+<style>
+:root{--bg:#0a0a0b;--panel:#141416;--panel2:#1a1a1d;--border:#2a2a30;--border-soft:#1e1e22;--text:#f2f2f4;--text2:#a2a2aa;--text3:#6b6b73;--accent:#fff;--accent-ink:#0a0a0b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--border-soft);padding:16px 0}.hrow{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.logo{font-weight:700;font-size:16px}.logo .dot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font-weight:800;margin-right:8px}
+.crumb{font-size:13px;color:var(--text3)}.crumb a{color:var(--text2)}.crumb a:hover{color:var(--text)}
+main{padding:28px 0 60px}
+.head{display:flex;gap:18px;align-items:flex-start}
+.fav{flex-shrink:0;width:64px;height:64px;border-radius:16px;background:var(--panel2);display:grid;place-items:center;font-size:28px;font-weight:800;color:var(--text2)}
+h1{margin:0 0 8px;font-size:28px;letter-spacing:-.4px;line-height:1.25}
+.url{font-size:13px;color:var(--text3);word-break:break-all}
+.badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.pill{border-radius:7px;padding:3px 10px;font-size:12px;font-weight:600;white-space:nowrap}
+.p-free{background:var(--accent);color:var(--accent-ink)}.p-part{border:1px solid var(--border);color:var(--text2)}.p-paid{background:var(--panel2);border:1px solid var(--text3);color:var(--text)}.p-unk{border:1px dashed var(--border);color:var(--text3)}
+.p-cat{background:var(--panel2);color:var(--text2)}.p-v{color:var(--text3);font-weight:500}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{border:1px solid var(--border-soft);color:var(--text3);border-radius:6px;padding:2px 8px;font-size:12px}
+.sec{margin-top:30px}.sec h2{margin:0 0 10px;font-size:15px;letter-spacing:.5px}.sec p{margin:0;color:var(--text2)}
+.sec ul{margin:0;padding-left:19px;color:var(--text2)}.sec li{margin-bottom:5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
+.pl,.cl{border:1px solid var(--border-soft);border-radius:12px;padding:16px}.pl h3,.cl h3{margin:0 0 8px;font-size:13px}
+.pl ul,.cl ul{margin:0;padding-left:18px;font-size:14px;color:var(--text2)}.pl{background:rgba(255,255,255,.015)}
+.table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+.table th{background:var(--panel2);color:var(--text3);font-size:12px;text-align:left;padding:8px 10px}.table td{padding:9px 10px;border-top:1px solid var(--border-soft);color:var(--text2);vertical-align:top}
+.verified{color:var(--text3);font-size:13px;margin-top:6px}
+.visit{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:12px 22px;font-size:15px;font-weight:700;margin-top:30px}
+.visit:hover{opacity:.88}
+.note{background:var(--panel);border-left:2px solid var(--text3);border-radius:0 8px 8px 0;padding:12px 14px;color:var(--text2);font-size:14px}
+.related{margin-top:36px;border-top:1px solid var(--border-soft);padding-top:22px}
+.related h2{margin:0 0 14px;font-size:15px}
+.rcards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rcard{display:flex;gap:10px;align-items:center;border:1px solid var(--border-soft);border-radius:12px;padding:12px;background:var(--panel)}
+.rcard:hover{border-color:var(--border)}
+.rfav{flex-shrink:0;width:34px;height:34px;border-radius:9px;background:var(--panel2);display:grid;place-items:center;font-weight:800;color:var(--text2)}
+.rname{font-weight:600;font-size:14px}.rdesc{font-size:12px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}
+.rbody{min-width:0;display:flex;flex-direction:column;gap:2px}
+footer{border-top:1px solid var(--border-soft);padding:26px 0 40px;color:var(--text3);font-size:12.5px}
+footer a{color:var(--text2)}footer a:hover{color:var(--text)}
+@media(max-width:640px){.two{grid-template-columns:1fr}.rcards{grid-template-columns:1fr}h1{font-size:24px}.head{flex-direction:column}}
+</style>
+</head>
+<body>
+<header><div class="wrap hrow"><a class="logo" href="https://nav-dir.pages.dev/"><span class="dot">Y</span>YOsearch</a><nav class="crumb"><a href="https://nav-dir.pages.dev/">首页</a> › <a href="https://nav-dir.pages.dev/cat/%E5%BC%80%E5%8F%91%E8%80%85%E4%B8%8E%E6%8A%80%E6%9C%AF.html">开发者与技术</a></nav></div></header>
+<main><div class="wrap">
+<div class="head"><div class="fav">M</div><div><h1>MDN Web Docs</h1><div class="url">https://developer.mozilla.org/zh-CN/</div><div class="badges"><span class="pill p-free">免费</span><span class="pill p-cat">开发者与技术</span><span class="pill p-v">技术文档</span><span class="pill p-v">Web 开发</span><span class="pill p-v">通过 · 2026-10-14</span></div></div></div>
+<div class="tags"><span class="tag">Web文档</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Web API</span><span class="tag">中文文档</span><span class="tag">免费</span></div>
+<section class="sec"><h2>一句话简介</h2><p>Web 开发最权威的官方文档库，HTML / CSS / JavaScript 与 Web API 资料齐全，有完整中文版。</p></section>
+<section class="sec"><h2>详细介绍</h2><p>MDN Web Docs 由 Mozilla 维护，官方称自 2005 年起持续记录 CSS、HTML 和 JavaScript，是 Web 开发者广泛认可的权威文档来源。除核心技术文档外，还覆盖 Web API、浏览器兼容性、安全与最佳实践等主题，并提供精选文章与更新博客。中文站点提供高质量的简体中文页面，适合作为日常查阅与系统学习的基线资料。</p></section>
+<section class="sec"><h2>适用场景</h2><ul><li>查某个 HTML 标签、CSS 属性或 JS 方法的准确用法</li><li>学习 Web API 的兼容性与使用示例</li><li>系统梳理前端知识体系</li></ul></section>
+<section class="sec"><h2>核心功能</h2><ul><li>覆盖 HTML / CSS / JavaScript 与 Web API</li><li>提供简体中文页面</li><li>内容持续更新，与规范同步</li><li>示例代码与兼容性说明</li><li>免费开放，无需注册</li></ul></section>
+<div class="two"><div class="pl"><h3>✓ 有依据的优点</h3><ul><li>权威性与准确度高，被广泛引用</li><li>中文翻译质量在技术文档中属上乘</li><li>免费、无广告、无需登录</li></ul></div><div class="cl"><h3>✕ 有依据的缺点</h3><ul><li>偏查阅型，不适合零基础从头学</li><li>中文页面覆盖不如英文完整</li><li>只覆盖 Web 技术栈</li></ul></div></div>
+<section class="sec"><h2>使用限制</h2><ul><li>以文档为主，不提供视频教程与体系化课程</li><li>部分较新或较少用的 API 中文翻译滞后</li><li>不涉及后端与运维等非 Web 领域</li></ul></section>
+<section class="sec"><h2>推荐理由</h2><p>当你不确定某个前端 API 的准确行为或兼容性时，直接查 MDN 最可靠；入门阶段可配合教程类站点一起使用。</p></section>
+<section class="sec"><h2>需求 — 匹配关系</h2><table class="table"><tr><th>用户需求</th><th>匹配类型</th><th>依据</th></tr><tr><td>查 HTML / CSS / JS 的权威用法</td><td class="已验证匹配">已验证匹配</td><td>官方页面明确为持续记录 CSS、HTML、JavaScript 的文档站点</td></tr><tr><td>中文技术文档</td><td class="已验证匹配">已验证匹配</td><td>站点提供 zh-CN 简体中文页面</td></tr><tr><td>零基础系统学习前端</td><td class="初步匹配">初步匹配</td><td>文档偏查阅型，入门建议搭配教程站点</td></tr></table></section>
+<section class="sec"><h2>审核备注</h2><div class="note">已访问中文首页并核对文档结构与精选文章；具体条目准确性未逐条核对。</div></section>
+<a class="visit" href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener">访问 MDN Web Docs ↗</a>
+<div class="related"><h2>同分类的其他站点</h2><div class="rcards"><a class="rcard" href="https://nav-dir.pages.dev/site/runoob.html"><span class="rfav">菜</span><span class="rname">菜鸟教程</span><span class="rdesc">覆盖面极广的中文编程入门教程站，从语言语法到 AI、数据库、前端框架都有速查式教程。</span></a><a class="rcard" href="https://nav-dir.pages.dev/site/juejin.html"><span class="rfav">稀</span><span class="rname">稀土掘金</span><span class="rdesc">国内活跃的中文技术社区，前端、后端、移动端与 AI 方向的实践文章与踩坑记录丰富。</span></a><a class="rcard" href="https://nav-dir.pages.dev/site/caniuse.html"><span class="rfav">C</span><span class="rname">Can I use</span><span class="rdesc">查询 HTML5 / CSS3 / JS 特性在各浏览器版本支持情况的权威兼容性数据表。</span></a></div></div>
+</div></main>
+<footer><div class="wrap"><a href="https://nav-dir.pages.dev/">YOsearch</a> · 人工核实的精选资源导航。本页描述该站点提供什么，不对其版权状态作判断或背书，内容的合法性由原站负责。<br>数据核实日期：2026-10-14</div></footer>
+</body>
+</html>
