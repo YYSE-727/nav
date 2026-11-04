@@ -154,7 +154,57 @@ if (push.status !== 0) {
   process.exit(1);
 }
 
+/* ---------- IndexNow 通知（可选，失败不阻塞发布） ---------- */
+/* 推送成功后，主动通知 Bing / Yandex 等支持 IndexNow 的搜索引擎来抓取最新内容，
+   不用等它们自己发现。key 文件名 = 放在根目录的那个 <key>.txt 文件名。 */
+function notifyIndexNow() {
+  const keyFile = fs.readdirSync(ROOT).find(function (f) {
+    return /^[0-9a-f]{32}\.txt$/.test(f);
+  });
+  if (!keyFile) return;
+  const key = keyFile.replace(/\.txt$/, '');
+
+  // 扫描根目录 + site/ + cat/ 下的 .html，作为本次要提交的 URL（只留相对路径）
+  const urls = [];
+  function walk(dir, base) {
+    fs.readdirSync(dir).forEach(function (f) {
+      const p = path.join(dir, f);
+      const st = fs.statSync(p);
+      if (st.isDirectory()) { walk(p, base + '/' + f); }
+      else if (/\.html$/.test(f)) { urls.push(base + '/' + f); }
+    });
+  }
+  walk(ROOT, '');
+  walk(path.join(ROOT, 'site'), '/site');
+  walk(path.join(ROOT, 'cat'), '/cat');
+
+  const SITE = 'https://nav-dir.pages.dev';
+  const payload = JSON.stringify({
+    host: 'nav-dir.pages.dev',
+    key: key,
+    urlList: urls.map(function (u) { return SITE + u; })
+  });
+
+  const { spawnSync } = require('child_process');
+  // 用 curl 发送；Windows 10+ 自带 curl，若无则跳过
+  const r = spawnSync('curl', [
+    '-s', '-o', '/dev/null', '-w', '%{http_code}',
+    '--max-time', '15',
+    '-H', 'Content-Type: application/json; charset=utf-8',
+    '-d', payload,
+    'https://api.indexnow.org/indexnow'
+  ], { encoding: 'utf8' });
+
+  info('');
+  if (r.error || r.status !== 0 || String(r.stdout).trim() !== '200') {
+    info('（IndexNow 通知未成功，不影响发布，搜索引擎仍会自行发现更新）');
+  } else {
+    info('已通知 IndexNow 来抓取最新内容（' + urls.length + ' 个页面）。');
+  }
+}
+
 title('发布成功');
 info('代码已经推送到 GitHub，Cloudflare 大约 1 分钟后自动重新上线。');
 info('稍等片刻，刷新你的网站地址就能看到最新内容。');
 blank();
+notifyIndexNow();
